@@ -2,11 +2,11 @@ package service;
 
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import persistence.IUserRepository;
 
 import java.util.List;
-import java.util.Optional;
-
+@Service
 public class UserService {
     @Autowired
     private IUserRepository userRepository;
@@ -27,4 +27,9 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
+    public void createUser(User user) throws Exception {
+        if(user.isValidateFullName()){
+            throw new Exception("error");
+        }
+    }
 }

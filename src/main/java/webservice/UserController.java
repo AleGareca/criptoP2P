@@ -22,9 +22,9 @@ public class UserController {
         return userService.getById(id);
     }
 
-    @PostMapping
+    @PostMapping(value = "/user/create")
     public void save(@RequestBody User user) {
-       this.userService.save(user);
+       this.userService.createUser(user);
     }
 
     @PutMapping

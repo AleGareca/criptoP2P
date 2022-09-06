@@ -1,37 +1,32 @@
 package model.user;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
+import lombok.Data;
 
+import javax.persistence.*;
+
+
+@Data
 @Entity
 @Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="usrId", nullable = false)
     private int id;
     //@NotBlank(message = "First Name is field requerid");
     private String firstName ;
     //@NotBlank(message = "Last Name is field requerid");
     private String lastName;
     //@NotBlank(message = "First Name is field requerid");
-    @Email
     private String email;
     private String address;
     private String password;
     private int cvu;
     private String walletAddress;
 
-
-    public User(int id, String firstName, String lastName, String email, String address, String password, int cvu, String walletAddress) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.password = password;
-        this.cvu = cvu;
-        this.walletAddress = walletAddress;
+    public boolean isValidateFullName() {
+        return firstName.length() < 30 || firstName.length()>3
+                && lastName.length() < 30 || lastName.length()>3;
     }
 }
