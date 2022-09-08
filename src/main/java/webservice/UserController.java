@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/create")
-    public void save(@RequestBody User user) {
+    public void save(@RequestBody User user) throws Exception {
        this.userService.createUser(user);
     }
 
