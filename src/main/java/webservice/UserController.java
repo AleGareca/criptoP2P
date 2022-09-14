@@ -7,32 +7,33 @@ import service.UserService;
 
 import java.util.List;
 
+@RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/user")
     public List<User> index() {
         return userService.get();
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public User show(Integer id) {
         return userService.getById(id);
     }
 
-    @PostMapping(value = "/user/create")
-    public void save(@RequestBody User user) {
+    @PostMapping(value = "/user")
+    public void save(@RequestBody User user) throws Exception {
        this.userService.createUser(user);
     }
 
-    @PutMapping
+    @PutMapping(value = "/user")
     public void update(@RequestBody User user) {
         this.userService.save(user);
     }
 
-    @DeleteMapping
+    @DeleteMapping(value = "/user")
     public void delete(@PathVariable Integer id) {
         this.userService.delete(id);
     }
