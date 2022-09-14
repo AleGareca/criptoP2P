@@ -2,12 +2,15 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id 'org.sonarqube' version '3.0'
 }
-
+apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '18'
-targetCompatibility = '18'
+
+
+
 
 
 configurations {
@@ -30,6 +33,13 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 
+}
+sonarqube {
+	properties {
+		property "sonar.projectKey", "criptoP2P"
+		property "sonar.host.url", "http://localhost:9000/"
+		property "sonar.login", "squ_a37f8b4cb4ccdb17183d9c3a0d97ff16a94f10e5"
+	}
 }
 
 tasks.named('test') {
