@@ -1,4 +1,4 @@
-package com.unq.desa.criptoP2P.model.user.model.transaction;
+package com.unq.desa.criptoP2P.model.transaction;
 
 import com.unq.desa.criptoP2P.model.user.User;
 

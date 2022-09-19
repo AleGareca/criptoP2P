@@ -1,6 +1,6 @@
-package com.unq.desa.criptoP2P.model.user.model.quotation;
+package com.unq.desa.criptoP2P.model.quotation;
 
-import com.unq.desa.criptoP2P.model.user.model.operation.Operation;
+import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 
 import java.time.LocalDateTime;
 

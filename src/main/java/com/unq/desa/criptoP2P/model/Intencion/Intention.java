@@ -1,4 +1,4 @@
-package com.unq.desa.criptoP2P.model.user.model.Intencion;
+package com.unq.desa.criptoP2P.model.Intencion;
 
 import com.unq.desa.criptoP2P.model.user.User;
 
