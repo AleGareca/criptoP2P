@@ -24,10 +24,10 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          run: heroku git:remote -a cripto-p2p-unq
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "cripto-p2p-unq" #Must be unique in Heroku
-          heroku_email: "gereca20jorge@gmail.com"
-          branch: "main"
+      #- uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+       # with:
+          #run: heroku git:remote -a cripto-p2p-unq
+          #heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          #heroku_app_name: "cripto-p2p-unq" #Must be unique in Heroku
+          #heroku_email: "gereca20jorge@gmail.com"
+          #branch: "main"
