@@ -45,8 +45,4 @@ public class User {
         this.walletAddress = walletAddress;
     }
 
-    public boolean isValidateFullName() {
-        return firstName.length() < 30 || firstName.length()>3
-                && lastName.length() < 30 || lastName.length()>3;
-    }
 }
