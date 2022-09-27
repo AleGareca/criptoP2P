@@ -1,85 +1,39 @@
 package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.service.UserService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 
 import java.math.BigInteger;
-import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.BDDMockito.given;
-//import static org.springframework.security.config.http.MatcherType.mvc;
-//import static org.springframework.security.config.http.MatcherType.mvc;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 class CriptoP2PApplicationTests {
-	private User user;
-	private BigInteger cvu;
-	@Autowired
-	private UserService userService;
-	private User retrievedUser;
+	User user ;
+	BigInteger cvu;
 
 	@Before("")
 	public void setUp() {
 		this.user = new User();
         this.cvu = new BigInteger("017020466000000878652");
-		this.retrievedUser = new User();
 	}
 
 	@Test
-	void givenAnyUserWhenIsRecordedThenAllYourDataIsChecked() {
-		this.user = this.anyUser();
-		Assertions.assertEquals("Alan",this.user.getFirstName());
-		Assertions.assertEquals("Martinez",this.user.getLastName());
-		Assertions.assertEquals("alan@gmail.com",this.user.getEmail());
-		Assertions.assertEquals("calle falsa 123",this.user.getAddress());
-		Assertions.assertEquals(this.cvu,this.user.getCvu());
-		Assertions.assertEquals("1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32",this.user.getWalletAddress());
+	void givenARegisteredUserTheirDataIsChecked() {
+
+		this.user = new User("Alan","Martinez","alan@gmail.com","calle falsa 123", "#A123#",this.cvu, "1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
+
+		Assertions.assertEquals(this.user.getFirstName(), "Alan");
+		Assertions.assertEquals(this.user.getLastName(),"Martinez");
+		Assertions.assertEquals(this.user.getEmail(),"alan@gmail.com");
+		Assertions.assertEquals(this.user.getAddress(),"calle falsa 123");
+		Assertions.assertEquals(this.user.getCvu(),this.cvu);
+		Assertions.assertEquals(this.user.getWalletAddress(),"1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
 
 	}
 
-	@Test
-	public void givenAnyUserWhenTheUserIsRegisteredThenReturnItIsVerifiedThatItIsCorrect() {
-        // given
-		this.user = this.anyUser();
-		this.userService.save(this.user);
 
-		// when
-		this.retrievedUser = this.userService.getById(1);
 
-		// then
-		Assertions.assertEquals(retrievedUser.getFirstName(),this.user.getFirstName());
-		Assertions.assertEquals(retrievedUser.getLastName(),this.user.getLastName());
-		Assertions.assertEquals(retrievedUser.getEmail(),this.user.getEmail());
-		Assertions.assertEquals(retrievedUser.getAddress(),this.user.getAddress());
-		Assertions.assertEquals(retrievedUser.getCvu(),this.user.getCvu());
-		Assertions.assertEquals(retrievedUser.getWalletAddress(),this.user.getWalletAddress());
-	}
-
-/*	@Test
-	public void givenEmployees_whenGetEmployees_thenReturnJsonArray()
-			throws Exception {
-
-		List<User> users = userService.get();
-
-		userService.get();
-
-		mvc.perform(get("/api/users")
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk());
-	}
-*/
-    private User anyUser() {
-		return this.user = new User("Alan","Martinez","alan@gmail.com","calle falsa 123", "#A123#",this.cvu, "1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
-	}
 
 }
