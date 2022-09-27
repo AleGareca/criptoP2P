@@ -30,14 +30,14 @@ jobs:
         run: |
             chmod +x gradlew
             ./gradlew test jacocoTestReport
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
-        with:
-            paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
-            token: ${{ secrets.TOKEN_GITHUB }}
-            min-coverage-overall: 0
-            min-coverage-changed-files: 0
+      ##- name: Add coverage to PR
+        ##id: jacoco
+        ##uses: madrapps/jacoco-report@v1.3
+        ##with:
+            ##paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
+            ##token: ${{ secrets.TOKEN_GITHUB }}
+            ##min-coverage-overall: 0
+            ##min-coverage-changed-files: 0
           #- uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
           # with:
           #run: heroku git:remote -a cripto-p2p-unq
