@@ -28,9 +28,5 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public void createUser(User user) throws Exception {
-        if(user.isValidateFullName()){
-            throw new Exception("error");
-        }
-    }
+
 }

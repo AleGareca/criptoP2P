@@ -22,7 +22,11 @@ class CriptoP2PApplicationTests {
 	@Test
 	void givenARegisteredUserTheirDataIsChecked() {
 
-		this.user = new User("Alan","Martinez","alan@gmail.com","calle falsa 123", "#A123#",this.cvu, "1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
+		this.user = User.builder().firstName("Alan")
+				.lastName("Maretinez").email("alan@gmail.com")
+				.address("calle falsa 123")
+				.cvu(this.cvu).build();
+				// new User("Alan","Martinez","alan@gmail.com","calle falsa 123", "#A123#",this.cvu, "1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
 
 		Assertions.assertEquals(this.user.getFirstName(), "Alan");
 		Assertions.assertEquals(this.user.getLastName(),"Martinez");

@@ -5,13 +5,21 @@ import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.service.UserService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Validated
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -34,9 +42,10 @@ public class UserController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @PostMapping(value = "/user")
-    public void save(@RequestBody User user) throws Exception {
-       this.userService.createUser(user);
+
+    @PostMapping(value = "/register")
+    public void register(@Valid @RequestBody User user, Errors errors) throws Exception {
+        this.userService.save(user);
     }
 
     @ApiResponses(value={
