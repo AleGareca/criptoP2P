@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigInteger;
 
-@SpringBootTest
+
 class CriptoP2PApplicationTests {
 	User user ;
 	BigInteger cvu;
