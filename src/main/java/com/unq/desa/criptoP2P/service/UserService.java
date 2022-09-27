@@ -1,9 +1,10 @@
-package service;
+package com.unq.desa.criptoP2P.service;
 
-import model.user.User;
+
+import com.unq.desa.criptoP2P.model.user.User;
+import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import persistence.IUserRepository;
 
 import java.util.List;
 @Service
