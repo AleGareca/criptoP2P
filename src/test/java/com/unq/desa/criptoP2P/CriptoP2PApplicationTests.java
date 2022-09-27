@@ -13,7 +13,7 @@ import java.math.BigInteger;
 
 class CriptoP2PApplicationTests {
 	private User user;
-	private BigInteger cvu;
+	private String cvu;
 	@Autowired
 	private UserService userService;
 	private User retrievedUser;
@@ -21,7 +21,7 @@ class CriptoP2PApplicationTests {
 	@Before("")
 	public void setUp() {
 		this.user = new User();
-		this.cvu = new BigInteger("017020466000000878652");
+		this.cvu = "017020466000000878652";
 		this.retrievedUser = new User();
 	}
 
@@ -68,7 +68,8 @@ class CriptoP2PApplicationTests {
         }
     */
 	private User anyUser() {
-		return this.user = new User("Alan","Martinez","alan@gmail.com","calle falsa 123", "#A123#",this.cvu, "1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32");
+		return this.user =  User.builder().firstName("Alan").lastName("Martinez").email("alan@gmail.com")
+				.address("calle falsa 123").password("#A123#").cvu(this.cvu).walletAddress("1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32").build();
 	}
 
 
