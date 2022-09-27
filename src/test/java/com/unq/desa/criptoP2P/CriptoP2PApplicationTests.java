@@ -37,7 +37,7 @@ class CriptoP2PApplicationTests {
 
 	}
 
-	@Test
+
 	public void givenAnyUserWhenTheUserIsRegisteredThenReturnItIsVerifiedThatItIsCorrect() {
 		// given
 		this.user = this.anyUser();
