@@ -14,4 +14,6 @@ public class Intention {
 
     private User user;
 
+    private Boolean isActive;
+
 }
