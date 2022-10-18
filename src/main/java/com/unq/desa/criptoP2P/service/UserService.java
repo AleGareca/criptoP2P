@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class UserService {
+public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
@@ -28,9 +28,5 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public void createUser(User user) throws Exception {
-        if(user.isValidateFullName()){
-            throw new Exception("error");
-        }
-    }
+
 }

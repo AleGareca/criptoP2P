@@ -2,8 +2,10 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
+	id 'org.sonarqube' version '3.0'
+	id 'jacoco'
 }
-
+apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '18'
@@ -31,13 +33,62 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.2'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
-
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
 	implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.4'
 
 }
 
+jacocoTestReport {
+	dependsOn test
+	reports {
+		html.enabled true
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: ['**/webservice/**',
+										'**/common/**',
+										'**/config/**',
+										'**/persistence/**',
+										'**/model/**'])
+		}))
+	}
+	finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: ['**/webservice/**',
+										'**/common/**',
+										'**/config/**',
+										'**/persistence/**',
+										'**/model/**'])
+		}))
+	}
+	violationRules {
+		rule {
+			enabled = true
+			limit {
+				minimum = 0.0
+			}
+		}
+	}
+}
+
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "criptoP2P"
+		property "sonar.host.url", "http://localhost:9000/"
+		property "sonar.login", "squ_a37f8b4cb4ccdb17183d9c3a0d97ff16a94f10e5"
+	}
+}
 tasks.named('test') {
 	useJUnitPlatform()
+}
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
