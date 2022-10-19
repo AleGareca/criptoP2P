@@ -29,6 +29,6 @@ public class IntentionService implements IIntentionService {
 
     @Override
     public List<Intention> listOfPurchaseIntentionsOrActiveSalesOfAUser() {
-        return this.;
+        return null;
     }
 }

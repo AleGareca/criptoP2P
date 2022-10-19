@@ -1,5 +1,7 @@
 package com.unq.desa.criptoP2P.service;
 
+import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,6 +11,8 @@ import java.util.List;
 public class QuotationService implements IQuotationService {
 
     private List<String> cryptocurrencies = new ArrayList<>();
+    @Autowired
+    private BinanceClient binanceClient;
     @Autowired
     private IQuotationService quotationService;
 
@@ -48,6 +52,15 @@ public class QuotationService implements IQuotationService {
     @Override
     public void delete(Integer id) {
         this.quotationService.delete(id);
+    }
+
+    @Override
+    public List<Cryptocurrency> cotizacion() {
+        List<Cryptocurrency> cotizacion = new ArrayList<>();
+        for(String cryptocurrency : this.cryptocurrencies) {
+            cotizacion.add(this.binanceClient.getCryptocurrency(cryptocurrency));
+        }
+        return cotizacion;
     }
 
 

@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(url="https://api1.binance.com/api/v3/ticker")
+@FeignClient(url="${client.post.baseUrl}")
 public interface BinanceClient {
     @RequestMapping(method = RequestMethod.GET, value = "/price?symbol=")
-    List<Cryptocurrency> getCryptocurrency();
+    Cryptocurrency getCryptocurrency(String cryptocurrency);
 
 
 }
