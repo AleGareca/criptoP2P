@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigInteger;
 
 
+@SpringBootTest
 class CriptoP2PApplicationTests {
 	private User user;
 	private String cvu;
