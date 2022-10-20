@@ -22,19 +22,19 @@ jobs:
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
           git push heroku HEAD:master -f
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      #- name: Validate Gradle wrapper
+        #uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
 
-      - name: Run Coverage
-        run: |
-            chmod +x gradlew
-            ./gradlew test jacocoTestReport
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
-        with:
-            paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
-            token: ${{ secrets.TOKEN_GITHUB }}
-            min-coverage-overall: 40
-            min-coverage-changed-files: 60
+      #- name: Run Coverage
+        #run: |
+            #chmod +x gradlew
+            #./gradlew test jacocoTestReport
+      #- name: Add coverage to PR
+        #id: jacoco
+        #uses: madrapps/jacoco-report@v1.3
+        #with:
+            #paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+            #token: ${{ secrets.TOKEN_GITHUB }}
+            #min-coverage-overall: 40
+            #min-coverage-changed-files: 60
 
