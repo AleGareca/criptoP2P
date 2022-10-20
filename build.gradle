@@ -35,9 +35,11 @@ dependencies {
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-	implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.4'
-	implementation 'org.springframework.cloud:spring-cloud-starter-feign:1.0.0.RELEASE'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.4'
+
+
+
 
 }
 
