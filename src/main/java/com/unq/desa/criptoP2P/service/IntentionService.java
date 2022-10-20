@@ -5,8 +5,10 @@ import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.Entity;
 import java.util.List;
 
+@Entity
 public class IntentionService implements IIntentionService {
     @Autowired
     private IIntentionRepository intentionRepository;
@@ -28,7 +30,7 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public List<Intention> listOfPurchaseIntentionsOrActiveSalesOfAUser() {
-        return null;
+    public List<Intention> listTntentionsActiveOfAUser() {
+        return this.intentionRepository.listTntentionsActiveOfAUser();
     }
 }

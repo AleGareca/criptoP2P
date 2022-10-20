@@ -16,6 +16,5 @@ public interface IIntentionService {
 
     public void delete(Integer id);
 
-    @Query("SELECT * FROM Intention i WHERE i.isActive = true")
-    public List<Intention> listOfPurchaseIntentionsOrActiveSalesOfAUser();
+    public List<Intention> listTntentionsActiveOfAUser();
 }

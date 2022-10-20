@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P.model.user;
 
 
+import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.math.BigInteger;
+import java.util.List;
 
 
 @Entity
@@ -33,7 +35,6 @@ public class User {
     @Size(max = 30,min = 3, message = "last_name "+"Cantidad de caracteres invalidos")
     @NotNull
     private String lastName;
-    //@Email
     @Pattern(regexp = "^[^@]+@[^@]+\\.[a-zA-Z]{2,}$", message = "Mail no valido")
     @NotNull
     private String email;
@@ -51,6 +52,6 @@ public class User {
     @Size(min = 8, message = "cantidad de digitos no validos")
     private String walletAddress;
 
-
+    private List<Intention> intencions;
 
 }

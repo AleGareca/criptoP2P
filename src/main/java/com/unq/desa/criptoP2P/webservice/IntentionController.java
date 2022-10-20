@@ -43,5 +43,10 @@ public class IntentionController {
         this.intentionService.delete(id);
     }
 
+    @GetMapping("/intentionToBuyAndSell")
+    public List<Intention> listTntentionsActiveOfAUser() {
+        return this.intentionService.listTntentionsActiveOfAUser();
+    }
+
 }
 
