@@ -42,8 +42,7 @@ jobs:
           git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
       - name: Deploy to Heroku
         run: |
-            git push heroku HEAD:main -f
-            #git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/{{ secrets.HEROKU_APP_NAME }}.git main
+            git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/{{ secrets.HEROKU_APP_NAME }}.git main
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
