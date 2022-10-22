@@ -8,8 +8,8 @@ plugins {
 apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '18'
-targetCompatibility = '18'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -97,10 +97,17 @@ test {
 	//archiveName 'criptoP2P-0.0.1-SNAPSHOT.jar'
 //}
 
+
 jar {
 	manifest {
 		attributes 'Main-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
 	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	exclude "META-INF/*.SF"
+	exclude "META-INF/*.DSA"
+	exclude "META-INF/*.RSA"
 }
 
 
