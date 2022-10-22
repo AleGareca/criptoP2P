@@ -30,7 +30,7 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public List<Intention> listIntentionsActiveOfAUser() {
-        return null;
+    public List<Intention> listIntentionsActiveOfAUser(Boolean value) {
+        return intentionRepository.findIntentionByIsActive(value);
     }
 }

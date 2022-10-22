@@ -16,6 +16,6 @@ public interface IIntentionService {
 
     public void delete(Integer id);
 
-    public List<Intention> listIntentionsActiveOfAUser();
+    public List<Intention> listIntentionsActiveOfAUser(Boolean value);
 
 }

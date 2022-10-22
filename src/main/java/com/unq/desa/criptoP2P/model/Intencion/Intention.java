@@ -1,10 +1,18 @@
 package com.unq.desa.criptoP2P.model.Intencion;
 
 import com.unq.desa.criptoP2P.model.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Intention {
 
     @Id
@@ -24,14 +32,4 @@ public class Intention {
 
     private Boolean isActive;
 
-    public Intention(String activeCripto, int amountOfActiveCripto, User userCripto, Boolean isActive) {
-        this.activeCripto = activeCripto;
-        this.amountOfActiveCripto = amountOfActiveCripto;
-        this.userCripto = userCripto;
-        this.isActive = isActive;
-    }
-
-    public void setUserCripto(User userCripto) {
-        this.userCripto = userCripto;
-    }
 }

@@ -45,7 +45,7 @@ public class IntentionController {
 
     @GetMapping("/intentionToBuyAndSell")
     public List<Intention> listTntentionsActiveOfAUser() {
-        return this.intentionService.listIntentionsActiveOfAUser();
+        return this.intentionService.listIntentionsActiveOfAUser(true);
     }
 
 }
