@@ -7,7 +7,7 @@ plugins {
 }
 apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT-plain'
 sourceCompatibility = '18'
 targetCompatibility = '18'
 
@@ -93,7 +93,5 @@ test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
 }
-tasks.named("bootJar") {
-	mainClass = 'ccom.unq.desa.criptoP2P.CriptoP2PApplication'
-}
+
 
