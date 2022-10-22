@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P.webservice;
 
+import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.user.User;
 
 import com.unq.desa.criptoP2P.service.UserService;
@@ -21,7 +22,7 @@ import java.util.List;
 @Validated
 @Slf4j
 public class UserController {
-
+/*
     @Autowired
     private UserService userService;
 
@@ -63,4 +64,7 @@ public class UserController {
         this.userService.delete(id);
     }
 
+    public void cryptoAssetSaleIntention(Intention intention, @PathVariable Integer userId) {
+         this.cryptoAssetSaleIntention(intention,userId);
+    }*/
 }

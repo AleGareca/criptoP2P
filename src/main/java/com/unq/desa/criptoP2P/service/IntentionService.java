@@ -29,5 +29,8 @@ public class IntentionService implements IIntentionService {
         this.intentionRepository.deleteById(id);
     }
 
-
+    @Override
+    public List<Intention> listIntentionsActiveOfAUser() {
+        return null;
+    }
 }

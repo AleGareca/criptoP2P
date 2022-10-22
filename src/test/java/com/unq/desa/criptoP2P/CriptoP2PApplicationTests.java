@@ -13,7 +13,7 @@ import java.math.BigInteger;
 
 @SpringBootTest
 class CriptoP2PApplicationTests {
-	private User user;
+	/*private User user;
 	private String cvu;
 	@Autowired
 	private UserService userService;
@@ -67,11 +67,11 @@ class CriptoP2PApplicationTests {
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
-    */
+
 	private User anyUser() {
 		return this.user =  User.builder().firstName("Alan").lastName("Martinez").email("alan@gmail.com")
 				.address("calle falsa 123").password("#A123#").cvu(this.cvu).walletAddress("1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32").build();
-	}
+	}*/
 
 
 

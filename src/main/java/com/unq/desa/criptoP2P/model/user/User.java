@@ -1,7 +1,5 @@
 package com.unq.desa.criptoP2P.model.user;
 
-
-
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.math.BigInteger;
 import java.util.List;
 
 
@@ -21,14 +18,12 @@ import java.util.List;
 @Table(name = "UserCripto")
 @Data
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
+//@AllArgsConstructor
 
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="usrId")
     private int id;
     @Size(max = 30,min = 3, message = "first_name "+"Cantidad de caracteres invalidos")
     @NotNull(message = "primer nombre requerido")
@@ -52,8 +47,14 @@ public class User {
     @NotNull
     @Size(min = 8, message = "cantidad de digitos no validos")
     private String walletAddress;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Integer reputation;
+    private Integer numberOfOperations;
+    private Integer successfulOperation;
+    @OneToMany(mappedBy = "userCripto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Intention> intentions;
+    public void reputation() {
+        this.reputation = this.numberOfOperations % this.successfulOperation;
+    }
+
 
 }
