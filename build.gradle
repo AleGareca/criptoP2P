@@ -7,7 +7,7 @@ plugins {
 }
 apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
-version = '0.0.1-SNAPSHOT-plain'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '18'
 targetCompatibility = '18'
 
@@ -94,7 +94,7 @@ test {
 	finalizedBy jacocoTestReport
 }
 bootJar {
-	archiveName 'criptoP2P-0.0.1-SNAPSHOT.jar'
+	archiveName 'criptoP2P-0.0.1-SNAPSHOT-plain.jar'
 }
 
 
