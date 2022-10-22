@@ -93,5 +93,9 @@ test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
 }
+bootJar {
+	archiveName 'criptoP2P-0.0.1-SNAPSHOT-plain.jar'
+}
+
 
 
