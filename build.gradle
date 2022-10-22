@@ -95,6 +95,6 @@ test {
 }
 jar {
 	manifest {
-		attributes 'Main-Class': 'com.unq.desa.criptoP2P'
+		attributes 'Main-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
 	}
 }
