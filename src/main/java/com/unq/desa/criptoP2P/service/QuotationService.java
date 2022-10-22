@@ -4,16 +4,19 @@ import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class QuotationService implements IQuotationService {
 
     private List<String> cryptocurrencies = new ArrayList<>();
     @Autowired
     private BinanceClient binanceClient;
     @Autowired
+    @Lazy
     private IQuotationService quotationService;
 
     public QuotationService() {
@@ -28,7 +31,6 @@ public class QuotationService implements IQuotationService {
         this.cryptocurrencies.add("CAKEUSDT");
         this.cryptocurrencies.add("BTCUSDT");
         this.cryptocurrencies.add("BNBUSDT");
-        this.cryptocurrencies.add("ADAUSDT");
         this.cryptocurrencies.add("ADAUSDT");
         this.cryptocurrencies.add("TRXUSDT");
         this.cryptocurrencies.add("AUDIOUSDT");

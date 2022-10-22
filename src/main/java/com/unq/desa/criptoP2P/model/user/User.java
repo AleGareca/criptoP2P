@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P.model.user;
 
 
+
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,6 +53,7 @@ public class User {
     @Size(min = 8, message = "cantidad de digitos no validos")
     private String walletAddress;
 
-    private List<Intention> intencions;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Intention> intentions;
 
 }

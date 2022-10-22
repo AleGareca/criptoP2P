@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IIntentionRepository extends JpaRepository<Intention,Integer> {
-    @Query("SELECT * FROM Intention i WHERE i.isActive = true")
-    public List<Intention> listTntentionsActiveOfAUser();
+
 }
