@@ -5,7 +5,8 @@ import com.unq.desa.criptoP2P.model.user.User;
 
 import java.util.List;
 
-public interface IUserService {/*
+public interface IUserService {
+
     public List<User> get();
 
     public void save(User user);
@@ -14,7 +15,7 @@ public interface IUserService {/*
 
     public void delete(Integer id);
 
-    public void cryptoAssetSaleIntention(Intention intention,Integer userId) ;
+    public void cryptoAssetSaleIntentionOfUser(Intention intention,Integer userId) ;
 
-    public void selectTheBestSeller();*/
+    public void selectTheBestSeller();
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @Validated
 @Slf4j
 public class UserController {
-/*
+
     @Autowired
     private UserService userService;
 
@@ -66,5 +66,5 @@ public class UserController {
 
     public void cryptoAssetSaleIntention(Intention intention, @PathVariable Integer userId) {
          this.cryptoAssetSaleIntention(intention,userId);
-    }*/
+    }
 }

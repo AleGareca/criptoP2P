@@ -32,4 +32,7 @@ public class Intention {
 
     private Boolean isActive;
 
+    public void setUserCripto(User userCripto) {
+        this.userCripto = userCripto;
+    }
 }

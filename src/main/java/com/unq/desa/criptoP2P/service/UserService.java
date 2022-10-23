@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class UserService implements IUserService {
-/*    @Autowired
+    @Autowired
     private IUserRepository userRepository;
 
-    //@Autowired
-    //private IIntentionService intentionService;
+    @Autowired
+    private IIntentionService intentionService;
 
     public List<User> get(){
         return this.userRepository.findAll();
@@ -33,16 +33,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void cryptoAssetSaleIntention(Intention intention,Integer userId) {
+    public void cryptoAssetSaleIntentionOfUser(Intention intention,Integer userId) {
         User user = this.getById(userId);
-        //intention.setUserCripto(user);
-       // this.intentionService.save(intention);
+        intention.setUserCripto(user);
+        this.intentionService.save(intention);
     }
 
     @Override
     public void selectTheBestSeller() {
 
-    }*/
+    }
 
 
 }

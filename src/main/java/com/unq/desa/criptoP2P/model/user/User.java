@@ -56,5 +56,7 @@ public class User {
         this.reputation = this.numberOfOperations % this.successfulOperation;
     }
 
-
+    public void setIntention(Intention intention) {
+        this.intentions.add(intention);
+    }
 }
