@@ -1,11 +1,13 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.4'
+	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
 	id 'org.sonarqube' version '3.0'
 	id 'jacoco'
 }
 apply plugin: "org.sonarqube"
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
 group = 'com.unq.desa'
 version = '0.0.1-SNAPSHOT-plain'
 sourceCompatibility = '11'
@@ -93,12 +95,16 @@ test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
 }
-jar {
-	exclude 'META-INF/*.java', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+//jar {
+//	exclude 'META-INF/*.java', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
+//	manifest {
+//		attributes 'Main-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
+//	}
+//	from {
+//	}
+//}
+bootJar {
 	manifest {
-		attributes 'Main-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
-	}
-	from {
-		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+		attributes 'Start-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
 	}
 }
