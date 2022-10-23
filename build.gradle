@@ -7,7 +7,7 @@ plugins {
 }
 apply plugin: "org.sonarqube"
 group = 'com.unq.desa'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1-SNAPSHOT-plain'
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
@@ -93,14 +93,12 @@ test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
 }
-
-bootJar {
+jar {
+	exclude 'META-INF/*.java', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
 	manifest {
-		attributes 'Start-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
+		attributes 'Main-Class': 'com.unq.desa.criptoP2P.CriptoP2PApplication'
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 	}
 }
-
-
-
-
-
