@@ -1,15 +1,16 @@
 package com.unq.desa.criptoP2P.service;
 
+import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.user.User;
 
 import java.util.List;
 
 public interface IUserService {
-    public List<User> get();
+     List<UserDto> get();
 
-    public void save(User user);
+    UserDto getById(Integer id);
 
-    public User getById(Integer id);
+     void delete(Integer id);
 
-    public void delete(Integer id);
+    void updateUser(UserDto user);
 }

@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P;
 
+import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.service.UserService;
 import org.aspectj.lang.annotation.Before;
@@ -16,13 +17,13 @@ class CriptoP2PApplicationTests {
 	private String cvu;
 	@Autowired
 	private UserService userService;
-	private User retrievedUser;
+	private UserDto retrievedUser;
 
 	@Before("")
 	public void setUp() {
 		this.user = new User();
 		this.cvu = "017020466000000878652";
-		this.retrievedUser = new User();
+		this.retrievedUser = new UserDto();
 	}
 
 	@Test
