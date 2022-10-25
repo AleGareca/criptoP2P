@@ -1,14 +1,20 @@
 package com.unq.desa.criptoP2P.model.transaction;
 
+import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
+import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
 
     @Id
@@ -17,18 +23,20 @@ public class Transaction {
 
     private LocalDateTime dayAndTimeOfIntention;
 
-    private String activeCripto;
+    @ManyToOne
+    private Cryptocurrency activeCripto;
 
     private int amountOfActiveCripto;
 
-    private int quotation;
+    @ManyToOne
+    private Quotation quotation;
 
     private Double amountOfOperationInPesos;
-
-    //private User user;
-
-    private int amountOfOperation;
+    @ManyToOne()
+    private User user;
 
     private int reputationOfUser;
+
+    private StateTransaction transaction;
 
 }

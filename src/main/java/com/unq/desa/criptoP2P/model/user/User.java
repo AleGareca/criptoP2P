@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P.model.user;
 
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
+import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +19,7 @@ import java.util.List;
 @Table(name = "UserCripto")
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
-
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -52,6 +52,9 @@ public class User {
     private Integer successfulOperation;
     @OneToMany(mappedBy = "userCripto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Intention> intentions;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
     public void reputation() {
         this.reputation = this.numberOfOperations % this.successfulOperation;
     }

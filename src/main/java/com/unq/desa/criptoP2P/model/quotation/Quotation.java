@@ -1,26 +1,29 @@
 package com.unq.desa.criptoP2P.model.quotation;
 
-import com.unq.desa.criptoP2P.model.enums.operation.Operation;
+import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Quotation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    private String activeCripto;
+    @OneToOne
+    private Cryptocurrency cryptocurrency;
 
     private LocalDateTime dayAndTime;
 
-    private int QuotationOfActiveCripto;
-
-    private Operation operation;
+    private int quotationOfActiveCripto;
 
 }

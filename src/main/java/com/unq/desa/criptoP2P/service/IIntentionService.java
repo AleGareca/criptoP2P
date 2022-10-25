@@ -19,6 +19,10 @@ public interface IIntentionService {
     @Lazy
     public List<Intention> listIntentionsActiveOfAUser(Boolean value);
 
-    public void userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId);
+    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId);
+
+    public List<Intention> salesIntentionsByPriceAndReputation(Integer amountOfActiveCripto,Integer reputation);
+
+    public List<Intention> findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(Boolean isActive, Integer reputation, int amountOfActiveCripto);
 
 }

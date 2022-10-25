@@ -16,9 +16,11 @@ public interface ITransactionService {
 
     public void delete(Integer id);
 
-    public void saleOPurchaseOperation(Integer userId, Intention intention);
+    public void transferOperation(Integer userId, Integer intentionId,Transaction transaction);
 
-    public void purchaseOperation(Integer userId, Intention intention);
+    public void operationConfirm(Integer userId, Integer intentionId,Transaction transaction);
 
-    public void operationCancelled(Integer userId, Intention intention);
+    public void operationCancelled(Integer userId, Integer intentionId,Transaction transaction);
+
+
 }

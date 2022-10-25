@@ -5,6 +5,7 @@ import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class IntentionService implements IIntentionService {
     @Autowired
     private IIntentionRepository intentionRepository;
     @Autowired
+    @Lazy
     private IUserService UserService;
 
     public List<Intention> get(){
@@ -38,10 +40,22 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public void userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId) {
+    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId) {
         User user = this.UserService.getById(userId);
         user.setIntention(intention);
         intention.setUserCripto(user);
         this.UserService.save(user);
+        this.intentionRepository.save(intention);
+        return intention;
+    }
+
+    @Override
+    public List<Intention> salesIntentionsByPriceAndReputation(Integer amountOfActiveCripto, Integer reputation) {
+        return null;
+    }
+
+    @Override
+    public List<Intention> findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(Boolean isActive, Integer reputation, int amountOfActiveCripto) {
+        return this.intentionRepository.findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(isActive,reputation,amountOfActiveCripto);
     }
 }

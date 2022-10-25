@@ -58,7 +58,7 @@ public class QuotationService implements IQuotationService {
     }
 
     @Override
-    public List<Cryptocurrency> cotizacion() {
+    public List<Cryptocurrency> quotes() {
         List<Cryptocurrency> cotizacion = new ArrayList<>();
         for(String cryptocurrency : this.cryptocurrencies) {
             cotizacion.add(this.binanceClient.getCryptocurrency(cryptocurrency));
