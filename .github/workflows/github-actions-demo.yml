@@ -3,48 +3,37 @@ name: Java CI
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    uses:
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 18
+      - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '18'
+          java-version: '11'
           distribution: 'adopt'
-
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
 
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Run chmod to make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-        arguments: build
-      - name: Run Coverage
+      - name: Create Jar
         run: |
-            chmod +x gradlew
-            ./gradlew testCoverage
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.3
-        with:
-            paths: ${{ github.workspace }}/build/reports/jacoco/testCoverage/testCoverage.xml
-            token: ${{ secrets.TOKEN_GITHUB }}
-            min-coverage-overall: 0
-            min-coverage-changed-files: 0
-          #- uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-          # with:
-          #run: heroku git:remote -a cripto-p2p-unq
-          #heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          #heroku_app_name: "cripto-p2p-unq" #Must be unique in Heroku
-          #heroku_email: "gereca20jorge@gmail.com"
-          #branch: "main"
+          chmod +x gradlew
+          ./gradlew clean build    
+
+      - name: Deploy to Heroku
+        run: |
+          git fetch --all --unshallow
+          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+          git push heroku HEAD:master -f
+      #- name: Add coverage to PR
+        #id: jacoco
+        #uses: madrapps/jacoco-report@v1.3
+        #with:
+            #paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+            #token: ${{ secrets.TOKEN_GITHUB }}
+            #min-coverage-overall: 40
+            #min-coverage-changed-files: 60
 
