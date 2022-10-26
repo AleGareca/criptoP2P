@@ -9,10 +9,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
+
+import java.util.Collections;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
@@ -26,7 +29,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .apiInfo(apiInfo())
                 .pathMapping("/")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.unq.desa.criptoP2P.webservice"))
+                .apis(RequestHandlerSelectors.basePackage("com.unq.desa.criptoP2P"))
                 .paths(regex("/.*"))
                 .build();
     }
@@ -37,8 +40,16 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
 
     private ApiInfo apiInfo(){
-        return new ApiInfoBuilder().title("Desarrollo de aplicaciones: Universidad Nacional de Quilmes")
-                .description("Tecnologia de codigo abierto (Spring)").build();
+        return new ApiInfo(
+                "Order Service API",
+                "Order Service API Description",
+                "1.0",
+                "http://codmind.com/terms",
+                new Contact("Codmind", "https://codmind.com", "apis@codmind.com"),
+                "LICENSE",
+                "LICENSE URL",
+                Collections.emptyList()
+        );
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){

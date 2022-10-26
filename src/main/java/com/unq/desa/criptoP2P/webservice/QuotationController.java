@@ -6,6 +6,7 @@ import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.service.QuotationService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -21,6 +22,7 @@ public class QuotationController {
     private QuotationService quotationService;
     @Autowired
     private MapperComponent modelMapper;
+    @Operation(summary = "Return all quotations (internal use) ")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})

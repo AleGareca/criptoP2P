@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 @Data
 public class UserDto {
     private int id;
+
     @Size(max = 30,min = 3, message = "first_name "+"Cantidad de caracteres invalidos")
     @NotNull(message = "primer nombre requerido")
     private String firstName;

@@ -99,7 +99,6 @@ public class FakeData implements CommandLineRunner {
 
              Intention intention1U3 = new Intention();
              intention1U3.setActiveCripto(crypto1Intention1);
-             intention1U3.setUserCripto(user3);
              intention1U3.setIsActive(true);
              intention1U3.setAmountOfOperationInPesos(Integer.valueOf("100000"));
              intention1U3.setOperacion(Operation.Purchase);

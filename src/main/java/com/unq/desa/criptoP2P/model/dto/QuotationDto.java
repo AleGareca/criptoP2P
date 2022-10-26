@@ -7,7 +7,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 @Data
 public class QuotationDto {
-    private Cryptocurrency cryptocurrency;
+    private CryptocurrencyDto cryptocurrency;
 
     private LocalDateTime dayAndTime;
 }
