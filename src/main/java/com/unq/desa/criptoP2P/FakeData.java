@@ -1,17 +1,14 @@
 package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
-import com.unq.desa.criptoP2P.config.MapperComponent;
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
-import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.service.IIntentionService;
-import com.unq.desa.criptoP2P.service.ITransactionService;
-import com.unq.desa.criptoP2P.service.IUserService;
+import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
+import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -27,14 +24,10 @@ import java.util.List;
 public class FakeData implements CommandLineRunner {
 
      @Autowired
-     private MapperComponent modelMapper;
+     private IUserRepository userRepository;
      @Autowired
-     private IUserService userService;
-     @Autowired
-     private IIntentionService intentionService;
+     private IIntentionRepository intentionRepository;
 
-     @Autowired
-     private ITransactionService transactionService;
      @Autowired
      private BinanceClient binanceClient;
 
@@ -102,9 +95,7 @@ public class FakeData implements CommandLineRunner {
              user2.setIntentions(intentionsU3);
              user2.setTransactions(transactionsU3);
 
-             userService.updateUser(modelMapper.To(user1, UserDto.class));
-             userService.updateUser(modelMapper.To(user1, UserDto.class));
-             userService.updateUser(modelMapper.To(user1, UserDto.class));
+
 
              Intention intention1U3 = new Intention();
              intention1U3.setActiveCripto(crypto1Intention1);
@@ -122,8 +113,11 @@ public class FakeData implements CommandLineRunner {
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
-             intentionService.save(intention1U3);
-             intentionService.save(intention2U3);
+             //intentionRepository.save(intention1U3);
+             //intentionRepository.save(intention2U3);
+             userRepository.save(user1);
+             userRepository.save(user2);
+             userRepository.save(user3);
         }
 }
 

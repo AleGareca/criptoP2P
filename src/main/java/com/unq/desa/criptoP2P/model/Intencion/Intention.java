@@ -22,14 +22,14 @@ public class Intention {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne
+    @OneToOne()
     private Cryptocurrency activeCripto;
-    @OneToOne
+    @OneToOne()
     private Quotation quotation;
 
     private Integer amountOfOperationInPesos;
 
-    @ManyToOne()
+    @ManyToOne(cascade=CascadeType.ALL)
     private User userCripto;
 
     private Boolean isActive;

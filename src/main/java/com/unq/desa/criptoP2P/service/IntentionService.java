@@ -15,8 +15,7 @@ public class IntentionService implements IIntentionService {
     @Autowired
     private IIntentionRepository intentionRepository;
     @Autowired
-    @Lazy
-    private IUserService UserService;
+    private IUserRepository userRepository;
 
     public List<Intention> get(){
         return this.intentionRepository.findAll();
@@ -41,10 +40,10 @@ public class IntentionService implements IIntentionService {
 
     @Override
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId) {
-        User user = this.UserService.getById(userId);
-        user.setIntention(intention);
+        var user = userRepository.getReferenceById(userId);
+        user.getIntentions().add(intention);
         intention.setUserCripto(user);
-        this.UserService.save(user);
+        userRepository.save(user);
         this.intentionRepository.save(intention);
         return intention;
     }
