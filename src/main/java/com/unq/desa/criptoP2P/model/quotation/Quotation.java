@@ -19,10 +19,13 @@ public class Quotation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private Cryptocurrency cryptocurrency;
 
     private LocalDateTime dayAndTime;
 
-
+    @Override
+    public String toString() {
+        return "Quotation";
+    }
 }

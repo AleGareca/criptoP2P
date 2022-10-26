@@ -7,8 +7,9 @@ import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.IIntentionService;
+import com.unq.desa.criptoP2P.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -24,38 +25,34 @@ import java.util.List;
 public class FakeData implements CommandLineRunner {
 
      @Autowired
-     private IUserRepository userRepository;
+     private IUserRepository userRepository ;
      @Autowired
-     private IIntentionRepository intentionRepository;
+     private IIntentionService intentionService;
 
      @Autowired
      private BinanceClient binanceClient;
 
-
-
         @Override
         public void run(String... args) throws Exception {
              LocalDateTime dateTime = LocalDateTime.now();
-             List<Intention> intentionsU1 = new ArrayList<>();
-             List<Transaction> transactionsU1 = new ArrayList<>();
-             List<Intention> intentionsU2 = new ArrayList<>();
-             List<Transaction> transactionsU2 = new ArrayList<>();
-             List<Intention> intentionsU3 = new ArrayList<>();
-             List<Transaction> transactionsU3 = new ArrayList<>();
-             Cryptocurrency crypto1Intention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
-             Cryptocurrency crypto1Intention2 = this.binanceClient.getCryptocurrency("BNBUSDT");
+             Cryptocurrency cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
+             Cryptocurrency cryptoIntention2 = this.binanceClient.getCryptocurrency("BNBUSDT");
+             Cryptocurrency cryptoIntention3 = this.binanceClient.getCryptocurrency("TRXUSDT");
              Quotation quotation1 = new Quotation();
-             quotation1.setCryptocurrency(crypto1Intention1);
+             quotation1.setCryptocurrency(cryptoIntention1);
              quotation1.setDayAndTime(dateTime);
 
              Quotation quotation2 = new Quotation();
-             quotation2.setCryptocurrency(crypto1Intention2);
+             quotation2.setCryptocurrency(cryptoIntention2);
+             quotation2.setDayAndTime(dateTime);
+
+             Quotation quotation3 = new Quotation();
+             quotation2.setCryptocurrency(cryptoIntention3);
              quotation2.setDayAndTime(dateTime);
 
 
              User user1 = new User();
-             user1.setFirstName("u1");
-             user1.setLastName("lastName1");
+             user1.setName("u1");
              user1.setEmail("1@gmai.com");
              user1.setAddress("calle123");
              user1.setPassword("123");
@@ -64,12 +61,9 @@ public class FakeData implements CommandLineRunner {
              user1.setReputation(0);
              user1.setNumberOfOperations(0);
              user1.setSuccessfulOperation(0);
-             user1.setIntentions(intentionsU1);
-             user1.setTransactions(transactionsU1);
 
              User user2 = new User();
-             user2.setFirstName("u2");
-             user2.setLastName("lastName2");
+             user2.setName("u2");
              user2.setEmail("2@gmai.com");
              user2.setAddress("calle583");
              user2.setPassword("123567");
@@ -78,45 +72,53 @@ public class FakeData implements CommandLineRunner {
              user2.setReputation(0);
              user2.setNumberOfOperations(0);
              user2.setSuccessfulOperation(0);
-             user2.setIntentions(intentionsU2);
-             user2.setTransactions(transactionsU2);
 
              User user3 = new User();
-             user2.setFirstName("u3");
-             user2.setLastName("lastName3");
-             user2.setEmail("3@gmai.com");
-             user2.setAddress("calle864");
-             user2.setPassword("123567");
-             user2.setCvu("047020456008921878653");
-             user2.setWalletAddress("3M58t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
-             user2.setReputation(20);
-             user2.setNumberOfOperations(2);
-             user2.setSuccessfulOperation(1);
-             user2.setIntentions(intentionsU3);
-             user2.setTransactions(transactionsU3);
-
+             user3.setName("u3");
+             user3.setEmail("3@gmai.com");
+             user3.setAddress("calle864");
+             user3.setPassword("123567");
+             user3.setCvu("047020456008921878653");
+             user3.setWalletAddress("3M58t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
+             user3.setReputation(20);
+             user3.setNumberOfOperations(2);
+             user3.setSuccessfulOperation(1);
 
 
              Intention intention1U3 = new Intention();
-             intention1U3.setActiveCripto(crypto1Intention1);
-             intention1U3.setIsActive(true);
+             intention1U3.setActiveCripto(cryptoIntention1);
+             intention1U3.setActive(true);
              intention1U3.setAmountOfOperationInPesos(Integer.valueOf("100000"));
              intention1U3.setOperacion(Operation.Purchase);
              intention1U3.setQuotation(quotation1);
 
              Intention intention2U3 = new Intention();
-             intention2U3.setActiveCripto(crypto1Intention2);
+             intention2U3.setActiveCripto(cryptoIntention2);
              intention2U3.setUserCripto(user3);
-             intention2U3.setIsActive(false);
-             intention2U3.setAmountOfOperationInPesos(200000);
+             intention2U3.setActive(false);
+             intention2U3.setAmountOfOperationInPesos(Integer.valueOf(200000));
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
-             //intentionRepository.save(intention1U3);
-             //intentionRepository.save(intention2U3);
+             Intention intention3U3 = new Intention();
+             intention3U3.setActiveCripto(cryptoIntention3);
+             intention3U3.setUserCripto(user2);
+             intention3U3.setActive(true);
+             intention3U3.setAmountOfOperationInPesos(Integer.valueOf(270000));
+             intention3U3.setOperacion(Operation.Sale);
+             intention3U3.setQuotation(quotation2);
+
              userRepository.save(user1);
              userRepository.save(user2);
              userRepository.save(user3);
+
+             intentionService.userExpressesHisIntentionToBuyOrSell(intention1U3,user3.getId());
+             intentionService.userExpressesHisIntentionToBuyOrSell(intention2U3,user3.getId());
+             intentionService.userExpressesHisIntentionToBuyOrSell(intention3U3,user2.getId());
+
+             //List<Intention> = qlistIntentionsActiveOfAUser(Boolean isActive)
+
+
         }
 }
 

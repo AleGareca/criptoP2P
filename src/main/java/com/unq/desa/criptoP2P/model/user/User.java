@@ -24,14 +24,11 @@ public class User {
     @Column(name="usrId")
     private int id;
 
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String email;
 
     private String address;
-
 
     private String password;
 
@@ -41,14 +38,13 @@ public class User {
     private Integer reputation;
     private Integer numberOfOperations;
     private Integer successfulOperation;
-    @OneToMany(mappedBy = "userCripto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Intention> intentions;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Transaction> transactions;
     public void reputation() {
         this.reputation = this.numberOfOperations / this.successfulOperation;
     }
 
-
+    @Override
+    public String toString() {
+        return "User";
+    }
 }

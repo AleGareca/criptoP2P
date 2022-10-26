@@ -25,16 +25,13 @@ public class Transaction {
 
     private LocalDateTime dayAndTimeOfOperation;
 
-    @ManyToOne
-    private Cryptocurrency activeCripto;
+    @OneToOne(fetch=FetchType.EAGER)
+    private Cryptocurrency cripto;
 
-    private int amountOfActiveCripto;
-
-    @ManyToOne
-    private Quotation quotation;
+    private Integer amountOfOperation;
 
     private Double amountOfOperationInPesos;
-    @ManyToOne()
+    @ManyToOne(fetch=FetchType.EAGER)
     private User user;
 
     private Integer numberOfOperations;
@@ -68,7 +65,7 @@ public class Transaction {
     private void transferOrCancel(Double systemPrice) {
         if (this.intention.getActiveCripto().getPrice() > systemPrice || this.intention.getActiveCripto().getPrice() < systemPrice) {
             this.setStateTransaction(StateTransaction.Cancelled);
-            this.intention.setIsActive(false);
+            this.intention.setActive(false);
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
@@ -79,14 +76,14 @@ public class Transaction {
     public void confirm() {
         if(this.stateTransaction == StateTransaction.Confirm) {
             this.increaseUserReputationPoints();
-            this.intention.setIsActive(false);
+            this.intention.setActive(false);
         }
     }
 
     public void operationCanceledByUser() {
         if(this.stateTransaction == StateTransaction.Cancelled) {
             this.user.setReputation(this.user.getReputation() - 20);
-            this.intention.setIsActive(false);
+            this.intention.setActive(false);
         }
     }
 

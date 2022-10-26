@@ -4,7 +4,6 @@ import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,21 +21,35 @@ public class Intention {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne()
+    @OneToOne(cascade=CascadeType.ALL)
     private Cryptocurrency activeCripto;
-    @OneToOne()
+    @OneToOne(cascade=CascadeType.ALL)
     private Quotation quotation;
 
     private Integer amountOfOperationInPesos;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER)
     private User userCripto;
 
-    private Boolean isActive;
+    private boolean isActive;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
     @Enumerated
     private Operation operacion;
 
     public void setUserCripto(User userCripto) {
         this.userCripto = userCripto;
+    }
+
+    public boolean getIsActive() {
+        return this.isActive;
+    }
+
+    @Override
+    public String toString() {
+        return "Intention";
     }
 }
