@@ -4,6 +4,7 @@ import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,12 +24,10 @@ public class Intention {
     private int id;
     @OneToOne
     private Cryptocurrency activeCripto;
-
-    private int amountOfActiveCripto;
     @OneToOne
     private Quotation quotation;
 
-    private Double amountOfOperationInPesos;
+    private Integer amountOfOperationInPesos;
 
     @ManyToOne()
     private User userCripto;

@@ -15,7 +15,4 @@ public interface IUserService {
 
     public void delete(Integer id);
 
-    public void cryptoAssetSaleIntentionOfUser(Intention intention,Integer userId) ;
-
-    public void selectTheBestSeller();
 }

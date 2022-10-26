@@ -41,7 +41,7 @@ public class QuotationController {
     }
 
     @GetMapping(value = "/quotation/cryptoAssetQuote")
-    public List<Cryptocurrency> cotizacion() throws Exception {
+    public List<Quotation> quotes() throws Exception {
         return this.quotationService.quotes();
     }
 

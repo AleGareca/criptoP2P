@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +59,16 @@ public class QuotationService implements IQuotationService {
     }
 
     @Override
-    public List<Cryptocurrency> quotes() {
-        List<Cryptocurrency> cotizacion = new ArrayList<>();
+    public List<Quotation> quotes() {
+        List<Quotation> quotes = new ArrayList<>();
+        Quotation quotation;
         for(String cryptocurrency : this.cryptocurrencies) {
-            cotizacion.add(this.binanceClient.getCryptocurrency(cryptocurrency));
+            quotation = new Quotation();
+            quotation.setCryptocurrency(this.binanceClient.getCryptocurrency(cryptocurrency));
+            quotation.setDayAndTime(LocalDateTime.now());
+            quotes.add(quotation);
         }
-        return cotizacion;
+        return quotes;
     }
 
 

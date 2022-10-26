@@ -15,5 +15,5 @@ public interface IQuotationService {
 
     public void delete(Integer id);
 
-    public List<Cryptocurrency> quotes();
+    public List<Quotation> quotes();
 }

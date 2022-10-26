@@ -21,8 +21,5 @@ public interface IIntentionService {
 
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId);
 
-    public List<Intention> salesIntentionsByPriceAndReputation(Integer amountOfActiveCripto,Integer reputation);
-
-    public List<Intention> findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(Boolean isActive, Integer reputation, int amountOfActiveCripto);
 
 }

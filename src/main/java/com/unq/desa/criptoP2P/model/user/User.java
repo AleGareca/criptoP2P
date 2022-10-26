@@ -56,7 +56,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
     public void reputation() {
-        this.reputation = this.numberOfOperations % this.successfulOperation;
+        this.reputation = this.numberOfOperations / this.successfulOperation;
     }
 
     public void setIntention(Intention intention) {

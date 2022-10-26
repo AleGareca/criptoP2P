@@ -49,57 +49,27 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public void transferOperation(Integer userId, Integer intentionId,Transaction transaction) {
-
-        Transaction updateTransaction = this.transferValidation(intentionId,transaction);
-
-
-    }
-
-    @Override
-    public void operationConfirm(Integer userId, Integer intentionId,Transaction transaction) {
+    public void transferOperation(Transaction transaction) {
+        Double systemPrice = binanceClient.getCryptocurrency(transaction.getIntention().getActiveCripto().getSymbol()).getPrice();
+        transaction.transfer(systemPrice);
+        this.transactionService.save(transaction);
 
     }
 
     @Override
-    public void operationCancelled(Integer userId, Integer intentionId,Transaction transaction) {
-
+    public void operationConfirm(Transaction transaction) {
+        transaction.confirm();
+        this.transactionService.save(transaction);
     }
 
-    public Transaction transferValidation(Integer intentionId,Transaction transaction) {
-        Intention intention = this.intentionService.getById(intentionId);
-        Double systemPrice = binanceClient.getCryptocurrency(intention.getActiveCripto().getSymbol()).getPrice();
-
-        if(intention.getAmountOfActiveCripto() > systemPrice || intention.getAmountOfActiveCripto() < systemPrice) {
-            transaction.setTransaction(StateTransaction.Cancelled);
-        } else {
-            transaction.setTransaction(StateTransaction.Transferring);
-        }
-
-        return transaction;
-
+    @Override
+    public void operationCancelled(Transaction transaction) {
+        transaction.operationCanceledByUser();
+        this.transactionService.save(transaction);
     }
 
-    private void operationCanceledByUser() {
-            /*if() {
-                this.operationPerformedWithin30Minutes();
-            }
 
-            if() {
-                this.operationPerformedAfter30Minutes();
-            }*/
-    }
 
-    private void operationCanceledByTheSystem() {
 
-    }
-
-    private void operationPerformedWithin30Minutes() {
-        // suman 10 puntos
-    }
-
-    private void operationPerformedAfter30Minutes() {
-        // minutos suman 5
-    }
 
 }

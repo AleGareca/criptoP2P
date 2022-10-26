@@ -35,8 +35,8 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public List<Intention> listIntentionsActiveOfAUser(Boolean value) {
-        return intentionRepository.findIntentionByIsActive(value);
+    public List<Intention> listIntentionsActiveOfAUser(Boolean isActive) {
+        return intentionRepository.findIntentionByIsActive(isActive);
     }
 
     @Override
@@ -49,13 +49,6 @@ public class IntentionService implements IIntentionService {
         return intention;
     }
 
-    @Override
-    public List<Intention> salesIntentionsByPriceAndReputation(Integer amountOfActiveCripto, Integer reputation) {
-        return null;
-    }
 
-    @Override
-    public List<Intention> findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(Boolean isActive, Integer reputation, int amountOfActiveCripto) {
-        return this.intentionRepository.findByIsActiveAndUserCripto_ReputationAndAmountOfActiveCripto(isActive,reputation,amountOfActiveCripto);
-    }
+
 }

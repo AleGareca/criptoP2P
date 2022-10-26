@@ -24,6 +24,5 @@ public class Quotation {
 
     private LocalDateTime dayAndTime;
 
-    private int quotationOfActiveCripto;
 
 }
