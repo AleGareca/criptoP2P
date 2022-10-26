@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@RestController
 public class IntentionController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class IntentionController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @PostMapping(value = "/intention")
+    @PostMapping(value = "/registerIntention")
     public void register(@Valid @RequestBody IntentionDto intention, Errors errors) throws Exception {
         this.intentionService.save(modelMapper.To(intention,Intention.class));
     }

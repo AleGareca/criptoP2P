@@ -6,13 +6,15 @@ import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.service.QuotationService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+@RestController
 public class QuotationController {
 
     @Autowired
@@ -22,7 +24,7 @@ public class QuotationController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @GetMapping("/quotation")
+    @GetMapping("/quotations")
     public List<QuotationDto> index()throws Exception {
         return modelMapper.ToList(this.quotationService.get(),QuotationDto.class);
     }
@@ -43,14 +45,14 @@ public class QuotationController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @PutMapping(value = "/quotation")
+    @PutMapping(value = "/quotationUpdate")
     public void update(@RequestBody Quotation quotationDto) throws Exception {
         this.quotationService.save(modelMapper.To(quotationDto, Quotation.class));
     }
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @DeleteMapping(value = "/quotation")
+    @DeleteMapping(value = "/quotationDelete")
     public void delete(@PathVariable Integer id) throws Exception {
         this.quotationService.delete(id);
     }
