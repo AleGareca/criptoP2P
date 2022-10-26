@@ -50,7 +50,7 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public void transferOperation(Transaction transaction) {
-        Double systemPrice = binanceClient.getCryptocurrency(transaction.getIntention().getActiveCripto().getSymbol()).getPrice();
+       var systemPrice = binanceClient.getCryptocurrency(transaction.getIntention().getActiveCripto().getSymbol()).getPrice();
         transaction.transfer(systemPrice);
         this.transactionService.save(transaction);
 

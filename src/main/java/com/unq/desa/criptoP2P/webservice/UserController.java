@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P.webservice;
 
+import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
 import com.unq.desa.criptoP2P.service.UserService;

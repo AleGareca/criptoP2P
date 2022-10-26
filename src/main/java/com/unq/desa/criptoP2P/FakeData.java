@@ -1,6 +1,10 @@
+package com.unq.desa.criptoP2P;
+
 import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.config.MapperComponent;
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
@@ -13,9 +17,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +25,20 @@ import java.util.List;
 @Order(1)
 @Component
 public class FakeData implements CommandLineRunner {
-        @Autowired
-        private IUserService userService;
-        @Autowired
-        private IIntentionService intentionService;
-        @Autowired
-        private ITransactionService transactionService;
-        @Autowired
-        private BinanceClient binanceClient;
+
+     @Autowired
+     private MapperComponent modelMapper;
+     @Autowired
+     private IUserService userService;
+     @Autowired
+     private IIntentionService intentionService;
+
+     @Autowired
+     private ITransactionService transactionService;
+     @Autowired
+     private BinanceClient binanceClient;
+
+
 
         @Override
         public void run(String... args) throws Exception {
@@ -94,15 +102,15 @@ public class FakeData implements CommandLineRunner {
              user2.setIntentions(intentionsU3);
              user2.setTransactions(transactionsU3);
 
-             userService.save(user1);
-             userService.save(user2);
-             userService.save(user3);
+             userService.updateUser(modelMapper.To(user1, UserDto.class));
+             userService.updateUser(modelMapper.To(user1, UserDto.class));
+             userService.updateUser(modelMapper.To(user1, UserDto.class));
 
              Intention intention1U3 = new Intention();
              intention1U3.setActiveCripto(crypto1Intention1);
              intention1U3.setUserCripto(user3);
              intention1U3.setIsActive(true);
-             intention1U3.setAmountOfOperationInPesos(new Integer("100000");
+             intention1U3.setAmountOfOperationInPesos(Integer.valueOf("100000"));
              intention1U3.setOperacion(Operation.Purchase);
              intention1U3.setQuotation(quotation1);
 
@@ -110,7 +118,7 @@ public class FakeData implements CommandLineRunner {
              intention2U3.setActiveCripto(crypto1Intention2);
              intention2U3.setUserCripto(user3);
              intention2U3.setIsActive(false);
-             intention2U3.setAmountOfOperationInPesos(new Integer(200000));
+             intention2U3.setAmountOfOperationInPesos(200000);
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
