@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Order(1)
 @Component
@@ -35,10 +36,12 @@ public class FakeData implements CommandLineRunner {
         @Override
         public void run(String... args) throws Exception {
              LocalDateTime dateTime = LocalDateTime.now();
-             Cryptocurrency cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
-             Cryptocurrency cryptoIntention2 = this.binanceClient.getCryptocurrency("BNBUSDT");
-             Cryptocurrency cryptoIntention3 = this.binanceClient.getCryptocurrency("TRXUSDT");
-             Quotation quotation1 = new Quotation();
+
+             var cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
+             var cryptoIntention2 = this.binanceClient.getCryptocurrency("BNBUSDT");
+             var cryptoIntention3 = this.binanceClient.getCryptocurrency("TRXUSDT");
+
+             var quotation1 = new Quotation();
              quotation1.setCryptocurrency(cryptoIntention1);
              quotation1.setDayAndTime(dateTime);
 
@@ -47,11 +50,11 @@ public class FakeData implements CommandLineRunner {
              quotation2.setDayAndTime(dateTime);
 
              Quotation quotation3 = new Quotation();
-             quotation2.setCryptocurrency(cryptoIntention3);
-             quotation2.setDayAndTime(dateTime);
+             quotation3.setCryptocurrency(cryptoIntention3);
+             quotation3.setDayAndTime(dateTime);
 
 
-             User user1 = new User();
+             var user1 = new User();
              user1.setName("u1");
              user1.setEmail("1@gmai.com");
              user1.setAddress("calle123");
@@ -62,7 +65,7 @@ public class FakeData implements CommandLineRunner {
              user1.setNumberOfOperations(0);
              user1.setSuccessfulOperation(0);
 
-             User user2 = new User();
+             var user2 = new User();
              user2.setName("u2");
              user2.setEmail("2@gmai.com");
              user2.setAddress("calle583");
@@ -73,7 +76,7 @@ public class FakeData implements CommandLineRunner {
              user2.setNumberOfOperations(0);
              user2.setSuccessfulOperation(0);
 
-             User user3 = new User();
+             var user3 = new User();
              user3.setName("u3");
              user3.setEmail("3@gmai.com");
              user3.setAddress("calle864");
@@ -85,28 +88,26 @@ public class FakeData implements CommandLineRunner {
              user3.setSuccessfulOperation(1);
 
 
-             Intention intention1U3 = new Intention();
+             var intention1U3 = new Intention();
              intention1U3.setActiveCripto(cryptoIntention1);
              intention1U3.setActive(true);
              intention1U3.setAmountOfOperationInPesos(Integer.valueOf("100000"));
              intention1U3.setOperacion(Operation.Purchase);
              intention1U3.setQuotation(quotation1);
 
-             Intention intention2U3 = new Intention();
+             var intention2U3 = new Intention();
              intention2U3.setActiveCripto(cryptoIntention2);
-             intention2U3.setUserCripto(user3);
              intention2U3.setActive(false);
              intention2U3.setAmountOfOperationInPesos(Integer.valueOf(200000));
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
-             Intention intention3U3 = new Intention();
+             var intention3U3 = new Intention();
              intention3U3.setActiveCripto(cryptoIntention3);
-             intention3U3.setUserCripto(user2);
              intention3U3.setActive(true);
              intention3U3.setAmountOfOperationInPesos(Integer.valueOf(270000));
              intention3U3.setOperacion(Operation.Sale);
-             intention3U3.setQuotation(quotation2);
+             intention3U3.setQuotation(quotation3);
 
              userRepository.save(user1);
              userRepository.save(user2);
@@ -116,8 +117,11 @@ public class FakeData implements CommandLineRunner {
              intentionService.userExpressesHisIntentionToBuyOrSell(intention2U3,user3.getId());
              intentionService.userExpressesHisIntentionToBuyOrSell(intention3U3,user2.getId());
 
-             //List<Intention> = qlistIntentionsActiveOfAUser(Boolean isActive)
+             var intentions = intentionService.listIntentionsActiveOfAUser(true);
 
+             for ( Intention intention :  intentions ) {
+                  System.out.println(intention.getId());
+             }
 
         }
 }
