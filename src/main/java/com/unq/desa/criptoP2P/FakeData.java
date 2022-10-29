@@ -2,26 +2,18 @@ package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
-import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
-import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.service.IIntentionService;
-import com.unq.desa.criptoP2P.service.ITransactionService;
-import com.unq.desa.criptoP2P.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+
 
 @Order(1)
 @Component
@@ -31,8 +23,6 @@ public class FakeData implements CommandLineRunner {
      private IUserRepository userRepository ;
      @Autowired
      private IIntentionService intentionService;
-     @Autowired
-     private ITransactionService transactionService;
 
      @Autowired
      private BinanceClient binanceClient;
@@ -47,7 +37,6 @@ public class FakeData implements CommandLineRunner {
              var quotation1 = new Quotation();
              var quotation2 = new Quotation();
              var quotation3 = new Quotation();
-             var buyCrypto = new Transaction();
 
              quotation1.setCryptocurrency(cryptoIntention1);
              quotation1.setDayAndTime(dateTime);
@@ -101,25 +90,16 @@ public class FakeData implements CommandLineRunner {
              var intention2U3 = new Intention();
              intention2U3.setActiveCripto(cryptoIntention2);
              intention2U3.setActive(false);
-             intention2U3.setAmountOfOperationInPesos(Integer.valueOf(200000));
+             intention2U3.setAmountOfOperationInPesos(Integer.valueOf("200000"));
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
              var intention3U3 = new Intention();
              intention3U3.setActiveCripto(cryptoIntention3);
              intention3U3.setActive(true);
-             intention3U3.setAmountOfOperationInPesos(Integer.valueOf(270000));
+             intention3U3.setAmountOfOperationInPesos(Integer.valueOf("270000"));
              intention3U3.setOperacion(Operation.Sale);
              intention3U3.setQuotation(quotation3);
-
-             buyCrypto.setAmountOfOperationInPesos(Double.valueOf(270000));
-             buyCrypto.setAmountOfOperation(Integer.valueOf(300));
-             buyCrypto.setNumberOfOperations(user2.getNumberOfOperations());
-             //buyCrypto.setCripto();
-             buyCrypto.setDayAndTimeOfOperation(LocalDateTime.now());
-             buyCrypto.setReputationOfUser(user2.getReputation());
-             buyCrypto.setUser(user2);
-             buyCrypto.setStateTransaction(StateTransaction.Transferred);
 
              userRepository.save(user1);
              userRepository.save(user2);
@@ -134,8 +114,6 @@ public class FakeData implements CommandLineRunner {
              for ( Intention intention :  intentions ) {
                   System.out.println(intention.getId());
              }
-
-             transactionService.transferOperation(buyCrypto);
 
 
         }
