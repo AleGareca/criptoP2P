@@ -69,12 +69,14 @@ public class Transaction {
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
-            this.increaseUserReputationPoints();
+            this.intention.setActiveCripto(this.cripto);
+            //this.increaseUserReputationPoints();
         }
     }
 
     public void confirm() {
         if(this.stateTransaction == StateTransaction.Confirm) {
+            this.shippingAddress();
             this.increaseUserReputationPoints();
             this.intention.setActive(false);
         }
