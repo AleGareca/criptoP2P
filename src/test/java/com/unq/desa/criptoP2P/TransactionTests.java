@@ -11,11 +11,15 @@ import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import com.unq.desa.criptoP2P.service.ITransactionService;
-import org.aspectj.lang.annotation.Before;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 
@@ -44,7 +48,7 @@ class TransactionTests {
     private Transaction buyCrypto;
 
 
-    @Before("")
+    @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
         this.cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
