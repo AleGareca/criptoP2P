@@ -4,7 +4,6 @@ import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
 import com.unq.desa.criptoP2P.service.UserService;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
