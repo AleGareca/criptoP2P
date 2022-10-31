@@ -46,31 +46,37 @@ public class Transaction {
 
     public void shippingAddress() {
         if (this.intention.getOperacion() == Operation.Sale){
-            this.shippingAddress = user.getCvu();
+            System.out.println("Entro al CVU");
+            this.shippingAddress = this.user.getCvu();
         } else {
-            this.shippingAddress = user.getWalletAddress();
+            this.shippingAddress = this.user.getWalletAddress();
+            System.out.println("Entro al Wallet Address");
         }
     }
 
-    public void transfer(Double systemPrice) {
-        if (theTransferOfSaleIsValid()) {
-            transferOrCancel(systemPrice);
+    public void transfer(Cryptocurrency systemPrice) {
+        if (this.theTransferOfSaleIsValid()) {
+            System.out.println("Entro al Tranferrrrrrrrrrrrrrrrrr");
+            this.transferOrCancel(systemPrice);
         }
     }
 
     private boolean theTransferOfSaleIsValid() {
-        return this.intention.getOperacion() == Operation.Sale && this.intention.getIsActive() && this.stateTransaction == StateTransaction.Transferred;
+        return this.intention.getOperacion() == Operation.Purchase && this.intention.getIsActive() && this.stateTransaction == StateTransaction.Transferred;
     }
 
-    private void transferOrCancel(Double systemPrice) {
-        if (this.intention.getActiveCripto().getPrice() > systemPrice || this.intention.getActiveCripto().getPrice() < systemPrice) {
+    private void transferOrCancel(Cryptocurrency systemPrice) {
+        if (this.intention.getActiveCripto().getPrice() > systemPrice.getPrice()
+                || this.intention.getActiveCripto().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);
             this.intention.setActive(false);
+            System.out.println("Entro al Cancelar");
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
-            this.intention.setActiveCripto(this.cripto);
+            this.intention.setActiveCripto(systemPrice);
             //this.increaseUserReputationPoints();
+            System.out.println("Entro al Transfer");
         }
     }
 

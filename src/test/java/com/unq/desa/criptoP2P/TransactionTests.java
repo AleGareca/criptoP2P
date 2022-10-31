@@ -11,15 +11,11 @@ import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import com.unq.desa.criptoP2P.service.ITransactionService;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 
@@ -66,7 +62,7 @@ class TransactionTests {
     }
 
     @Test
-    public void givenAnyTransactionWhenItIsExpectedThatTheTransferOperationCanBeCarriedOut() throws Exception {
+    public void givenAnyTransactionOfPurchaseWhenItIsExpectedThatTheTransferOperationCanBeCarriedOut() throws Exception {
         Transaction buyCrypto = anyTransaction();
         //After
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.UndefinedState);
@@ -88,11 +84,44 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getUser().getId(),this.user1.getId());
         Assertions.assertEquals(buyCrypto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
         Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user1.getNumberOfOperations());
-        Assertions.assertEquals(buyCrypto.getIntention(),this.intention1U1);
+        Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention1U1.getId());
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user1.getReputation());
         Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user1.getWalletAddress());
-
     }
+
+    /*@Test
+    public void givenAnyTransactionOfSaleWhenItIsExpectedThatTheConfirmOperationCanBeCarriedOut() throws Exception {
+        Transaction buyCrypto = anyTransaction();
+        buyCrypto.setStateTransaction(StateTransaction.Transferred);
+        buyCrypto.setUser(user2);
+        buyCrypto.setIntention(intention2U2);
+        //After
+        Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Transferred);
+        Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
+        Assertions.assertEquals(buyCrypto.getAmountOfOperation(),Integer.valueOf("300"));
+        Assertions.assertEquals(buyCrypto.getUser().getId(),this.user2.getId());
+        Assertions.assertEquals(buyCrypto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
+        Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
+        Assertions.assertEquals(buyCrypto.getIntention(),this.intention2U2);
+        Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
+        Assertions.assertEquals(buyCrypto.getReputationOfUser(),0);
+        Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
+
+        transactionService.operationCancelled(buyCrypto);
+
+        //Before
+        Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Confirm);
+        Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
+        Assertions.assertEquals(buyCrypto.getAmountOfOperation(),Integer.valueOf("300"));
+        Assertions.assertEquals(buyCrypto.getUser().getId(),this.user2.getId());
+        Assertions.assertEquals(buyCrypto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
+        Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
+        Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention2U2.getId());
+        Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
+        Assertions.assertEquals(buyCrypto.getReputationOfUser(),10);
+        Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user2.getCvu());
+    }*/
+
 
     private Transaction anyTransaction() {
 
@@ -152,11 +181,5 @@ class TransactionTests {
         return this.buyCrypto;
 
     }
-   /*
-	private User anyUser() {
-		return this.user =  User.builder().firstName("Alan").lastName("Martinez").email("alan@gmail.com")
-				.address("calle falsa 123").password("#A123#").cvu(this.cvu).walletAddress("1GjDMGrvdw15uTRbBQNA2ExCxL8GepkM32").build();
-	}*/
-
 
 }
