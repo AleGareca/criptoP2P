@@ -81,21 +81,18 @@ public class FakeData implements CommandLineRunner {
              user3.setSuccessfulOperation(1);
 
              var intention1U3 = new Intention();
-             intention1U3.setActiveCripto(cryptoIntention1);
              intention1U3.setActive(true);
              intention1U3.setAmountOfOperationInPesos(Integer.valueOf("100000"));
              intention1U3.setOperacion(Operation.Purchase);
              intention1U3.setQuotation(quotation1);
 
              var intention2U3 = new Intention();
-             intention2U3.setActiveCripto(cryptoIntention2);
              intention2U3.setActive(false);
              intention2U3.setAmountOfOperationInPesos(Integer.valueOf("200000"));
              intention2U3.setOperacion(Operation.Sale);
              intention2U3.setQuotation(quotation2);
 
              var intention3U3 = new Intention();
-             intention3U3.setActiveCripto(cryptoIntention3);
              intention3U3.setActive(true);
              intention3U3.setAmountOfOperationInPesos(Integer.valueOf("270000"));
              intention3U3.setOperacion(Operation.Sale);
@@ -109,11 +106,11 @@ public class FakeData implements CommandLineRunner {
              intentionService.userExpressesHisIntentionToBuyOrSell(intention2U3,user3.getId());
              intentionService.userExpressesHisIntentionToBuyOrSell(intention3U3,user2.getId());
 
-             var intentions = intentionService.listIntentionsActiveOfAUser(true);
+            /* var intentions = intentionService.listIntentionsActiveOfAU();
 
              for ( Intention intention :  intentions ) {
                   System.out.println(intention.getId());
-             }
+             }*/
 
 
         }

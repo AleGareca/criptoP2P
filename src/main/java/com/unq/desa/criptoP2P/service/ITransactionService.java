@@ -16,11 +16,11 @@ public interface ITransactionService {
 
     public void delete(Integer id);
 
-    public void transferOperation(Transaction transaction);
+    public Transaction transferOperation(Transaction transaction);
 
-    public void operationConfirm(Transaction transaction);
+    public Transaction operationConfirm(Transaction transaction);
 
-    public void operationCancelled(Transaction transaction);
+    public Transaction operationCancelled(Transaction transaction);
 
 
 }

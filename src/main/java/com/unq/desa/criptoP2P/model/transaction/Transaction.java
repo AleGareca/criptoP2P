@@ -45,45 +45,39 @@ public class Transaction {
     private String shippingAddress;
 
     public void shippingAddress() {
-        if (this.intention.getOperacion() == Operation.Sale){
-            System.out.println("Entro al CVU");
+        if (this.intention.getOperacion() == Operation.Purchase){
             this.shippingAddress = this.user.getCvu();
         } else {
             this.shippingAddress = this.user.getWalletAddress();
-            System.out.println("Entro al Wallet Address");
         }
     }
 
     public void transfer(Cryptocurrency systemPrice) {
         if (this.theTransferOfSaleIsValid()) {
-            System.out.println("Entro al Tranferrrrrrrrrrrrrrrrrr");
             this.transferOrCancel(systemPrice);
         }
     }
 
     private boolean theTransferOfSaleIsValid() {
-        return this.intention.getOperacion() == Operation.Purchase && this.intention.getIsActive() && this.stateTransaction == StateTransaction.Transferred;
+        return this.intention.getOperacion() == Operation.Purchase;
     }
 
     private void transferOrCancel(Cryptocurrency systemPrice) {
-        if (this.intention.getActiveCripto().getPrice() > systemPrice.getPrice()
-                || this.intention.getActiveCripto().getPrice() < systemPrice.getPrice()) {
+        if (this.intention.getQuotation().getCryptocurrency().getPrice() > systemPrice.getPrice()
+                || this.intention.getQuotation().getCryptocurrency().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);
             this.intention.setActive(false);
-            System.out.println("Entro al Cancelar");
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
-            this.intention.setActiveCripto(systemPrice);
-            //this.increaseUserReputationPoints();
-            System.out.println("Entro al Transfer");
         }
     }
 
     public void confirm() {
         if(this.stateTransaction == StateTransaction.Confirm) {
-            this.shippingAddress();
             this.increaseUserReputationPoints();
+            this.user.setSuccessfulOperation(1);
+            this.user.setNumberOfOperations(1);
             this.intention.setActive(false);
         }
     }

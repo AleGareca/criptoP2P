@@ -34,8 +34,8 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public List<Intention> listIntentionsActiveOfAUser(Boolean isActive) {
-        return intentionRepository.findIntentionByIsActive(isActive);
+    public List<Intention> listIntentionsActive() {
+        return intentionRepository.findIntentionByIsActive(true);
     }
 
     @Override

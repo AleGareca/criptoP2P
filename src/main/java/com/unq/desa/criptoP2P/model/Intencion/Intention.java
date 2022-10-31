@@ -1,6 +1,5 @@
 package com.unq.desa.criptoP2P.model.Intencion;
 
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
@@ -22,8 +21,6 @@ public class Intention {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToOne(cascade=CascadeType.ALL)
-    private Cryptocurrency activeCripto;
-    @OneToOne(cascade=CascadeType.ALL)
     private Quotation quotation;
 
     private Integer amountOfOperationInPesos;
@@ -33,20 +30,8 @@ public class Intention {
 
     private boolean isActive;
 
-    public boolean isActive() {
-        return isActive;
-    }
-
     @Enumerated
     private Operation operacion;
-
-    public void setUserCripto(User userCripto) {
-        this.userCripto = userCripto;
-    }
-
-    public boolean getIsActive() {
-        return this.isActive;
-    }
 
     @Override
     public String toString() {

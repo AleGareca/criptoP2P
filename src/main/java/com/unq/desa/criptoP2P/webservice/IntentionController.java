@@ -59,7 +59,7 @@ public class IntentionController {
             @ApiResponse(code=400,message = "Bad Request")})
     @GetMapping("/intentionToBuyAndSell")
     public List<IntentionDto> listTntentionsActiveOfAUser() {
-        return modelMapper.ToList(this.intentionService.listIntentionsActiveOfAUser(true),IntentionDto.class);
+        return modelMapper.ToList(this.intentionService.listIntentionsActive(),IntentionDto.class);
     }
 
 }

@@ -17,7 +17,7 @@ public interface IIntentionService {
 
     public void delete(Integer id);
     @Lazy
-    public List<Intention> listIntentionsActiveOfAUser(Boolean value);
+    public List<Intention> listIntentionsActive();
 
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId);
 

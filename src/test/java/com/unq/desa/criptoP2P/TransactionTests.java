@@ -49,7 +49,6 @@ class TransactionTests {
         this.dateTime = LocalDateTime.now();
         this.cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
         this.cryptoIntention2 = this.binanceClient.getCryptocurrency("BNBUSDT");
-        //this.cryptoIntention3 = this.binanceClient.getCryptocurrency("TRXUSDT");
         this.quotation1 = new Quotation();
         this.quotation2 = new Quotation();
         this.buyCrypto = new Transaction();
@@ -151,13 +150,11 @@ class TransactionTests {
         this.user2.setNumberOfOperations(2);
         this.user2.setSuccessfulOperation(1);
 
-        this.intention1U1.setActiveCripto(cryptoIntention1);
         this.intention1U1.setActive(true);
         this.intention1U1.setAmountOfOperationInPesos(Integer.valueOf("10000"));
         this.intention1U1.setOperacion(Operation.Purchase);
         this.intention1U1.setQuotation(quotation1);
 
-        this.intention2U2.setActiveCripto(cryptoIntention2);
         this.intention2U2.setActive(true);
         this.intention2U2.setAmountOfOperationInPesos(Integer.valueOf("10000"));
         this.intention2U2.setOperacion(Operation.Sale);

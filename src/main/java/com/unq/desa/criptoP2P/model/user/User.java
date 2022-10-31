@@ -39,10 +39,6 @@ public class User {
     private Integer numberOfOperations;
     private Integer successfulOperation;
 
-    public void reputation() {
-        this.reputation = this.numberOfOperations / this.successfulOperation;
-    }
-
     @Override
     public String toString() {
         return "User";
