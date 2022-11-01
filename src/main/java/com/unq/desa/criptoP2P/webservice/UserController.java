@@ -69,9 +69,6 @@ public class UserController {
         this.userService.delete(id);
     }
 
-    public void cryptoAssetSaleIntention(Intention intention, @PathVariable Integer userId) {
-         this.cryptoAssetSaleIntention(intention,userId);
-    }
     @Operation(summary = "Report the traded volume of crypto assets between two dates")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
