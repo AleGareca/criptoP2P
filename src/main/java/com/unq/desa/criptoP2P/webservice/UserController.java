@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P.webservice;
 
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
+import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
 import com.unq.desa.criptoP2P.service.UserService;
@@ -9,12 +10,15 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -67,5 +71,17 @@ public class UserController {
 
     public void cryptoAssetSaleIntention(Intention intention, @PathVariable Integer userId) {
          this.cryptoAssetSaleIntention(intention,userId);
+    }
+    @Operation(summary = "Report the traded volume of crypto assets between two dates")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message = "OK"),
+            @ApiResponse(code=400,message = "Bad Request")})
+    @PostMapping(value = "/report")
+    public ActiveCryptoReportDto userReport(@RequestParam("userId") Integer id,
+                                            @RequestParam("initDate")
+                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate initDate,
+                                            @RequestParam("endDate")
+                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate endDate){
+    return userService.generateReport(id, initDate,endDate);
     }
 }
