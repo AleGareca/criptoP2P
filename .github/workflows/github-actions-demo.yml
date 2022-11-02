@@ -33,10 +33,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           chmod +x gradlew
-          - ./gradlew clean build sonarqube
+          ./gradlew build sonarqube --info
 
       - name: Create Jar
         run: |
