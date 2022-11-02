@@ -37,7 +37,6 @@ jobs:
           chmod +x gradlew
           ./gradlew build sonarqube --info
 
-      - step: &check-quality-gate-sonarcloud
       - name: Check the Quality Gate on SonarCloud
         script:
           - pipe: sonarsource/sonarcloud-quality-gate:0.1.3
