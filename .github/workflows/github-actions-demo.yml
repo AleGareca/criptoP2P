@@ -36,7 +36,9 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
           chmod +x gradlew
-          ./gradlew build sonarqube --info
+          - ./gradlew clean build sonarqube
+        artifacts:
+            - build/libs/*
 
       - name: Create Jar
         run: |
