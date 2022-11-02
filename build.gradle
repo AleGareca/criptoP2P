@@ -82,6 +82,7 @@ jacocoTestCoverageVerification {
 sonarqube {
 	properties {
 		property "sonar.projectKey", "com.unq.desa:CriptoP2P"
+		property "sonar.sources","src/main/java"
 	}
 }
 tasks.named('test') {
