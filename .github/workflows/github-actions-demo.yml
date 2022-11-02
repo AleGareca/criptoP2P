@@ -36,11 +36,6 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build sonarqube --info
-
-      - name: Check the Quality Gate on SonarCloud
-        script:
-          - pipe: sonarsource/sonarcloud-quality-gate:0.1.3
-
       - name: Create Jar
         run: |
           chmod +x gradlew
