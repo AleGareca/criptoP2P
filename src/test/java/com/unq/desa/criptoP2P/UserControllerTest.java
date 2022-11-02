@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+/*
 public class UserControllerTest extends CriptoP2PApplicationTests {
 
     private static final String HTTP_LOCALHOST = "http://localhost:";
@@ -48,4 +48,4 @@ public class UserControllerTest extends CriptoP2PApplicationTests {
     }
 
 
-}
+}*/
