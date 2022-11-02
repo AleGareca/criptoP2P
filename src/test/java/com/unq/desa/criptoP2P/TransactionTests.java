@@ -10,6 +10,7 @@ import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.ITransactionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.UserService;
 import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
 import com.unq.desa.criptoP2P.service.iservice.ITransactionService;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +35,9 @@ class TransactionTests {
     private ITransactionRepository transactionRepository;
     @Autowired
     private BinanceClient binanceClient;
+
+    @Autowired
+    private UserService userService;
 
     private LocalDateTime dateTime;
     private Cryptocurrency cryptoIntention1;
@@ -116,7 +120,8 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
 
         transactionService.operationConfirm(buyCrypto);
-
+        var report=userService.generateReport(user2.getId(),LocalDateTime.now().toLocalDate(),LocalDateTime.now().plusDays(10).toLocalDate());
+        Assertions.assertTrue(report!= null);
         //Before
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Confirm);
         Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
