@@ -37,8 +37,6 @@ jobs:
         run: |
           chmod +x gradlew
           - ./gradlew clean build sonarqube
-        artifacts:
-            - build/libs/*
 
       - name: Create Jar
         run: |
