@@ -6,7 +6,7 @@ import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
-import com.unq.desa.criptoP2P.service.IIntentionService;
+import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;

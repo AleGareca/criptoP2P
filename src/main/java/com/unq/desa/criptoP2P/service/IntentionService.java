@@ -1,11 +1,10 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

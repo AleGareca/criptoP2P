@@ -1,8 +1,8 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
+import com.unq.desa.criptoP2P.service.iservice.IQuotationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

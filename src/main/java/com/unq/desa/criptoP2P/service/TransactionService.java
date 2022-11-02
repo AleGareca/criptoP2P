@@ -1,21 +1,16 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
-import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
-import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.ITransactionRepository;
+import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
+import com.unq.desa.criptoP2P.service.iservice.ITransactionService;
+import com.unq.desa.criptoP2P.service.iservice.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
-import static com.unq.desa.criptoP2P.model.enums.operation.Operation.Purchase;
-import static com.unq.desa.criptoP2P.model.enums.operation.Operation.Sale;
 
 @Service
 public class TransactionService implements ITransactionService {

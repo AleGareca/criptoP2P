@@ -1,8 +1,7 @@
-package com.unq.desa.criptoP2P.service;
+package com.unq.desa.criptoP2P.service.iservice;
 
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
-import com.unq.desa.criptoP2P.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
