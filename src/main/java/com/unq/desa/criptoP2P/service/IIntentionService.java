@@ -19,7 +19,7 @@ public interface IIntentionService {
     @Lazy
     public List<Intention> listIntentionsActive();
 
-    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId);
+    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId);
 
 
 }

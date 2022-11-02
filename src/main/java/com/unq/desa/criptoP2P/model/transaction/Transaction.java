@@ -74,10 +74,13 @@ public class Transaction {
     }
 
     public void confirm() {
-        if(this.stateTransaction == StateTransaction.Confirm) {
+        if(this.stateTransaction == StateTransaction.Transferred) {
+            this.stateTransaction = StateTransaction.Confirm;
+            this.shippingAddress();
             this.increaseUserReputationPoints();
             this.user.setSuccessfulOperation(1);
             this.user.setNumberOfOperations(1);
+            this.numberOfOperations = this.user.getNumberOfOperations();
             this.intention.setActive(false);
         }
     }
@@ -85,6 +88,7 @@ public class Transaction {
     public void operationCanceledByUser() {
         if(this.stateTransaction == StateTransaction.Cancelled) {
             this.user.setReputation(this.user.getReputation() - 20);
+            this.reputationOfUser = this.user.getReputation();
             this.intention.setActive(false);
         }
     }

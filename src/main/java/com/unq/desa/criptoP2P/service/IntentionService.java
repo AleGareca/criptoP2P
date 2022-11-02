@@ -39,7 +39,7 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,Integer userId) {
+    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId) {
         var user = userRepository.getReferenceById(userId);
         intention.setUserCripto(user);
         this.intentionRepository.save(intention);

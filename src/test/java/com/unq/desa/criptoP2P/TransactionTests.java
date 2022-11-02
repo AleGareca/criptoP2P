@@ -8,9 +8,12 @@ import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
+import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
+import com.unq.desa.criptoP2P.persistence.ITransactionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import com.unq.desa.criptoP2P.service.ITransactionService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,11 +26,13 @@ import java.time.LocalDateTime;
 class TransactionTests {
 
     @Autowired
-    private IUserRepository userRepository ;
+    private IUserRepository userRepository;
     @Autowired
     private IIntentionService intentionService;
     @Autowired
     private ITransactionService transactionService;
+    @Autowired
+    private ITransactionRepository transactionRepository;
     @Autowired
     private BinanceClient binanceClient;
 
@@ -43,7 +48,6 @@ class TransactionTests {
     private Intention intention2U2;
     private Transaction buyCrypto;
 
-
     @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
@@ -56,8 +60,11 @@ class TransactionTests {
         this.user2 = new User();
         this.intention1U1 = new Intention();
         this.intention2U2 = new Intention();
-        this.buyCrypto = new Transaction();
+    }
 
+    @AfterEach
+    public void tearDown() {
+        this.transactionRepository.deleteAll();
     }
 
     @Test
@@ -85,15 +92,19 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user1.getNumberOfOperations());
         Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention1U1.getId());
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user1.getReputation());
-        Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user1.getWalletAddress());
+        Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user1.getCvu());
     }
 
-    /*@Test
+    @Test
     public void givenAnyTransactionOfSaleWhenItIsExpectedThatTheConfirmOperationCanBeCarriedOut() throws Exception {
         Transaction buyCrypto = anyTransaction();
         buyCrypto.setStateTransaction(StateTransaction.Transferred);
         buyCrypto.setUser(user2);
         buyCrypto.setIntention(intention2U2);
+        buyCrypto.setNumberOfOperations(user2.getNumberOfOperations());
+        buyCrypto.setDayAndTimeOfOperation(LocalDateTime.now());
+        buyCrypto.setReputationOfUser(user2.getReputation());
+
         //After
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Transferred);
         Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
@@ -103,10 +114,9 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
         Assertions.assertEquals(buyCrypto.getIntention(),this.intention2U2);
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
-        Assertions.assertEquals(buyCrypto.getReputationOfUser(),0);
         Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
 
-        transactionService.operationCancelled(buyCrypto);
+        transactionService.operationConfirm(buyCrypto);
 
         //Before
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Confirm);
@@ -117,9 +127,31 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
         Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention2U2.getId());
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
-        Assertions.assertEquals(buyCrypto.getReputationOfUser(),10);
-        Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user2.getCvu());
-    }*/
+        //Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user2.getWalletAddress());
+    }
+
+    @Test
+    public void givsdfsdfriedOut() throws Exception {
+        Transaction buyCrypto = anyTransaction();
+        buyCrypto.setStateTransaction(StateTransaction.Cancelled);
+        buyCrypto.setUser(user2);
+        buyCrypto.setIntention(intention2U2);
+        buyCrypto.setNumberOfOperations(user2.getNumberOfOperations());
+        buyCrypto.setDayAndTimeOfOperation(LocalDateTime.now());
+        buyCrypto.setReputationOfUser(user2.getReputation());
+
+        transactionService.operationCancelled(buyCrypto);
+
+        Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Cancelled);
+        Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
+        Assertions.assertEquals(buyCrypto.getAmountOfOperation(),Integer.valueOf("300"));
+        Assertions.assertEquals(buyCrypto.getUser().getId(),this.user2.getId());
+        Assertions.assertEquals(buyCrypto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
+        Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
+        Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention2U2.getId());
+        Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
+        Assertions.assertFalse(this.intention2U2.isActive());
+    }
 
 
     private Transaction anyTransaction() {
