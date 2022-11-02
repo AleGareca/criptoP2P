@@ -77,18 +77,17 @@ jacocoTestCoverageVerification {
 		}
 	}
 }
-
-
-sonarqube {
-	properties {
-		property "sonar.projectKey", "com.unq.desa:CriptoP2P"
-		property "sonar.sources","src/main/java"
-	}
-}
 tasks.named('test') {
 	useJUnitPlatform()
 }
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "com.unq.desa:CriptoP2P"
+		property 'sonar.buildString', version
+	}
 }
