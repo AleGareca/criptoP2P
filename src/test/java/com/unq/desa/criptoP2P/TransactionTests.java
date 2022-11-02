@@ -71,7 +71,7 @@ class TransactionTests {
     }
 
     @Test
-    public void givenAnyTransactionOfPurchaseWhenItIsExpectedThatTheTransferOperationCanBeCarriedOut() throws Exception {
+    public void givenAnyTransactionOfPurchaseWhenTransferOperationThenItsStatusIsTransferred() throws Exception {
         Transaction buyCrypto = anyTransaction();
         //After
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.UndefinedState);
@@ -99,7 +99,7 @@ class TransactionTests {
     }
 
     @Test
-    public void givenAnyTransactionOfSaleWhenItIsExpectedThatTheConfirmOperationCanBeCarriedOut() throws Exception {
+    public void givenAnyTransactionOfPurchaseWhenConfirmOperationThenItsStatusIsConfirm() throws Exception {
         Transaction buyCrypto = anyTransaction();
         buyCrypto.setStateTransaction(StateTransaction.Transferred);
         buyCrypto.setUser(user2);
@@ -131,11 +131,10 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getNumberOfOperations(),this.user2.getNumberOfOperations());
         Assertions.assertEquals(buyCrypto.getIntention().getId(),this.intention2U2.getId());
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
-        //Assertions.assertEquals(buyCrypto.getShippingAddress(),this.user2.getWalletAddress());
     }
 
     @Test
-    public void givsdfsdfriedOut() throws Exception {
+    public void givenAnyTransactionOfPurchaseWhenCancelledOperationThenItsStatusIsCanceled() throws Exception {
         Transaction buyCrypto = anyTransaction();
         buyCrypto.setStateTransaction(StateTransaction.Cancelled);
         buyCrypto.setUser(user2);
