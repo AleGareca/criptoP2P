@@ -35,8 +35,11 @@ public class User {
     private String cvu;
 
     private String walletAddress;
+
     private Integer reputation;
+
     private Integer numberOfOperations;
+
     private Integer successfulOperation;
 
     @Override

@@ -3,6 +3,7 @@ package com.unq.desa.criptoP2P.service;
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
+import com.unq.desa.criptoP2P.persistence.ICrytocurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -14,29 +15,14 @@ import java.util.List;
 @Service
 public class QuotationService implements IQuotationService {
 
-    private List<String> cryptocurrencies = new ArrayList<>();
     @Autowired
     private BinanceClient binanceClient;
     @Autowired
     @Lazy
     private IQuotationService quotationService;
 
-    public QuotationService() {
-        this.cryptocurrencies.add("ALICEUSDT");
-        this.cryptocurrencies.add("MATICUSDT");
-        this.cryptocurrencies.add("AXSUSDT");
-        this.cryptocurrencies.add("AAVEUSDT");
-        this.cryptocurrencies.add("ATOMUSDT");
-        this.cryptocurrencies.add("NEOUSDT");
-        this.cryptocurrencies.add("DOTUSDT");
-        this.cryptocurrencies.add("ETHUSDT");
-        this.cryptocurrencies.add("CAKEUSDT");
-        this.cryptocurrencies.add("BTCUSDT");
-        this.cryptocurrencies.add("BNBUSDT");
-        this.cryptocurrencies.add("ADAUSDT");
-        this.cryptocurrencies.add("TRXUSDT");
-        this.cryptocurrencies.add("AUDIOUSDT");
-    }
+    @Autowired
+    private ICrytocurrencyRepository crytocurrencyRepository;
 
     @Override
     public List<Quotation> get() {
@@ -62,9 +48,9 @@ public class QuotationService implements IQuotationService {
     public List<Quotation> quotes() {
         List<Quotation> quotes = new ArrayList<>();
         Quotation quotation;
-        for(String cryptocurrency : this.cryptocurrencies) {
+        for(Cryptocurrency cryptocurrency : this.crytocurrencyRepository.findAll()) {
             quotation = new Quotation();
-            quotation.setCryptocurrency(this.binanceClient.getCryptocurrency(cryptocurrency));
+            quotation.setCryptocurrency(this.binanceClient.getCryptocurrency(cryptocurrency.getSymbol()));
             quotation.setDayAndTime(LocalDateTime.now());
             quotes.add(quotation);
         }
