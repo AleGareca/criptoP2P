@@ -25,8 +25,7 @@ public class Transaction {
 
     private LocalDateTime dayAndTimeOfOperation;
 
-    @OneToOne(fetch=FetchType.EAGER)
-    private Cryptocurrency cripto;
+    private String symbolCripto;
 
     private Integer amountOfOperation;
 
@@ -63,8 +62,8 @@ public class Transaction {
     }
 
     private void transferOrCancel(Cryptocurrency systemPrice) {
-        if (this.intention.getQuotation().getCryptocurrency().getPrice() > systemPrice.getPrice()
-                || this.intention.getQuotation().getCryptocurrency().getPrice() < systemPrice.getPrice()) {
+        if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
+                || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);
             this.intention.setActive(false);
         } else {

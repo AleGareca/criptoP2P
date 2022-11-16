@@ -2,6 +2,7 @@ package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.dto.CryptocurrencyDto;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.persistence.ICrytocurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class QuotationService implements IQuotationService {
     private IQuotationService quotationService;
 
     @Autowired
-    private ICrytocurrencyRepository crytocurrencyRepository;
+    private ICrytocurrencyService crytocurrencyService;
 
     @Override
     public List<Quotation> get() {
@@ -48,9 +49,9 @@ public class QuotationService implements IQuotationService {
     public List<Quotation> quotes() {
         List<Quotation> quotes = new ArrayList<>();
         Quotation quotation;
-        for(Cryptocurrency cryptocurrency : this.crytocurrencyRepository.findAll()) {
+        for(CryptocurrencyDto cryptocurrencyDto : this.crytocurrencyService.get()) {
             quotation = new Quotation();
-            quotation.setCryptocurrency(this.binanceClient.getCryptocurrency(cryptocurrency.getSymbol()));
+            //quotation.setCryptocurrencyDto(this.binanceClient.getCryptocurrency(cryptocurrencyDto.getSymbol()));
             quotation.setDayAndTime(LocalDateTime.now());
             quotes.add(quotation);
         }

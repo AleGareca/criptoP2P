@@ -9,9 +9,12 @@ public interface ICrytocurrencyService {
 
     public List<CryptocurrencyDto> get();
 
+    public void save(CryptocurrencyDto cryptocurrencyDto);
+
     public void update(CryptocurrencyDto cryptocurrencyDto);
 
     public CryptocurrencyDto getById(Integer id);
 
     public void delete(Integer id);
+
 }

@@ -58,16 +58,16 @@ public class UserService implements IUserService {
             throw new DataIntentionNotFound("The user did not make any intention to buy or sell");
         }
         var sumValue = intentions.stream().mapToInt(i ->i.getAmountOfOperationInPesos()).sum();
-        var activos = intentions.stream().map(i ->ActivosDto.builder()
-                                                                            .price(i.getQuotation().getCryptocurrency().getPrice())
-                                                                            .symbol(i.getQuotation().getCryptocurrency().getSymbol()).build()).collect(Collectors.toList());
-        var dolarSumValue = intentions.stream().mapToDouble(i ->i.getQuotation().getCryptocurrency().getPrice()).sum();
+        //var activos = intentions.stream().map(i ->ActivosDto.builder()
+                                                                          //  .price(i.getQuotation().getCryptocurrency().getPrice())
+                                                                          //  .symbol(i.getQuotation().getCryptocurrency().getSymbol()).build()).collect(Collectors.toList());
+        //var dolarSumValue = intentions.stream().mapToDouble(i ->i.getQuotation().getCryptocurrency().getPrice()).sum();
 
         return ActiveCryptoReportDto.builder()
                 .argValue(sumValue)
-                .date(LocalDateTime.now())
-                .dolarValue(dolarSumValue)
-                .activosDto(activos).build();
+                .date(LocalDateTime.now()).build();
+                //.dolarValue(dolarSumValue)
+                //.activosDto(activos).build();
     }
 
 
