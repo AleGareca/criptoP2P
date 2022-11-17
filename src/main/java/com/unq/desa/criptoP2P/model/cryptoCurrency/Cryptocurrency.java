@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash("Cryptocurrency")
 public class Cryptocurrency implements Serializable {
 
     @Id
