@@ -37,6 +37,7 @@ dependencies {
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.4'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.7.4'
 	implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.2.1.RELEASE'
+	testImplementation 'com.tngtech.archunit:archunit:1.0.0'
 
 }
 compileJava.options.encoding = 'utf-8'

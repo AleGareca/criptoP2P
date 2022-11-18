@@ -20,8 +20,8 @@ public class Intention {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(cascade=CascadeType.ALL)
-    private Quotation quotation;
+    //@OneToOne(cascade=CascadeType.ALL)
+    //private Quotation quotation;
 
     private Integer amountOfOperationInPesos;
 

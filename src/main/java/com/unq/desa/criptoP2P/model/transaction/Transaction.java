@@ -62,14 +62,14 @@ public class Transaction {
     }
 
     private void transferOrCancel(Cryptocurrency systemPrice) {
-        if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
+       /* if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
                 || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);
             this.intention.setActive(false);
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
-        }
+        }*/
     }
 
     public void confirm() {

@@ -55,20 +55,20 @@ public class FakeData implements CommandLineRunner {
           var intentionU3 = new Intention();
 
 
-          this.crytocurrencyService.save(this.crytocurrency( "ALICEUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("MATICUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("AXSUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("AAVEUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("ATOMUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("NEOUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("DOTUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("ETHUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("CAKEUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("BTCUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("BNBUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("ADAUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("TRXUSDT"));
-          this.crytocurrencyService.save(this.crytocurrency("AUDIOUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency( "ALICEUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("MATICUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("AXSUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("AAVEUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("ATOMUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("NEOUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("DOTUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("ETHUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("CAKEUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("BTCUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("BNBUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("ADAUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("TRXUSDT"));
+          this.crytocurrencyService.update(this.crytocurrency("AUDIOUSDT"));
 
           cryptoIntention1 = this.crytocurrencyRepository.findBySymbol("ALICEUSDT");
           cryptoIntention2 = this.crytocurrencyRepository.findBySymbol("BNBUSDT");
@@ -116,17 +116,17 @@ public class FakeData implements CommandLineRunner {
           intentionU1.setActive(true);
           intentionU1.setAmountOfOperationInPesos(Integer.valueOf("100000"));
           intentionU1.setOperacion(Operation.Purchase);
-          intentionU1.setQuotation(quotation1);
+          //intentionU1.setQuotation(quotation1);
 
           intentionU2.setActive(false);
           intentionU2.setAmountOfOperationInPesos(Integer.valueOf("200000"));
           intentionU2.setOperacion(Operation.Sale);
-          intentionU2.setQuotation(quotation2);
+          //intentionU2.setQuotation(quotation2);
 
           intentionU3.setActive(true);
           intentionU3.setAmountOfOperationInPesos(Integer.valueOf("270000"));
           intentionU3.setOperacion(Operation.Sale);
-          intentionU3.setQuotation(quotation3);
+          //intentionU3.setQuotation(quotation3);
 
           userRepository.save(user1);
           userRepository.save(user2);
