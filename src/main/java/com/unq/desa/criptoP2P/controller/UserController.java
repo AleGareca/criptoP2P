@@ -1,6 +1,5 @@
-package com.unq.desa.criptoP2P.webservice;
+package com.unq.desa.criptoP2P.controller;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.List;
 

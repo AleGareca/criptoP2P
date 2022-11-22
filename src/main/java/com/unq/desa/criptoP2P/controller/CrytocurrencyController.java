@@ -1,6 +1,5 @@
-package com.unq.desa.criptoP2P.webservice;
+package com.unq.desa.criptoP2P.controller;
 
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.dto.CryptocurrencyDto;
 import com.unq.desa.criptoP2P.service.CrytocurrencyService;
 import io.swagger.annotations.ApiResponse;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 public class CrytocurrencyController {

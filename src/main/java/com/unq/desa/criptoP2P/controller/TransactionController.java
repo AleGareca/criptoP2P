@@ -1,4 +1,4 @@
-package com.unq.desa.criptoP2P.webservice;
+package com.unq.desa.criptoP2P.controller;
 
 import com.unq.desa.criptoP2P.config.MapperComponent;
 import com.unq.desa.criptoP2P.model.dto.TransactionDto;
