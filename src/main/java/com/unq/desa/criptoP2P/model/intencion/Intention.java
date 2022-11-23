@@ -1,4 +1,4 @@
-package com.unq.desa.criptoP2P.model.Intencion;
+package com.unq.desa.criptoP2P.model.intencion;
 
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
@@ -20,8 +20,8 @@ public class Intention {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    //@OneToOne(cascade=CascadeType.ALL)
-    //private Quotation quotation;
+    @OneToOne(cascade=CascadeType.ALL)
+    private Quotation quotation;
 
     private Integer amountOfOperationInPesos;
 

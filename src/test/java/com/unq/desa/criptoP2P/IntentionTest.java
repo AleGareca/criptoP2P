@@ -1,12 +1,10 @@
 package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
-import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
-import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
@@ -34,7 +32,7 @@ public class IntentionTest {
     private BinanceClient binanceClient;
 
     private LocalDateTime dateTime;
-    private Cryptocurrency cryptoIntention1;
+    private CryptoOcurrency cryptoIntention1;
     private Quotation quotation1;
     private User user1;
     private Intention intention1U1;

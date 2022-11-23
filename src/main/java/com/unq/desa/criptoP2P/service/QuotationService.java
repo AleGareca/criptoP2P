@@ -2,16 +2,15 @@ package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.config.MapperComponent;
-import com.unq.desa.criptoP2P.model.dto.CryptocurrencyDto;
 import com.unq.desa.criptoP2P.model.dto.QuotationDto;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
+import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
+import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,11 +22,14 @@ public class QuotationService implements IQuotationService {
     @Autowired
     private BinanceClient binanceClient;
 
-    @Autowired
-    private ICrytocurrencyService crytocurrencyService;
+   @Autowired
+    private ICrytoOcurrencyRepository crytocurrencyService;
 
     @Autowired
     private MapperComponent modelMapper;
+
+    @Autowired
+    private IQuotationRepository quotationRepository;
 
     private final String hashReference = "Quotation";
 
@@ -39,8 +41,9 @@ public class QuotationService implements IQuotationService {
 
     @Override
     public void save(Quotation quotation) {
+        this.quotationRepository.save(quotation);
         var quotationDto = this.modelMapper.To(quotation, QuotationDto.class);
-        this.hashOperations.putIfAbsent(this.hashReference, quotation.getId(), quotationDto);
+        this.hashOperations.put(this.hashReference, quotation.getId(), quotationDto);
     }
 
     @Override
@@ -50,21 +53,23 @@ public class QuotationService implements IQuotationService {
 
     @Override
     public void delete(Integer id) {
+        this.quotationRepository.deleteById(id);
         this.hashOperations.delete(this.hashReference, id);
     }
 
     @Override
     public List<QuotationDto> quotes() {
-        List<QuotationDto> quotes = new ArrayList<>();
+        /*List<QuotationDto> quotes = new ArrayList<>();
         QuotationDto quotation;
-        for(CryptocurrencyDto cryptocurrencyDto : this.crytocurrencyService.get()) {
+        or(CryptocurrencyDto cryptocurrencyDto : this.get()) {
             quotation = new QuotationDto();
             var cryptoDto = this.modelMapper.To(this.binanceClient.getCryptocurrency(cryptocurrencyDto.getSymbol()),CryptocurrencyDto.class);
             quotation.setCryptocurrency(cryptoDto);
             quotation.setDayAndTime(LocalDateTime.now());
             quotes.add(quotation);
-        }
-        return quotes;
+        }*/
+        //return quotes;
+        return this.get();
     }
 
 

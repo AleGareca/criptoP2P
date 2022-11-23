@@ -1,10 +1,9 @@
-package com.unq.desa.criptoP2P.model.cryptoCurrency;
+package com.unq.desa.criptoP2P.model.cryptoOCurrency;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cryptocurrency implements Serializable {
+public class CryptoOcurrency implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

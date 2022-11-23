@@ -1,8 +1,6 @@
 package com.unq.desa.criptoP2P.service;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
-import com.unq.desa.criptoP2P.model.user.User;
 
 import java.util.List;
 

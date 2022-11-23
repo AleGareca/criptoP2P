@@ -1,7 +1,7 @@
 package com.unq.desa.criptoP2P.model.dto;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.user.User;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class TransactionDto {
     private LocalDateTime dayAndTimeOfOperation;
 
-    private Cryptocurrency cripto;
+    private CryptoOcurrency cripto;
 
     private Integer amountOfOperation;
 

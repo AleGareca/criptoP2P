@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class IntentionDto {
 
-    private CryptocurrencyDto activeCripto;
+    private CryptoOcurrencyDto activeCripto;
 
     private QuotationDto quotation;
 

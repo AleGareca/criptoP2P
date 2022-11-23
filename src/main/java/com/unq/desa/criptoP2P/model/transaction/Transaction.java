@@ -1,10 +1,9 @@
 package com.unq.desa.criptoP2P.model.transaction;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
-import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,7 +50,7 @@ public class Transaction {
         }
     }
 
-    public void transfer(Cryptocurrency systemPrice) {
+    public void transfer(CryptoOcurrency systemPrice) {
         if (this.theTransferOfSaleIsValid()) {
             this.transferOrCancel(systemPrice);
         }
@@ -61,7 +60,7 @@ public class Transaction {
         return this.intention.getOperacion() == Operation.Purchase;
     }
 
-    private void transferOrCancel(Cryptocurrency systemPrice) {
+    private void transferOrCancel(CryptoOcurrency systemPrice) {
        /* if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
                 || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);

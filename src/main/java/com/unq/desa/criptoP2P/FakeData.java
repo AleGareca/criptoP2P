@@ -2,15 +2,15 @@ package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.config.MapperComponent;
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
-import com.unq.desa.criptoP2P.model.dto.CryptocurrencyDto;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
+import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.persistence.ICrytocurrencyRepository;
+import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
-import com.unq.desa.criptoP2P.service.ICrytocurrencyService;
+import com.unq.desa.criptoP2P.service.ICrytoOcurrencyService;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -31,9 +31,9 @@ public class FakeData implements CommandLineRunner {
      @Autowired
      private BinanceClient binanceClient;
      @Autowired
-     private ICrytocurrencyService crytocurrencyService;
+     private ICrytoOcurrencyService crytocurrencyService;
      @Autowired
-     private ICrytocurrencyRepository crytocurrencyRepository;
+     private ICrytoOcurrencyRepository crytocurrencyRepository;
      @Autowired
      private MapperComponent modelMapper;
 
@@ -41,9 +41,9 @@ public class FakeData implements CommandLineRunner {
      public void run(String... args) throws Exception {
           LocalDateTime dateTime = LocalDateTime.now();
 
-          var cryptoIntention1 = new Cryptocurrency();
-          var cryptoIntention2 = new Cryptocurrency();
-          var cryptoIntention3 = new Cryptocurrency();
+          var cryptoIntention1 = new CryptoOcurrency();
+          var cryptoIntention2 = new CryptoOcurrency();
+          var cryptoIntention3 = new CryptoOcurrency();
           var quotation1 = new Quotation();
           var quotation2 = new Quotation();
           var quotation3 = new Quotation();
@@ -74,13 +74,13 @@ public class FakeData implements CommandLineRunner {
           cryptoIntention2 = this.crytocurrencyRepository.findBySymbol("BNBUSDT");
           cryptoIntention3 = this.crytocurrencyRepository.findBySymbol("TRXUSDT");
 
-          //quotation1.setCryptocurrencyDto(cryptoIntention1.getSymbol());
+          quotation1.setCryptocurrency(cryptoIntention1);
           quotation1.setDayAndTime(dateTime);
 
-          //quotation2.setCryptocurrencyDto(cryptoIntention2.getSymbol());
+          quotation2.setCryptocurrency(cryptoIntention2);
           quotation2.setDayAndTime(dateTime);
 
-          //quotation3.setCryptocurrencyDto(cryptoIntention3.getSymbol());
+          quotation3.setCryptocurrency(cryptoIntention3);
           quotation3.setDayAndTime(dateTime);
 
           user1.setName("u1");
@@ -116,17 +116,17 @@ public class FakeData implements CommandLineRunner {
           intentionU1.setActive(true);
           intentionU1.setAmountOfOperationInPesos(Integer.valueOf("100000"));
           intentionU1.setOperacion(Operation.Purchase);
-          //intentionU1.setQuotation(quotation1);
+          intentionU1.setQuotation(quotation1);
 
           intentionU2.setActive(false);
           intentionU2.setAmountOfOperationInPesos(Integer.valueOf("200000"));
           intentionU2.setOperacion(Operation.Sale);
-          //intentionU2.setQuotation(quotation2);
+          intentionU2.setQuotation(quotation2);
 
           intentionU3.setActive(true);
           intentionU3.setAmountOfOperationInPesos(Integer.valueOf("270000"));
           intentionU3.setOperacion(Operation.Sale);
-          //intentionU3.setQuotation(quotation3);
+          intentionU3.setQuotation(quotation3);
 
           userRepository.save(user1);
           userRepository.save(user2);
@@ -138,9 +138,9 @@ public class FakeData implements CommandLineRunner {
 
      }
 
-     private CryptocurrencyDto crytocurrency(String symbol) {
-          var cryptoMapper = this.modelMapper.To(this.binanceClient.getCryptocurrency(symbol), Cryptocurrency.class);
-          var cryptoDTO = new CryptocurrencyDto();
+     private CryptoOcurrencyDto crytocurrency(String symbol) {
+          var cryptoMapper = this.modelMapper.To(this.binanceClient.getCryptocurrency(symbol), CryptoOcurrency.class);
+          var cryptoDTO = new CryptoOcurrencyDto();
           cryptoDTO.setPrice(cryptoMapper.getPrice());
           cryptoDTO.setSymbol(cryptoMapper.getSymbol());
           return cryptoDTO;

@@ -1,6 +1,5 @@
 package com.unq.desa.criptoP2P.service;
 
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.dto.QuotationDto;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 

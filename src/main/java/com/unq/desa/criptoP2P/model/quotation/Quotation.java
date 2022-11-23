@@ -1,7 +1,6 @@
 package com.unq.desa.criptoP2P.model.quotation;
 
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
-import com.unq.desa.criptoP2P.model.dto.CryptocurrencyDto;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +22,7 @@ public class Quotation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private CryptocurrencyDto cryptocurrencyDto;
+    private CryptoOcurrency cryptocurrency;
 
     private LocalDateTime dayAndTime;
 

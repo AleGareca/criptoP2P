@@ -1,6 +1,6 @@
 package com.unq.desa.criptoP2P;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.webservice.IntentionController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

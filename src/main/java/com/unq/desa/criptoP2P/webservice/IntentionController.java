@@ -1,7 +1,7 @@
 package com.unq.desa.criptoP2P.webservice;
 
 import com.unq.desa.criptoP2P.config.MapperComponent;
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.dto.IntentionDto;
 import com.unq.desa.criptoP2P.service.IntentionService;
 import io.swagger.annotations.ApiResponse;

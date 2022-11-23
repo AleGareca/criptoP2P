@@ -1,6 +1,6 @@
 package com.unq.desa.criptoP2P.persistence;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
