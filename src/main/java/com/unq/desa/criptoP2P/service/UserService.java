@@ -42,18 +42,18 @@ public class UserService implements IUserService {
         return modelMapper.To(this.userRepository.findById(id).get(),UserDto.class);
     }
 
-    public void delete(Integer id) {
-        this.userRepository.deleteById(id);
+    public void delete(String email) {
+        this.userRepository.deleteByEmail(email);
     }
 
     @Override
-    public void updateUser(UserDto user) {
+    public void registerUser(UserDto user) {
         userRepository.save(this.modelMapper.To(user, User.class));
     }
 
     @Override
-    public ActiveCryptoReportDto generateReport(Integer id, LocalDate initDate, LocalDate endDate) {
-        var intentions = intentionRepository.findIntentionByUserCriptoAndQuotationDayAndTimeBetween(id, initDate.atStartOfDay(), endDate.atStartOfDay());
+    public ActiveCryptoReportDto generateReport(String email, LocalDate initDate, LocalDate endDate) {
+        var intentions = intentionRepository.findIntentionByUserCriptoAndQuotationDayAndTimeBetween(email, initDate.atStartOfDay(), endDate.atStartOfDay());
         if(intentions.isEmpty()){
             throw new DataIntentionNotFound("The user did not make any intention to buy or sell");
         }
@@ -68,6 +68,18 @@ public class UserService implements IUserService {
                 .date(LocalDateTime.now())
                 .dolarValue(dolarSumValue)
                 .activosDto(activos).build();
+    }
+
+    @Override
+    public UserDto getByMail(String name) {
+        return this.modelMapper.To(userRepository.findByEmail(name), UserDto.class);
+    }
+
+    @Override
+    public void updateUser(String email, UserDto user){
+        var userUpdate = userRepository.findByEmail(email);
+        user.setId(userUpdate.getId());
+        userRepository.save(userUpdate);
     }
 
 

@@ -11,9 +11,13 @@ public interface IUserService {
 
     UserDto getById(Integer id);
 
-     void delete(Integer id);
+     void delete(String id);
 
-    void updateUser(UserDto user);
+    void updateUser(String name, UserDto user);
 
-    ActiveCryptoReportDto generateReport(Integer id, LocalDate initDate, LocalDate endDate);
+    ActiveCryptoReportDto generateReport(String email, LocalDate initDate, LocalDate endDate);
+
+    UserDto getByMail(String name);
+
+    void registerUser(UserDto user);
 }

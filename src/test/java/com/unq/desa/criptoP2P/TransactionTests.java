@@ -120,7 +120,7 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
 
         transactionService.operationConfirm(buyCrypto);
-        var report=userService.generateReport(user2.getId(),LocalDateTime.now().toLocalDate(),LocalDateTime.now().plusDays(10).toLocalDate());
+        var report=userService.generateReport(user2.getEmail(),LocalDateTime.now().toLocalDate(),LocalDateTime.now().plusDays(10).toLocalDate());
         Assertions.assertTrue(report!= null);
         //Before
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Confirm);

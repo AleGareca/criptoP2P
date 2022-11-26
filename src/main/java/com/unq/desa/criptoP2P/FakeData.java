@@ -51,7 +51,7 @@ public class FakeData implements CommandLineRunner {
              user1.setName("u1");
              user1.setEmail("1@gmai.com");
              user1.setAddress("calle123");
-             user1.setPassword("123");
+             user1.setPassword("$2a$10$83CGsv2Of7.8eh3LtwZbieoD0IZ8RxGi0WThzJLFOGowcMWwxafuC");
              user1.setCvu("017020456000000878653");
              user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
              user1.setReputation(0);

@@ -8,15 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest extends CriptoP2PApplicationTests {
     private User user;
-
-    @Autowired
-    private IUserRepository userRepository;
     private static final String HTTP_LOCALHOST = "http://localhost:";
 
     @LocalServerPort
@@ -29,22 +27,6 @@ public class UserControllerTest extends CriptoP2PApplicationTests {
     private TestRestTemplate restTemplate;
 
 
-    @BeforeEach
-    public void setUp() {
-
-        user = new User();
-        this.user.setName("u1");
-        this.user.setEmail("1@gmai.com");
-        this.user.setAddress("calle123");
-        this.user.setPassword("123");
-        this.user.setCvu("017020456000000878653");
-        this.user.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
-        this.user.setReputation(0);
-        this.user.setNumberOfOperations(0);
-        this.user.setSuccessfulOperation(0);
-        userRepository.save(user);
-
-    }
 
     @Test
     public void contextLoads() throws Exception {
