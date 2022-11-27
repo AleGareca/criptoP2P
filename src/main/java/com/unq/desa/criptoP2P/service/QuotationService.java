@@ -1,29 +1,34 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.config.CustomCacheEventLogger;
 import com.unq.desa.criptoP2P.config.MapperComponent;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.dto.QuotationDto;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
+
 
 @Service
 public class QuotationService implements IQuotationService {
 
-    @Resource(name="redisTemplate")
-    private HashOperations<String, Integer, QuotationDto> hashOperations;
+    private static final Logger LOG = LoggerFactory.getLogger(CustomCacheEventLogger.class);
 
     @Autowired
     private BinanceClient binanceClient;
 
    @Autowired
-    private ICrytoOcurrencyRepository crytocurrencyService;
+    private ICrytoOcurrencyRepository crytoOcurrencyRepository;
 
     @Autowired
     private MapperComponent modelMapper;
@@ -31,30 +36,36 @@ public class QuotationService implements IQuotationService {
     @Autowired
     private IQuotationRepository quotationRepository;
 
-    private final String hashReference = "Quotation";
 
     @Override
     public List<QuotationDto> get() {
-        List<QuotationDto> quotationDtos = this.modelMapper.ToList(this.hashOperations.values(this.hashReference), QuotationDto.class);
-        return quotationDtos;
+        LOG.info("Returning customer information for get quotations ");
+        return this.modelMapper.ToList(this.quotationRepository.findAll(), QuotationDto.class);
     }
 
+    @CachePut(value="quotation")
     @Override
-    public void save(Quotation quotation) {
+    public void save(QuotationDto quotationDto, Integer id) {
+        LOG.info("Returning customer information for save quotation id {} ",id);
+        var cryptoOcurrency = this.crytoOcurrencyRepository.findBySymbol(quotationDto.getSymbolCryptocurrency());
+        var quotation = this.modelMapper.To(quotationDto, Quotation.class);
+        quotation.setCryptocurrency(cryptoOcurrency);
         this.quotationRepository.save(quotation);
-        var quotationDto = this.modelMapper.To(quotation, QuotationDto.class);
-        this.hashOperations.put(this.hashReference, quotation.getId(), quotationDto);
     }
 
+    @Cacheable(value="quotation",key="#id")
     @Override
-    public QuotationDto getById(Integer id) {
-        return this.modelMapper.To(this.hashOperations.get(this.hashReference, id),QuotationDto.class);
+    public Quotation getById(Integer id) {
+        LOG.info("Returning customer information for get quotation id {} ",id);
+        var quotation = this.quotationRepository.getReferenceById(id);
+        return this.quotationRepository.getReferenceById(id);
     }
 
+    @CacheEvict(value="quotation")
     @Override
     public void delete(Integer id) {
+        LOG.info("Returning customer information for delete quotation id {} ",id);
         this.quotationRepository.deleteById(id);
-        this.hashOperations.delete(this.hashReference, id);
     }
 
     @Override

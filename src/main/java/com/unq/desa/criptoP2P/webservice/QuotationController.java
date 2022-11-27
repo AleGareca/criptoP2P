@@ -9,14 +9,17 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 @RestController
-public class QuotationController {
+public class    QuotationController {
 
     @Autowired
     private QuotationService quotationService;
@@ -26,6 +29,7 @@ public class QuotationController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
+    @Cacheable(value = "quotation")
     @GetMapping("/quotations")
     public List<QuotationDto> index()throws Exception {
         return modelMapper.ToList(this.quotationService.get(),QuotationDto.class);
@@ -35,30 +39,25 @@ public class QuotationController {
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @GetMapping("/quotation")
-    public QuotationDto show(@RequestParam("quotationId") Integer id) throws Exception {
-        return modelMapper.To(this.quotationService.getById(id),QuotationDto.class);
+    public Quotation show(@RequestParam("quotationId") Integer id) throws Exception {
+        return this.quotationService.getById(id);
     }
     @Operation(summary = "Register quotation")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
+    @CachePut(value="quotation", key = "#id")
     @PostMapping(value = "/quotation")
-    public void register(@Valid @RequestBody Quotation quotation, Errors errors) throws Exception {
-        this.quotationService.save(quotation);
+    public void register(@Valid @RequestBody QuotationDto quotationDto, @RequestParam("quotationId") Integer id, Errors errors) throws Exception {
+        quotationDto.setDayAndTime(LocalDateTime.now());
+        this.quotationService.save(quotationDto,id);
     }
-    @Operation(summary = "Register intention user")
-    @ApiResponses(value={
-            @ApiResponse(code=200, message = "OK"),
-            @ApiResponse(code=400,message = "Bad Request")})
-    @PutMapping(value = "/quotationUpdate")
-    public void update(@RequestBody Quotation quotationDto) throws Exception {
-        this.quotationService.save(modelMapper.To(quotationDto, Quotation.class));
-    }
+
     @Operation(summary = "Delete Quotation")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @DeleteMapping(value = "/quotationDelete")
+    @DeleteMapping(value = "/quotation")
     public void delete(@PathVariable Integer id) throws Exception {
         this.quotationService.delete(id);
     }

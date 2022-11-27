@@ -9,9 +9,9 @@ public interface IQuotationService {
 
     public List<QuotationDto> get();
 
-    public void save(Quotation quotation);
+    public void save(QuotationDto quotationDto, Integer id);
 
-    public QuotationDto getById(Integer id);
+    public Quotation getById(Integer id);
 
     public void delete(Integer id);
 
