@@ -1,4 +1,4 @@
-package com.unq.desa.criptoP2P.service.iservice;
+package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;

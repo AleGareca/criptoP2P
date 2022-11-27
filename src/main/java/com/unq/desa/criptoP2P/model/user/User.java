@@ -1,7 +1,6 @@
 package com.unq.desa.criptoP2P.model.user;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.transaction.Transaction;
+
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 
 import javax.persistence.*;
-import java.util.List;
 @Entity
 @Table(name = "UserCripto")
 @Data

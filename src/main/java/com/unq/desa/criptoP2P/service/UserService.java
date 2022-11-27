@@ -9,7 +9,6 @@ import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
-import com.unq.desa.criptoP2P.service.iservice.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

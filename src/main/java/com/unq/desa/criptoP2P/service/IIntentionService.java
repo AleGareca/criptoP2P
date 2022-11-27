@@ -1,7 +1,8 @@
-package com.unq.desa.criptoP2P.service.iservice;
+package com.unq.desa.criptoP2P.service;
 
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
+
 import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
+import com.unq.desa.criptoP2P.model.intencion.Intention;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.List;

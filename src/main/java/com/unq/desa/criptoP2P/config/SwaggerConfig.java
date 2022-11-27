@@ -29,7 +29,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.unq.desa.criptoP2P.webservice"))
+                .apis(RequestHandlerSelectors.basePackage("com.unq.desa.criptoP2P.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(schemeList())
