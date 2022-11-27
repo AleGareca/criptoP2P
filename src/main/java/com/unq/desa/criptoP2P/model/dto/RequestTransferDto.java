@@ -1,8 +1,6 @@
 package com.unq.desa.criptoP2P.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.user.User;
 import lombok.Data;
