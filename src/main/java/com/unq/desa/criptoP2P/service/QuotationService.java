@@ -4,6 +4,8 @@ import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.persistence.ICrytocurrencyRepository;
+import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
+import com.unq.desa.criptoP2P.service.iservice.IQuotationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -19,29 +21,29 @@ public class QuotationService implements IQuotationService {
     private BinanceClient binanceClient;
     @Autowired
     @Lazy
-    private IQuotationService quotationService;
+    private IQuotationRepository quotationRepository;
 
     @Autowired
     private ICrytocurrencyRepository crytocurrencyRepository;
 
     @Override
     public List<Quotation> get() {
-        return this.quotationService.get();
+        return this.quotationRepository.findAll();
     }
 
     @Override
     public void save(Quotation quotation) {
-        this.quotationService.save(quotation);
+        this.quotationRepository.save(quotation);
     }
 
     @Override
     public Quotation getById(Integer id) {
-        return this.quotationService.getById(id);
+        return this.quotationRepository.getById(id);
     }
 
     @Override
     public void delete(Integer id) {
-        this.quotationService.delete(id);
+        this.quotationRepository.deleteById(id);
     }
 
     @Override
