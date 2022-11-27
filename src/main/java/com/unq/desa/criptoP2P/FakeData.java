@@ -10,6 +10,7 @@ import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
 import com.unq.desa.criptoP2P.service.ICrytoOcurrencyService;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,15 +84,15 @@ public class FakeData implements CommandLineRunner {
           quotation3.setCryptocurrency(cryptoIntention3);
           quotation3.setDayAndTime(dateTime);
 
-          user1.setName("u1");
-          user1.setEmail("1@gmai.com");
-          user1.setAddress("calle123");
-          user1.setPassword("123");
-          user1.setCvu("017020456000000878653");
-          user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
-          user1.setReputation(0);
-          user1.setNumberOfOperations(0);
-          user1.setSuccessfulOperation(0);
+             user1.setName("u1");
+             user1.setEmail("1@gmai.com");
+             user1.setAddress("calle123");
+             user1.setPassword("$2a$10$83CGsv2Of7.8eh3LtwZbieoD0IZ8RxGi0WThzJLFOGowcMWwxafuC");
+             user1.setCvu("017020456000000878653");
+             user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
+             user1.setReputation(0);
+             user1.setNumberOfOperations(0);
+             user1.setSuccessfulOperation(0);
 
           user2.setName("u2");
           user2.setEmail("2@gmai.com");
@@ -146,3 +147,4 @@ public class FakeData implements CommandLineRunner {
           return cryptoDTO;
      }
 }
+

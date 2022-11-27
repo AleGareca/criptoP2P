@@ -1,8 +1,7 @@
-package com.unq.desa.criptoP2P.service;
+package com.unq.desa.criptoP2P.service.iservice;
 
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
-import com.unq.desa.criptoP2P.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,9 +11,13 @@ public interface IUserService {
 
     UserDto getById(Integer id);
 
-     void delete(Integer id);
+     void delete(String id);
 
-    void updateUser(UserDto user);
+    void updateUser(String name, UserDto user);
 
-    ActiveCryptoReportDto generateReport(Integer id, LocalDate initDate, LocalDate endDate);
+    ActiveCryptoReportDto generateReport(String email, LocalDate initDate, LocalDate endDate);
+
+    UserDto getByMail(String name);
+
+    void registerUser(UserDto user);
 }

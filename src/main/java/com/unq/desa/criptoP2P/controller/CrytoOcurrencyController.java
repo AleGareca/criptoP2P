@@ -1,6 +1,8 @@
-package com.unq.desa.criptoP2P.webservice;
+package com.unq.desa.criptoP2P.controller;
 
 import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
+
+
 import com.unq.desa.criptoP2P.service.CrytoOcurrencyService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -10,7 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 public class CrytoOcurrencyController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class CrytoOcurrencyController {
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=404,message = "Crytocurrency not found")})
-    @GetMapping("/user")
+    @GetMapping("/crytocurrency")
     public CryptoOcurrencyDto show(@RequestParam("crytocurrencyId") Integer id) {
         return this.crytocurrencyService.getById(id);
     }

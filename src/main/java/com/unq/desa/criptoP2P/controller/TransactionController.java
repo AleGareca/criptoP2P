@@ -1,18 +1,23 @@
-package com.unq.desa.criptoP2P.webservice;
+package com.unq.desa.criptoP2P.controller;
 
 import com.unq.desa.criptoP2P.config.MapperComponent;
-import com.unq.desa.criptoP2P.model.dto.TransactionDto;
+import com.unq.desa.criptoP2P.model.dto.RequestTransferDto;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.service.TransactionService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 @RestController
 @Validated
 public class TransactionController {
@@ -27,24 +32,25 @@ public class TransactionController {
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @PostMapping(value = "/transaction/tranfer")
-    public void tranfer(@Valid @RequestBody TransactionDto transaction, Errors errors) throws Exception {
-        this.transactionService.transferOperation(modelMapper.To(transaction, Transaction.class));
+    public void tranfer(Authentication authentication, @Valid @RequestBody RequestTransferDto requestTransferDto, Errors errors) throws Exception {
+        this.transactionService.transferOperation(authentication.getName(),requestTransferDto);
     }
     @Operation(summary = "Confirm operation transaction")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @PostMapping(value = "/transaction/confirm")
-    public void confirm(@Valid @RequestBody TransactionDto transaction, Errors errors) throws Exception {
-        this.transactionService.operationConfirm(modelMapper.To(transaction, Transaction.class));
+    @PutMapping(value = "/transaction/confirm")
+    public ResponseEntity<Object> confirm(@NotNull @RequestParam("transaction_id") Integer transaction_id, Errors errors) throws Exception {
+        this.transactionService.operationConfirm(transaction_id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     @Operation(summary = "Cancel transaction")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
-    @PostMapping(value = "/transaction/cancelled")
-    public void cancelled(@RequestBody TransactionDto transaction, Errors errors) throws Exception {
-        this.transactionService.operationCancelled(modelMapper.To(transaction, Transaction.class));
+    @PutMapping(value = "/transaction/cancelled")
+    public void cancelled(@NotNull @RequestParam("transaction_id") Integer transaction_id, Errors errors) throws Exception {
+        this.transactionService.operationCancelled(transaction_id);
     }
 
 }
