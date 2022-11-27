@@ -22,13 +22,11 @@ public class UserDto {
     @Size(max = 30,min = 10, message = "address "+"Cantidad de caracteres invalidos")
     @NotNull
     private String address;
-    @Size(min = 6, message = "password"+"Cantidad de caracteres invalidos")
-    @NotNull
-    @Pattern(regexp = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])([A-Za-z\\d$@$!%*?&]|[^ ])$/", message = "al menos 1 minuscula, 1 mayuscula, 1 caracter especia")
-    private String password;
+
     @NotNull
     @Size(min = 22, message = "No es un CVU valido")
     private String cvu;
+
     @NotNull
     @Size(min = 8, message = "cantidad de digitos no validos")
     private String walletAddress;

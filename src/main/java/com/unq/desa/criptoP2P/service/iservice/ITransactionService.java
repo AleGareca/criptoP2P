@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P.service.iservice;
 
+import com.unq.desa.criptoP2P.model.dto.RequestTransferDto;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 
 import java.util.List;
@@ -14,11 +15,11 @@ public interface ITransactionService {
 
     public void delete(Integer id);
 
-    public Transaction transferOperation(Transaction transaction);
+    public Transaction transferOperation(String email, RequestTransferDto requestTransferDto);
 
-    public Transaction operationConfirm(Transaction transaction);
+    public Transaction operationConfirm(Integer transaction_id);
 
-    public Transaction operationCancelled(Transaction transaction);
+    public Transaction operationCancelled(Integer transaction);
 
 
 }

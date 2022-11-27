@@ -84,7 +84,7 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user1.getReputation());
         Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
 
-        transactionService.transferOperation(buyCrypto);
+        //transactionService.transferOperation(user1.getEmail(), );
 
         //Before
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Transferred);
@@ -119,7 +119,7 @@ class TransactionTests {
         Assertions.assertEquals(buyCrypto.getReputationOfUser(),this.user2.getReputation());
         Assertions.assertEquals(buyCrypto.getShippingAddress(),null);
 
-        transactionService.operationConfirm(buyCrypto);
+        //transactionService.operationConfirm(buyCrypto);
         var report=userService.generateReport(user2.getEmail(),LocalDateTime.now().toLocalDate(),LocalDateTime.now().plusDays(10).toLocalDate());
         Assertions.assertTrue(report!= null);
         //Before
@@ -143,7 +143,7 @@ class TransactionTests {
         buyCrypto.setDayAndTimeOfOperation(LocalDateTime.now());
         buyCrypto.setReputationOfUser(user2.getReputation());
 
-        transactionService.operationCancelled(buyCrypto);
+        //transactionService.operationCancelled(buyCrypto);
 
         Assertions.assertEquals(buyCrypto.getStateTransaction(), StateTransaction.Cancelled);
         Assertions.assertEquals(buyCrypto.getAmountOfOperationInPesos(),Double.valueOf("270000"));
