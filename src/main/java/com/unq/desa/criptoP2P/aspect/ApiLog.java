@@ -1,7 +1,6 @@
 package com.unq.desa.criptoP2P.aspect;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.logging.log4j.LogManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -11,36 +10,27 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ApiLog {
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
-    public void allResources() {
+    public void rescontrollerAnnotation() {
     }
 
-    @Before("allResources()")
+    @Before("rescontrollerAnnotation()")
     public void apiRequestLog(JoinPoint jp) {
-        LogManager.getLogger(jp.getSignature().getDeclaringTypeName()).info("------------------------- Init -------------------------");
+        LogManager.getLogger(jp.getSignature().getDeclaringTypeName()).info("------------------------- Aspect Api Log -------------------------");
         StringBuilder log = new StringBuilder(jp.getSignature().getName() + " >>>");
         for (Object arg : jp.getArgs()) {
-            log.append("\n   ARG: " + arg);
+            log.append("\n   Argumentos: " + arg);
         }
         LogManager.getLogger(jp.getSignature().getDeclaringTypeName()).info(log);
     }
 
-    @AfterReturning(pointcut = "allResources()", returning = "result")
-    public void apiResponseLog(JoinPoint jp, Object result) {
-        ObjectMapper mapper = new ObjectMapper();
-        String resultAsString;
-        try {
-            resultAsString = mapper.writeValueAsString(result);
-        } catch (JsonProcessingException e) {
-            resultAsString = result.toString();
-        }
-        String log = "<<< Return << " + jp.getSignature().getName() + ": " + resultAsString;
-        if (log.length() > 2000) {
-            log = log.substring(0, 2000) + ".... (+" + log.length() + " characters)";
-        }
+    @AfterReturning(pointcut = "rescontrollerAnnotation()",returning = "result")
+    public void apiResponseOkLog(JoinPoint jp, Object result){
+        var log = "<<< Return << "+ jp.getSignature().getName() + " : " + result;
         LogManager.getLogger(jp.getSignature().getDeclaringTypeName()).info(log);
+
     }
 
-    @AfterThrowing(pointcut = "allResources()", throwing = "exception")
+    @AfterThrowing(pointcut = "rescontrollerAnnotation()", throwing = "exception")
     public void apiResponseExceptionLog(JoinPoint jp, Exception exception) {
         String log = "<<< Return Exception << " + jp.getSignature().getName() + ": " + exception.getClass().getSimpleName() + "->"
                 + exception.getMessage();

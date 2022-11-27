@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P.webservice;
 
+import com.unq.desa.criptoP2P.aspect.TimeAnnotation;
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
@@ -33,7 +34,8 @@ public class UserController {
     @ApiResponse(code=200, message = "OK"),
     @ApiResponse(code=400,message = "Bad Request")})
     @GetMapping("/AllUsers")
-    public List<UserDto> index() {
+    @TimeAnnotation
+    public List<UserDto> getUsers() {
         return userService.get();
     }
     @Operation(summary = "Get a User  by token")
@@ -42,7 +44,7 @@ public class UserController {
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=404,message = "User not found")})
     @GetMapping("/user")
-    public UserDto show(Authentication authentication) {
+    public UserDto viewUserDetail(Authentication authentication) {
         return userService.getByMail(authentication.getName());
     }
     @Operation(summary = "Register a user in the database")
