@@ -1,6 +1,5 @@
-package com.unq.desa.criptoP2P.service;
+package com.unq.desa.criptoP2P.service.iservice;
 
-import com.unq.desa.criptoP2P.model.cryptoCurrency.Cryptocurrency;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 
 import java.util.List;

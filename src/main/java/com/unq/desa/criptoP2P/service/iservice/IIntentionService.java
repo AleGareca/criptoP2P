@@ -1,10 +1,8 @@
-package com.unq.desa.criptoP2P.service;
+package com.unq.desa.criptoP2P.service.iservice;
 
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
+import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -22,4 +20,5 @@ public interface IIntentionService {
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId);
 
 
+    void createIntention(RequestRegisterIntetionDto intention, String mail);
 }

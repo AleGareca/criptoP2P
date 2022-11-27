@@ -19,8 +19,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation group: 'org.springframework', name: 'spring-aspects', version: '6.0.2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	compile "org.springframework.security:spring-security-web"
+	compile "org.springframework.security:spring-security-config"
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	implementation group: 'org.springframework.plugin', name: 'spring-plugin-core', version: '2.0.0.RELEASE'
@@ -31,7 +37,6 @@ dependencies {
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-	implementation 'org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE'
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.4'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.4'
@@ -50,9 +55,10 @@ jacocoTestReport {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: ['**/webservice/**',
-										'**/common/**',
+										'**/exeption/**',
 										'**/config/**',
 										'**/persistence/**',
+										'**/service/iservice/**',
 										'**/model/**'])
 		}))
 	}
@@ -63,9 +69,10 @@ jacocoTestCoverageVerification {
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: ['**/webservice/**',
-										'**/common/**',
+										'**/exeption/**',
 										'**/config/**',
 										'**/persistence/**',
+										'**/service/iservice/**',
 										'**/model/**'])
 		}))
 	}
@@ -73,16 +80,9 @@ jacocoTestCoverageVerification {
 		rule {
 			enabled = true
 			limit {
-				minimum = 0.0
+				minimum = 0.40
 			}
 		}
-	}
-}
-
-
-sonarqube {
-	properties {
-		property "sonar.projectKey", "com.unq.desa:CriptoP2P"
 	}
 }
 tasks.named('test') {
@@ -91,4 +91,12 @@ tasks.named('test') {
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "AleGareca_criptoP2P"
+		property "sonar.organization", "alegareca"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }

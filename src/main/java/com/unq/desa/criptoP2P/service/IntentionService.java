@@ -1,11 +1,13 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.model.Intencion.Intention;
-import com.unq.desa.criptoP2P.model.user.User;
+import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
+import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
+import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.iservice.IIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class IntentionService implements IIntentionService {
     private IIntentionRepository intentionRepository;
     @Autowired
     private IUserRepository userRepository;
+
+    @Autowired
+    private IQuotationRepository quotationRepository;
 
     public List<Intention> get(){
         return this.intentionRepository.findAll();
@@ -46,6 +51,19 @@ public class IntentionService implements IIntentionService {
         return intention;
     }
 
+    @Override
+    public void createIntention(RequestRegisterIntetionDto intention, String mail) {
+        var user = userRepository.findByEmail(mail);
+        var quotation = quotationRepository.findQuotationByCryptocurrency_Symbol(intention.getSymbol());
+        var newIntention= Intention.builder()
+                .amountOfOperationInPesos(intention.getPrice())
+                .userCripto(user)
+                .quotation(quotation)
+                .operacion(Operation.valueOf(intention.getState()))
+                .isActive(intention.getIsActive())
+                .build();
+        intentionRepository.save(newIntention);
 
+    }
 
 }

@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+/*
 public class IntentionControllerTest extends CriptoP2PApplicationTests {
 
     private static final String HTTP_LOCALHOST = "http://localhost:";
@@ -54,3 +54,4 @@ public class IntentionControllerTest extends CriptoP2PApplicationTests {
                 Intention[].class).getBody().length).isGreaterThan(0);
     }
 }
+*/
