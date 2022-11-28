@@ -41,7 +41,8 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/h2-ui/**",
-                        "/h2-console/**")
+                        "/h2-console/**",
+                        "/register")
                 .permitAll()
                 .antMatchers("/**")
                 .authenticated()
