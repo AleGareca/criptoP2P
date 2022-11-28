@@ -54,7 +54,7 @@ public class IntentionService implements IIntentionService {
     @Override
     public void createIntention(RequestRegisterIntetionDto intention, String mail) {
         var user = userRepository.findByEmail(mail);
-        var quotation = quotationRepository.findQuotationByCryptocurrency_Symbol(intention.getSymbol());
+        var quotation = quotationRepository.findBySymbol(intention.getSymbol());
         var newIntention= Intention.builder()
                 .amountOfOperationInPesos(intention.getPrice())
                 .userCripto(user)

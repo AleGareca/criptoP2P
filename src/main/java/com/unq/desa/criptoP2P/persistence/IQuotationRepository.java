@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IQuotationRepository extends JpaRepository<Quotation,Integer> {
+    Quotation findBySymbol(String symbol);
 
-    Quotation findQuotationByCryptocurrency_Symbol(String symbol);
 }

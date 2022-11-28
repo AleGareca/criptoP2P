@@ -47,9 +47,8 @@ public class QuotationService implements IQuotationService {
     @Override
     public void save(QuotationDto quotationDto, Integer id) {
         LOG.info("Returning customer information for save quotation id {} ",id);
-        var cryptoOcurrency = this.crytoOcurrencyRepository.findBySymbol(quotationDto.getSymbolCryptocurrency());
         var quotation = this.modelMapper.To(quotationDto, Quotation.class);
-        quotation.setCryptocurrency(cryptoOcurrency);
+        quotation.setSymbol(quotationDto.getSymbolCryptocurrency());
         this.quotationRepository.save(quotation);
     }
 

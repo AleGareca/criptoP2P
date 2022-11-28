@@ -21,8 +21,7 @@ public class Quotation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private CryptoOcurrency cryptocurrency;
+    private String symbol;
 
     private LocalDateTime dayAndTime;
 

@@ -74,24 +74,24 @@ public class FakeData implements CommandLineRunner {
           cryptoIntention2 = this.crytocurrencyRepository.findBySymbol("BNBUSDT");
           cryptoIntention3 = this.crytocurrencyRepository.findBySymbol("TRXUSDT");
 
-          quotation1.setCryptocurrency(cryptoIntention1);
+          quotation1.setSymbol(cryptoIntention1.getSymbol());
           quotation1.setDayAndTime(dateTime);
 
-          quotation2.setCryptocurrency(cryptoIntention2);
+          quotation2.setSymbol(cryptoIntention2.getSymbol());
           quotation2.setDayAndTime(dateTime);
 
-          quotation3.setCryptocurrency(cryptoIntention3);
+          quotation3.setSymbol(cryptoIntention3.getSymbol());
           quotation3.setDayAndTime(dateTime);
 
-             user1.setName("u1");
-             user1.setEmail("1@gmai.com");
-             user1.setAddress("calle123");
-             user1.setPassword("$2a$10$83CGsv2Of7.8eh3LtwZbieoD0IZ8RxGi0WThzJLFOGowcMWwxafuC");
-             user1.setCvu("017020456000000878653");
-             user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
-             user1.setReputation(0);
-             user1.setNumberOfOperations(0);
-             user1.setSuccessfulOperation(0);
+          user1.setName("u1");
+          user1.setEmail("1@gmai.com");
+          user1.setAddress("calle123");
+          user1.setPassword("$2a$10$83CGsv2Of7.8eh3LtwZbieoD0IZ8RxGi0WThzJLFOGowcMWwxafuC");
+          user1.setCvu("017020456000000878653");
+          user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
+          user1.setReputation(0);
+          user1.setNumberOfOperations(0);
+          user1.setSuccessfulOperation(0);
 
           user2.setName("u2");
           user2.setEmail("2@gmai.com");
