@@ -1,5 +1,6 @@
 package com.unq.desa.criptoP2P.model.transaction;
 
+import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
@@ -52,7 +53,7 @@ public class Transaction {
         }
     }
 
-    public void transfer(CryptoOcurrency systemPrice) {
+    public void transfer(CryptoOcurrencyDto systemPrice) {
         if (this.theTransferOfSaleIsValid()) {
             this.transferOrCancel(systemPrice);
         }
@@ -62,7 +63,7 @@ public class Transaction {
         return this.intention.getOperacion() == Operation.Purchase;
     }
 
-    private void transferOrCancel(CryptoOcurrency systemPrice) {
+    private void transferOrCancel(CryptoOcurrencyDto systemPrice) {
        /* if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
                 || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);

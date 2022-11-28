@@ -1,7 +1,6 @@
 package com.unq.desa.criptoP2P.model.quotation;
 
 
-import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

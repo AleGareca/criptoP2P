@@ -10,6 +10,7 @@ import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
+import com.unq.desa.criptoP2P.service.CrytoOcurrencyService;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import com.unq.desa.criptoP2P.service.ICrytoOcurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class FakeData implements CommandLineRunner {
      @Autowired
      private BinanceClient binanceClient;
      @Autowired
-     private ICrytoOcurrencyService crytocurrencyService;
+     private ICrytoOcurrencyService crytoOcurrencyService;
      @Autowired
      private ICrytoOcurrencyRepository crytocurrencyRepository;
      @Autowired
@@ -40,7 +41,6 @@ public class FakeData implements CommandLineRunner {
      @Override
      public void run(String... args) throws Exception {
           LocalDateTime dateTime = LocalDateTime.now();
-
           var cryptoIntention1 = new CryptoOcurrency();
           var cryptoIntention2 = new CryptoOcurrency();
           var cryptoIntention3 = new CryptoOcurrency();
@@ -55,20 +55,20 @@ public class FakeData implements CommandLineRunner {
           var intentionU3 = new Intention();
 
 
-          this.crytocurrencyService.update(this.crytocurrency( "ALICEUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("MATICUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("AXSUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("AAVEUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("ATOMUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("NEOUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("DOTUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("ETHUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("CAKEUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("BTCUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("BNBUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("ADAUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("TRXUSDT"));
-          this.crytocurrencyService.update(this.crytocurrency("AUDIOUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency( "ALICEUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("MATICUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("AXSUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("AAVEUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("ATOMUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("NEOUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("DOTUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("ETHUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("CAKEUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("BTCUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("BNBUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("ADAUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("TRXUSDT"));
+          crytoOcurrencyService.update(this.crytocurrency("AUDIOUSDT"));
 
           cryptoIntention1 = this.crytocurrencyRepository.findBySymbol("ALICEUSDT");
           cryptoIntention2 = this.crytocurrencyRepository.findBySymbol("BNBUSDT");

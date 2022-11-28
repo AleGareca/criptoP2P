@@ -77,8 +77,4 @@ public class TransactionService implements ITransactionService {
         return changeState(transaction,StateTransaction.Cancelled);
     }
 
-
-
-
-
 }

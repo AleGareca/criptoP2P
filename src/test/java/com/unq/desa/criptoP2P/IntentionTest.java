@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
@@ -31,8 +32,9 @@ public class IntentionTest {
     @Autowired
     private BinanceClient binanceClient;
 
+    private CryptoOcurrencyDto cryptoIntention1;
+
     private LocalDateTime dateTime;
-    private CryptoOcurrency cryptoIntention1;
     private Quotation quotation1;
     private User user1;
     private Intention intention1U1;
@@ -41,7 +43,7 @@ public class IntentionTest {
     @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
-        this.cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
+        cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
         this.quotation1 = new Quotation();
         this.user1 = new User();
         this.intention1U1 = new Intention();
@@ -70,7 +72,7 @@ public class IntentionTest {
 
     private Intention anyIntention() {
 
-        quotation1.setCryptocurrency(this.cryptoIntention1);
+        quotation1.setSymbol(cryptoIntention1.getSymbol());
         quotation1.setDayAndTime(this.dateTime);
 
         this.user1.setName("u1");

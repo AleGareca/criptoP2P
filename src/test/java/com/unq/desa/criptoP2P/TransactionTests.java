@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
@@ -40,8 +41,8 @@ class TransactionTests {
     private UserService userService;
 
     private LocalDateTime dateTime;
-    private CryptoOcurrency cryptoIntention1;
-    private CryptoOcurrency cryptoIntention2;
+    private CryptoOcurrencyDto cryptoIntention1;
+    private CryptoOcurrencyDto cryptoIntention2;
 
     private Quotation quotation1;
     private Quotation quotation2;
@@ -159,10 +160,10 @@ class TransactionTests {
 
     private Transaction anyTransaction() {
 
-        quotation1.setCryptocurrency(this.cryptoIntention1);
+        quotation1.setSymbol(cryptoIntention1.getSymbol());
         quotation1.setDayAndTime(this.dateTime);
 
-        quotation2.setCryptocurrency(this.cryptoIntention2);
+        quotation2.setSymbol(cryptoIntention2.getSymbol());
         quotation2.setDayAndTime(this.dateTime);
 
         this.user1.setName("u1");
