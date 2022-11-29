@@ -4,6 +4,7 @@ import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.dto.RequestTransferDto;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
+import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.ITransactionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
@@ -23,6 +24,8 @@ public class TransactionService implements ITransactionService {
 
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    private ICrytoOcurrencyRepository crytoOcurrencyRepository;
     @Autowired
     private BinanceClient binanceClient;
 
@@ -51,30 +54,30 @@ public class TransactionService implements ITransactionService {
         var user = userRepository.findByEmail(requestTransferDto.getEmail());
         var intention = intentionRepository.getById(requestTransferDto.getId());
         var systemPrice = binanceClient.getCryptocurrency(requestTransferDto.getSymbol());
+        var price = crytoOcurrencyRepository.findBySymbol(intention.getQuotation().getSymbol()).getPrice();
         var transfer = Transaction.builder().
                 stateTransaction(StateTransaction.Transferred)
                 .user(user).intention(intention).build();
-        transfer.transfer(systemPrice);
+        transfer.transfer(systemPrice,price);
         return transactionRepository.save(transfer);
     }
 
     @Override
     public Transaction operationConfirm(Integer transaction_id) {
-        return  changeState(transaction_id,StateTransaction.Confirm);
-    }
-
-    private Transaction changeState(Integer transaction_id, StateTransaction state) {
-        var transaction =transactionRepository.getById(transaction_id);
-        transaction.setStateTransaction(state);
+        var transaction = transactionRepository.getById(transaction_id);
+        transaction.setStateTransaction(StateTransaction.Confirm);
         transaction.confirm();
         this.transactionRepository.save(transaction);
         return transaction;
     }
 
     @Override
-    public Transaction operationCancelled(Integer transaction) {
-
-        return changeState(transaction,StateTransaction.Cancelled);
+    public Transaction operationCancelled(Integer transaction_id) {
+        var transaction = transactionRepository.getById(transaction_id);
+        transaction.setStateTransaction(StateTransaction.Cancelled);
+        transaction.operationCanceledByUser();
+        this.transactionRepository.save(transaction);
+        return transaction;
     }
 
 

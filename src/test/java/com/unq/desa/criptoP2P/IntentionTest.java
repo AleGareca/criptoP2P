@@ -32,7 +32,6 @@ public class IntentionTest {
     private BinanceClient binanceClient;
 
     private LocalDateTime dateTime;
-    private CryptoOcurrency cryptoIntention1;
     private Quotation quotation1;
     private User user1;
     private Intention intention1U1;
@@ -41,7 +40,6 @@ public class IntentionTest {
     @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
-        this.cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
         this.quotation1 = new Quotation();
         this.user1 = new User();
         this.intention1U1 = new Intention();
@@ -70,7 +68,7 @@ public class IntentionTest {
 
     private Intention anyIntention() {
 
-        quotation1.setCryptocurrency(this.cryptoIntention1);
+        quotation1.setSymbol("ALICEUSDT");
         quotation1.setDayAndTime(this.dateTime);
 
         this.user1.setName("u1");

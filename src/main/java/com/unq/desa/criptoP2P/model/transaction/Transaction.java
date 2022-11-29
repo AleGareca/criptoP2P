@@ -52,9 +52,9 @@ public class Transaction {
         }
     }
 
-    public void transfer(CryptoOcurrency systemPrice) {
+    public void transfer(CryptoOcurrency systemPrice,Double priceCryto) {
         if (this.theTransferOfSaleIsValid()) {
-            this.transferOrCancel(systemPrice);
+            this.transferOrCancel(systemPrice,priceCryto);
         }
     }
 
@@ -62,15 +62,16 @@ public class Transaction {
         return this.intention.getOperacion() == Operation.Purchase;
     }
 
-    private void transferOrCancel(CryptoOcurrency systemPrice) {
-       /* if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
-                || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
+    private void transferOrCancel(CryptoOcurrency systemPrice,Double priceCryto) {
+
+        if (priceCryto > systemPrice.getPrice()
+                || priceCryto < systemPrice.getPrice()) {
             this.setStateTransaction(StateTransaction.Cancelled);
             this.intention.setActive(false);
         } else {
             this.setStateTransaction(StateTransaction.Transferred);
             this.shippingAddress();
-        }*/
+        }
     }
 
     public void confirm() {
