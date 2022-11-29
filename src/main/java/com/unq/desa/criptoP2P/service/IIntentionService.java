@@ -21,5 +21,5 @@ public interface IIntentionService {
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId);
 
 
-    void createIntention(RequestRegisterIntetionDto intention, String mail);
+    Intention createIntention(RequestRegisterIntetionDto intention, String mail);
 }

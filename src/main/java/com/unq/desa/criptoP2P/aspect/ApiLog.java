@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 public class ApiLog {
-    @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
+    @Pointcut("execution(* com.unq.desa.criptoP2P.controller.*.* (..))")
     public void rescontrollerAnnotation() {
     }
 

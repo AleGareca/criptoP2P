@@ -9,6 +9,7 @@ import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,13 +47,19 @@ public class IntentionService implements IIntentionService {
     @Override
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId) {
         var user = userRepository.getReferenceById(userId);
-        intention.setUserCripto(user);
-        this.intentionRepository.save(intention);
+        if(user.getIntentions() == null){
+            var intentions = new ArrayList<Intention>();
+            intentions.add(intention);
+            user.setIntentions(intentions);
+        }else{
+            user.getIntentions().add(intention);
+        }
+        userRepository.save(user);
         return intention;
     }
 
     @Override
-    public void createIntention(RequestRegisterIntetionDto intention, String mail) {
+    public Intention createIntention(RequestRegisterIntetionDto intention, String mail) {
         var user = userRepository.findByEmail(mail);
         var quotation = quotationRepository.findBySymbol(intention.getSymbol());
         var newIntention= Intention.builder()
@@ -62,7 +69,7 @@ public class IntentionService implements IIntentionService {
                 .operacion(Operation.valueOf(intention.getState()))
                 .isActive(intention.getIsActive())
                 .build();
-        intentionRepository.save(newIntention);
+        return intentionRepository.save(newIntention);
 
     }
 

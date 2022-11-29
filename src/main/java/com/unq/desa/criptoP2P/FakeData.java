@@ -83,7 +83,7 @@ public class FakeData implements CommandLineRunner {
           quotation3.setSymbol(cryptoIntention3.getSymbol());
           quotation3.setDayAndTime(dateTime);
 
-          user1.setName("u1");
+          user1.setName("Ale Gareca");
           user1.setEmail("1@gmai.com");
           user1.setAddress("calle123");
           user1.setPassword("$2a$10$83CGsv2Of7.8eh3LtwZbieoD0IZ8RxGi0WThzJLFOGowcMWwxafuC");
@@ -93,7 +93,7 @@ public class FakeData implements CommandLineRunner {
           user1.setNumberOfOperations(0);
           user1.setSuccessfulOperation(0);
 
-          user2.setName("u2");
+          user2.setName("Lucas Gomez");
           user2.setEmail("2@gmai.com");
           user2.setAddress("calle583");
           user2.setPassword("123567");
@@ -103,7 +103,7 @@ public class FakeData implements CommandLineRunner {
           user2.setNumberOfOperations(0);
           user2.setSuccessfulOperation(0);
 
-          user3.setName("u3");
+          user3.setName("Martin Martinez");
           user3.setEmail("3@gmai.com");
           user3.setAddress("calle864");
           user3.setPassword("123567");

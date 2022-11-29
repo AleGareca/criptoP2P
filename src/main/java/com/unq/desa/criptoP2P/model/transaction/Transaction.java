@@ -32,7 +32,7 @@ public class Transaction {
     private Integer amountOfOperation;
 
     private Double amountOfOperationInPesos;
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private User user;
 
     private Integer numberOfOperations;

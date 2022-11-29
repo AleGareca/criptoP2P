@@ -1,16 +1,12 @@
 package com.unq.desa.criptoP2P.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 @Data
-@Builder
-public class UserDto {
-    private int id;
-
+public class UserRegisterDto {
     @Size(max = 30,min = 3, message = "first_name "+"Cantidad de caracteres invalidos")
     @NotNull(message = "primer nombre requerido")
     private String firstName;
@@ -24,6 +20,11 @@ public class UserDto {
     @Size(max = 30,min = 10, message = "address "+"Cantidad de caracteres invalidos")
     @NotNull
     private String address;
+
+    @Size(min = 6, message = "password: "+"La cantidad de caracteres debe ser 6 como minimo.")
+    @NotNull
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,32}$", message = "al menos 1 minuscula, 1 mayuscula, 1 caracter especia")
+    private String password;
 
     @NotNull
     @Size(min = 22, message = "No es un CVU valido")

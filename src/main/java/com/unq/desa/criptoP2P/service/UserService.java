@@ -4,19 +4,19 @@ package com.unq.desa.criptoP2P.service;
 import com.unq.desa.criptoP2P.exeption.DataIntentionNotFound;
 import com.unq.desa.criptoP2P.config.MapperComponent;
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
-import com.unq.desa.criptoP2P.model.dto.ActivosDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
+import com.unq.desa.criptoP2P.model.dto.UserRegisterDto;
 import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -30,7 +30,7 @@ public class UserService implements IUserService {
     private MapperComponent modelMapper;
 
     public List<UserDto> get(){
-        return modelMapper.ToList(this.userRepository.findAll(), UserDto.class);
+        return modelMapper.toListUsersDto(this.userRepository.findAll());
     }
 
     public void save(User user) {
@@ -38,7 +38,7 @@ public class UserService implements IUserService {
     }
 
     public UserDto getById(Integer id) {
-        return modelMapper.To(this.userRepository.findById(id).get(),UserDto.class);
+        return modelMapper.toUserDto(this.userRepository.findById(id).get());
     }
 
     public void delete(String email) {
@@ -46,8 +46,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void registerUser(UserDto user) {
-        userRepository.save(this.modelMapper.To(user, User.class));
+    public void registerUser(UserRegisterDto user) {
+        var encriptor = new BCryptPasswordEncoder();
+        var password = encriptor.encode(user.getPassword());
+        var userRegister = User.builder()
+                .name(user.getFirstName()+" "+ user.getLastName())
+                .address(user.getAddress())
+                .cvu(user.getCvu())
+                .email(user.getEmail())
+                .password(password)
+                .walletAddress(user.getWalletAddress()).build();
+        userRepository.save(userRegister);
     }
 
     @Override
@@ -71,7 +80,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto getByMail(String name) {
-        return this.modelMapper.To(userRepository.findByEmail(name), UserDto.class);
+        return this.modelMapper.toUserDto(userRepository.findByEmail(name));
     }
 
     @Override

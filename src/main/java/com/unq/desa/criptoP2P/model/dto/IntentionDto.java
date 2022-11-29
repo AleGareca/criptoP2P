@@ -13,7 +13,7 @@ public class IntentionDto {
 
     private Integer amountOfOperationInPesos;
 
-    private UserDto userCripto;
+    private UserDetailDto userCripto;
 
     private Boolean isActive;
 

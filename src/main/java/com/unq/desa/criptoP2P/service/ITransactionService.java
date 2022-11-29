@@ -7,19 +7,19 @@ import java.util.List;
 
 public interface ITransactionService {
 
-    public List<Transaction> get();
+     List<Transaction> get();
 
-    public void save(Transaction transaction);
+     void save(Transaction transaction);
 
-    public Transaction getById(Integer id);
+     Transaction getById(Integer id);
 
-    public void delete(Integer id);
+     void delete(Integer id);
 
-    public Transaction transferOperation(String email, RequestTransferDto requestTransferDto);
+     Transaction transferOperation(String email, RequestTransferDto requestTransferDto);
 
-    public Transaction operationConfirm(Integer transaction_id);
+     Transaction operationConfirm(Integer transaction_id, String emailUser);
 
-    public Transaction operationCancelled(Integer transaction);
+     Transaction operationCancelled(Integer transaction_id, String emailUser);
 
 
 }

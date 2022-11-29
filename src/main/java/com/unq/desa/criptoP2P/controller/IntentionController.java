@@ -9,13 +9,16 @@ import com.unq.desa.criptoP2P.service.IntentionService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 @RestController
+@Validated
 public class IntentionController {
 
     @Autowired
@@ -38,15 +41,19 @@ public class IntentionController {
     public IntentionDto getIntentionById(@RequestParam("intentionId") Integer id) {
         return modelMapper.To(this.intentionService.getById(id), IntentionDto.class);
     }
-    @Operation(summary = "Register intention user")
+    @Operation(summary = "Register intention")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @PostMapping(value = "/registerIntention")
-    public void register(AuthCredential authCredential, @Valid @RequestBody RequestRegisterIntetionDto intention, Errors errors) throws Exception {
+    public void register(@Valid @RequestBody RequestRegisterIntetionDto intention,
+                         AuthCredential authCredential, Errors errors) throws Exception {
         this.intentionService.createIntention(intention,authCredential.getMail());
+
     }
     @Operation(summary = "Delete intention user")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})

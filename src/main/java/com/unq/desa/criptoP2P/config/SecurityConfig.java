@@ -31,14 +31,7 @@ public class SecurityConfig {
 
         return httpSecurity.csrf().disable().headers().frameOptions().disable().and()
                 .authorizeRequests()
-                .antMatchers("/v2/api-docs",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security",
-                        "/swagger-ui.html",
-                        "/webjars/**",
-                        "/v3/api-docs/**",
+                .antMatchers("/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/h2-ui/**",
                         "/h2-console/**",

@@ -25,7 +25,7 @@ public class Intention {
 
     private Integer amountOfOperationInPesos;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private User userCripto;
 
     private boolean isActive;

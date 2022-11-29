@@ -2,6 +2,7 @@ package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
+import com.unq.desa.criptoP2P.model.dto.UserRegisterDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,5 +20,5 @@ public interface IUserService {
 
     UserDto getByMail(String name);
 
-    void registerUser(UserDto user);
+    void registerUser(UserRegisterDto user);
 }

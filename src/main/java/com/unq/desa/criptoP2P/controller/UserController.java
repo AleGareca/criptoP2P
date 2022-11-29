@@ -4,7 +4,9 @@ import com.unq.desa.criptoP2P.aspect.TimeAnnotation;
 import com.unq.desa.criptoP2P.model.dto.ActiveCryptoReportDto;
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 
+import com.unq.desa.criptoP2P.model.dto.UserRegisterDto;
 import com.unq.desa.criptoP2P.service.UserService;
+import feign.Response;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +14,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +43,7 @@ public class UserController {
         return userService.get();
     }
     @Operation(summary = "Get a User  by token")
-    @SecurityRequirement(name = "bearer")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=404,message = "User not found")})
@@ -52,11 +56,12 @@ public class UserController {
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @PostMapping(value = "/register")
-    public void register(@Valid @RequestBody UserDto user, Errors errors) throws Exception {
+    public ResponseEntity register(@Valid @RequestBody UserRegisterDto user, Errors errors) throws Exception {
         this.userService.registerUser(user);
+        return new ResponseEntity(HttpStatus.OK);
     }
     @Operation(summary = "Modify some user data")
-    @SecurityRequirement(name = "bearer")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
@@ -65,7 +70,7 @@ public class UserController {
         this.userService.updateUser(authentication.getName(),user);
     }
     @Operation(summary = "Permanently delete a user")
-    @SecurityRequirement(name = "bearer")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
@@ -75,7 +80,7 @@ public class UserController {
     }
 
     @Operation(summary = "Report the traded volume of crypto assets between two dates")
-    @SecurityRequirement(name = "bearer")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
