@@ -106,8 +106,7 @@ public class TransactionService implements ITransactionService {
 
     private void transferOrCancel(CryptoOcurrency cryptoOcurrency, Intention intention,Transaction transfer,Double amountInPesos) {
 
-        if ( amountInPesos > cryptoOcurrency.getPrice()
-                || amountInPesos < cryptoOcurrency.getPrice()) {
+        if ( amountInPesos < cryptoOcurrency.getPrice()) {
             transfer.setStateTransaction(StateTransaction.Cancelled);
             intention.setActive(false);
         } else {

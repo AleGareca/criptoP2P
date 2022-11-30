@@ -47,14 +47,16 @@ public class IntentionTest {
     @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
-        this.quotation = this.quotationRepository.getReferenceById(18);
+        this.quotation = this.quotationRepository.getReferenceById(22);
         this.cryptoOcurrency = this.crytoOcurrencyRepository.findBySymbol(quotation.getSymbol());
         this.user = this.userRepository.getReferenceById(15);
         this.amountInPesos = this.cryptoOcurrency.getPrice();
         this.intentionDto = RequestRegisterIntetionDto.builder()
                 .price(this.amountInPesos)
                 .isActive(true)
+                .symbol("TRXUSDT")
                 .state("Sale")
+                .price(Double.valueOf("1.313"))
                 .build();
 
     }
@@ -67,12 +69,12 @@ public class IntentionTest {
     @Test
     public void givenAnyTransactionOfPurchaseWhenItIsExpectedThatTheTransferOperationCanBeCarriedOut() throws Exception {
 
-       var intention = intentionService.createIntention(intentionDto,this.user.getEmail());
+       var intention = intentionService.createIntention(this.intentionDto,this.user.getEmail());
 
-        Assertions.assertEquals(intention.getOperacion(),this.intention1U1.getOperacion());
+        Assertions.assertEquals(intention.getOperacion(),Operation.Sale);
         Assertions.assertTrue(intention.isActive());
-        Assertions.assertEquals(intention.getQuotation().getId(),this.quotation.getId());
-        Assertions.assertEquals(intention.getAmountOfOperationInPesos(),this.amountInPesos);
+        Assertions.assertEquals(intention.getQuotation().getSymbol(),this.quotation.getSymbol());
+        Assertions.assertEquals(intention.getAmountOfOperationInPesos(),Double.valueOf(1.313));
         Assertions.assertEquals(intention.getUserCripto().getEmail(),this.user.getEmail());
 
     }

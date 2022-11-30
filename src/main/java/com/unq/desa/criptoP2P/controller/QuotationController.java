@@ -59,13 +59,6 @@ public class    QuotationController {
     public void delete(@PathVariable Integer id) throws Exception {
         this.quotationService.delete(id);
     }
-    @Operation(summary = "Get all quotation")
-    @ApiResponses(value={
-            @ApiResponse(code=200, message = "OK"),
-            @ApiResponse(code=400,message = "Bad Request")})
-    @GetMapping(value = "/quotation/cryptoAssetQuote")
-    public List<QuotationDto> quotes() throws Exception {
-        return modelMapper.ToList(this.quotationService.quotes(), QuotationDto.class);
-    }
+
 
 }

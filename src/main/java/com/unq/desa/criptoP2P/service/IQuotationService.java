@@ -15,5 +15,5 @@ public interface IQuotationService {
 
     public void delete(Integer id);
 
-    public List<QuotationDto> quotes();
+    public void quotesUpdate();
 }

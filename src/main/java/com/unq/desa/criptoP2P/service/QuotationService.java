@@ -4,6 +4,7 @@ import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.config.CustomCacheEventLogger;
 import com.unq.desa.criptoP2P.config.MapperComponent;
 import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
+import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.dto.QuotationDto;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
@@ -16,6 +17,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -68,18 +71,17 @@ public class QuotationService implements IQuotationService {
     }
 
     @Override
-    public List<QuotationDto> quotes() {
-        /*List<QuotationDto> quotes = new ArrayList<>();
-        QuotationDto quotation;
-        or(CryptocurrencyDto cryptocurrencyDto : this.get()) {
-            quotation = new QuotationDto();
-            var cryptoDto = this.modelMapper.To(this.binanceClient.getCryptocurrency(cryptocurrencyDto.getSymbol()),CryptocurrencyDto.class);
-            quotation.setCryptocurrency(cryptoDto);
-            quotation.setDayAndTime(LocalDateTime.now());
-            quotes.add(quotation);
-        }*/
-        //return quotes;
-        return this.get();
+    public void quotesUpdate() {
+        List<CryptoOcurrency> cryptoOcurrencies = new ArrayList<>();
+        for(CryptoOcurrency cryptocurrency : this.crytoOcurrencyRepository.findAll()) {
+            var quotation = this.quotationRepository.findBySymbol(cryptocurrency.getSymbol());
+            var cryto = modelMapper.To(this.binanceClient.getCryptocurrency(cryptocurrency.getSymbol()),CryptoOcurrency.class);
+            if(quotation != null) {
+                quotation.setDayAndTime(LocalDateTime.now());
+                this.quotationRepository.save(quotation);
+            }
+            this.crytoOcurrencyRepository.save(cryto);
+        }
     }
 
 

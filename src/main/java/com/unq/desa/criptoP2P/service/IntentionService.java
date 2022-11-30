@@ -3,6 +3,7 @@ package com.unq.desa.criptoP2P.service;
 import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
+import com.unq.desa.criptoP2P.model.user.User;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
@@ -45,32 +46,36 @@ public class IntentionService implements IIntentionService {
     }
 
     @Override
-    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention,int userId) {
-        var user = userRepository.getReferenceById(userId);
+    public Intention userExpressesHisIntentionToBuyOrSell(Intention intention, User user) {
+
         if(user.getIntentions() == null){
             var intentions = new ArrayList<Intention>();
             intentions.add(intention);
             user.setIntentions(intentions);
             intention.setUserCripto(user);
-        }else{
-            user.getIntentions().add(intention);
         }
-        userRepository.save(user);
+        this.userRepository.save(user);
         return intention;
+
     }
 
     @Override
     public Intention createIntention(RequestRegisterIntetionDto intention, String mail) {
         var user = userRepository.findByEmail(mail);
         var quotation = quotationRepository.findBySymbol(intention.getSymbol());
+        var intentions = new ArrayList<Intention>();
         var newIntention= Intention.builder()
                 .amountOfOperationInPesos(intention.getPrice())
-                .userCripto(user)
                 .quotation(quotation)
                 .operacion(Operation.valueOf(intention.getState()))
                 .isActive(intention.getIsActive())
+                .amountOfOperationInPesos(intention.getPrice())
+                .userCripto(user)
                 .build();
-        return intentionRepository.save(newIntention);
+        intentions.add(newIntention);
+        user.setIntentions(intentions);
+        this.userRepository.save(user);
+        return newIntention;
 
     }
 

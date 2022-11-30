@@ -132,9 +132,9 @@ public class FakeData implements CommandLineRunner {
           userRepository.save(user2);
           userRepository.save(user3);
 
-          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU1, user3.getId());
-          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU2, user2.getId());
-          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU3, user1.getId());
+          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU1, user3);
+          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU2, user2);
+          intentionService.userExpressesHisIntentionToBuyOrSell(intentionU3, user1);
 
      }
 
