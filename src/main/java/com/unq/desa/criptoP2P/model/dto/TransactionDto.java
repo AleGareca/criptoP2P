@@ -20,7 +20,8 @@ public class TransactionDto {
     private Double amountOfOperationInPesos;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private StateTransaction stateTransaction;
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String shippingAddress;
 
 
 }

@@ -23,7 +23,7 @@ public class Intention {
     @OneToOne(cascade=CascadeType.ALL)
     private Quotation quotation;
 
-    private Integer amountOfOperationInPesos;
+    private Double amountOfOperationInPesos;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private User userCripto;

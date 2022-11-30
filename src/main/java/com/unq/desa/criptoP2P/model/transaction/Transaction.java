@@ -32,7 +32,7 @@ public class Transaction {
     private Integer amountOfOperation;
 
     private Double amountOfOperationInPesos;
-    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.MERGE)
     private User user;
 
     private Integer numberOfOperations;

@@ -2,12 +2,15 @@ package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
+import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.model.user.User;
+import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
+import com.unq.desa.criptoP2P.persistence.IQuotationRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.service.IIntentionService;
 import org.junit.jupiter.api.AfterEach;
@@ -25,28 +28,34 @@ public class IntentionTest {
     @Autowired
     private IUserRepository userRepository;
     @Autowired
+    private ICrytoOcurrencyRepository crytoOcurrencyRepository;
+    @Autowired
+    private IQuotationRepository quotationRepository;
+    @Autowired
     private IIntentionService intentionService;
     @Autowired
     private IIntentionRepository intentionRepository;
 
-    @Autowired
-    private BinanceClient binanceClient;
-
-    private CryptoOcurrencyDto cryptoIntention1;
-
+    private CryptoOcurrency cryptoOcurrency;
     private LocalDateTime dateTime;
-    private Quotation quotation1;
-    private User user1;
+    private Quotation quotation;
+    private User user;
     private Intention intention1U1;
-
+    private Double amountInPesos;
+    private RequestRegisterIntetionDto intentionDto;
 
     @BeforeEach
     public void setUp() {
         this.dateTime = LocalDateTime.now();
-        cryptoIntention1 = this.binanceClient.getCryptocurrency("ALICEUSDT");
-        this.quotation1 = new Quotation();
-        this.user1 = new User();
-        this.intention1U1 = new Intention();
+        this.quotation = this.quotationRepository.getReferenceById(18);
+        this.cryptoOcurrency = this.crytoOcurrencyRepository.findBySymbol(quotation.getSymbol());
+        this.user = this.userRepository.getReferenceById(15);
+        this.amountInPesos = this.cryptoOcurrency.getPrice();
+        this.intentionDto = RequestRegisterIntetionDto.builder()
+                .price(this.amountInPesos)
+                .isActive(true)
+                .state("Sale")
+                .build();
 
     }
 
@@ -57,42 +66,17 @@ public class IntentionTest {
 
     @Test
     public void givenAnyTransactionOfPurchaseWhenItIsExpectedThatTheTransferOperationCanBeCarriedOut() throws Exception {
-        Intention intention = anyIntention();
 
-        intentionService.userExpressesHisIntentionToBuyOrSell(intention,user1.getId());
+       var intention = intentionService.createIntention(intentionDto,this.user.getEmail());
 
-        Assertions.assertEquals(intention.getId(),this.intention1U1.getId());
         Assertions.assertEquals(intention.getOperacion(),this.intention1U1.getOperacion());
-        Assertions.assertEquals(intention.getQuotation().getId(),this.intention1U1.getQuotation().getId());
-        Assertions.assertEquals(intention.getAmountOfOperationInPesos(),this.intention1U1.getAmountOfOperationInPesos());
-        Assertions.assertEquals(intention.getUserCripto().getId(),this.user1.getId());
+        Assertions.assertTrue(intention.isActive());
+        Assertions.assertEquals(intention.getQuotation().getId(),this.quotation.getId());
+        Assertions.assertEquals(intention.getAmountOfOperationInPesos(),this.amountInPesos);
+        Assertions.assertEquals(intention.getUserCripto().getEmail(),this.user.getEmail());
 
     }
 
 
-    private Intention anyIntention() {
 
-        quotation1.setSymbol(cryptoIntention1.getSymbol());
-        quotation1.setDayAndTime(this.dateTime);
-
-        this.user1.setName("u1");
-        this.user1.setEmail("1@gmai.com");
-        this.user1.setAddress("calle123");
-        this.user1.setPassword("123");
-        this.user1.setCvu("017020456000000878653");
-        this.user1.setWalletAddress("3J98t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
-        this.user1.setReputation(0);
-        this.user1.setNumberOfOperations(0);
-        this.user1.setSuccessfulOperation(0);
-
-        this.intention1U1.setActive(true);
-        this.intention1U1.setAmountOfOperationInPesos(Integer.valueOf("10000"));
-        this.intention1U1.setOperacion(Operation.Purchase);
-        this.intention1U1.setQuotation(quotation1);
-
-        userRepository.save(user1);
-
-        return this.intention1U1;
-
-    }
 }

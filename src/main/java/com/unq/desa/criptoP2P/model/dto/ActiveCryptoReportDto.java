@@ -15,6 +15,6 @@ import java.util.List;
 public class ActiveCryptoReportDto {
     private LocalDateTime date;
     private Double dolarValue;
-    private Integer argValue;
+    private Double argValue;
     private List<ActivosDto> activosDto;
 }

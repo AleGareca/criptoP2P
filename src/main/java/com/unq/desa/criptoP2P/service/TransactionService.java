@@ -1,6 +1,7 @@
 package com.unq.desa.criptoP2P.service;
 
 import com.unq.desa.criptoP2P.client.BinanceClient;
+import com.unq.desa.criptoP2P.model.cryptoOCurrency.CryptoOcurrency;
 import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.dto.RequestTransferDto;
 import com.unq.desa.criptoP2P.model.dto.TransactionDto;
@@ -9,6 +10,7 @@ import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.transaction.Transaction;
 import com.unq.desa.criptoP2P.model.user.User;
+import com.unq.desa.criptoP2P.persistence.ICrytoOcurrencyRepository;
 import com.unq.desa.criptoP2P.persistence.IIntentionRepository;
 import com.unq.desa.criptoP2P.persistence.ITransactionRepository;
 import com.unq.desa.criptoP2P.persistence.IUserRepository;
@@ -32,6 +34,8 @@ public class TransactionService implements ITransactionService {
     private IUserRepository userRepository;
     @Autowired
     private BinanceClient binanceClient;
+    @Autowired
+    private ICrytoOcurrencyRepository crytoOcurrencyRepository;
 
     @Override
     public List<Transaction> get() {
@@ -57,27 +61,27 @@ public class TransactionService implements ITransactionService {
     public TransactionDto transferOperation(String email, RequestTransferDto requestTransferDto) {
         var user = userRepository.findByEmail(email);
         var intention = user.getIntentions().stream().filter(i -> i.getId() == requestTransferDto.getId()).findFirst().get();
-        var systemPrice = binanceClient.getCryptocurrency(requestTransferDto.getSymbol());
-        var result = initTransfer(user,systemPrice,intention);
+        var systemPrice = crytoOcurrencyRepository.findBySymbol(requestTransferDto.getSymbol());
+        var result = initTransfer(user,systemPrice,intention,requestTransferDto.getAmountOfOperationInPesos(),requestTransferDto.getAmountOfOperation());
         return TransactionDto.builder().id(result.getId())
                 .stateTransaction(result.getStateTransaction())
-                .amountOfOperation(result.getAmountOfOperation())
-                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
-                symbolCripto(result.getSymbolCripto())
-                .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
+                .amountOfOperation(requestTransferDto.getAmountOfOperation())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation())
+                .symbolCripto(intention.getQuotation().getSymbol())
+                .amountOfOperationInPesos(requestTransferDto.getAmountOfOperationInPesos())
+                .shippingAddress(result.getShippingAddress())
                 .build();
     }
 
-    private Transaction initTransfer(User user, CryptoOcurrencyDto systemPrice, Intention intention) {
+    private Transaction initTransfer(User user, CryptoOcurrency systemPrice, Intention intention, Double amountInPesos, Integer amountOfOperation) {
         var transfer = Transaction.builder().
                 stateTransaction(StateTransaction.Transferred)
-                .user(user).intention(intention)
+                .user(user).intention(intention).amountOfOperationInPesos(amountInPesos)
+                .amountOfOperation(amountOfOperation).symbolCripto(intention.getQuotation().getSymbol())
                 .dayAndTimeOfOperation(LocalDateTime.now()).build();
-        //transfer.transfer(systemPrice);
 
-        if (transfer.getIntention().getOperacion() == Operation.Purchase) {
-            transferOrCancel(systemPrice);
-        }
+
+        operationTransfer(systemPrice,intention,transfer,amountInPesos);
 
         if(user.getTransactions() == null){
             var transactions =  new ArrayList<Transaction>();
@@ -90,22 +94,33 @@ public class TransactionService implements ITransactionService {
         return transaction;
     }
 
-    private void transferOrCancel(CryptoOcurrencyDto systemPrice) {
-       /* if (this.intention.getQuotation().getCryptocurrencyDto().getPrice() > systemPrice.getPrice()
-                || this.intention.getQuotation().getCryptocurrencyDto().getPrice() < systemPrice.getPrice()) {
-            this.setStateTransaction(StateTransaction.Cancelled);
-            this.intention.setActive(false);
-        } else {
-            this.setStateTransaction(StateTransaction.Transferred);
-            this.shippingAddress();
-        }*/
+    private void operationTransfer(CryptoOcurrency cryptoOcurrency,Intention intention,Transaction transaction,Double amountInPesos) {
+        if (this.theTransferOfSaleIsValid(intention)) {
+            this.transferOrCancel(cryptoOcurrency,intention,transaction,amountInPesos);
+        }
     }
 
-    public void shippingAddress(Transaction transaction, User user) {
-        if (transaction.getIntention().getOperacion() == Operation.Purchase){
-            transaction.setShippingAddress(user.getCvu());
+    private boolean theTransferOfSaleIsValid(Intention intention) {
+        return intention.getOperacion() == Operation.Purchase;
+    }
+
+    private void transferOrCancel(CryptoOcurrency cryptoOcurrency, Intention intention,Transaction transfer,Double amountInPesos) {
+
+        if ( amountInPesos > cryptoOcurrency.getPrice()
+                || amountInPesos < cryptoOcurrency.getPrice()) {
+            transfer.setStateTransaction(StateTransaction.Cancelled);
+            intention.setActive(false);
         } else {
-            transaction.setShippingAddress(user.getWalletAddress());
+            transfer.setStateTransaction(StateTransaction.Transferred);
+            this.shippingAddress(transfer);
+        }
+    }
+
+    private void shippingAddress(Transaction transaction) {
+        if (transaction.getIntention().getOperacion() == Operation.Purchase){
+            transaction.setShippingAddress(transaction.getUser().getCvu());
+        } else {
+            transaction.setShippingAddress(transaction.getUser().getWalletAddress());
         }
     }
 
@@ -114,10 +129,10 @@ public class TransactionService implements ITransactionService {
         var user = userRepository.findByEmail(emailUser);
         var transaction =user.getTransactions().stream().filter(i -> i.getId() == transaction_id).findFirst().get();
         transaction.setStateTransaction(StateTransaction.Confirm);
-        shippingAddress(transaction,user);
+        shippingAddress(transaction);
         increaseUserReputationPoints(transaction,user);
-        user.setSuccessfulOperation(1);
-        user.setNumberOfOperations(1);
+        user.setSuccessfulOperation(user.getSuccessfulOperation() + 1);
+        user.setNumberOfOperations(user.getSuccessfulOperation() + 1);
         transaction.setNumberOfOperations(user.getNumberOfOperations());
         transaction.getIntention().setActive(false);
         var result = transactionRepository.save(transaction);
@@ -125,13 +140,13 @@ public class TransactionService implements ITransactionService {
         return TransactionDto.builder().id(result.getId())
                 .stateTransaction(result.getStateTransaction())
                 .amountOfOperation(result.getAmountOfOperation())
-                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
-                symbolCripto(result.getSymbolCripto())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation())
+                .symbolCripto(transaction.getSymbolCripto())
                 .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
                 .build();
     }
 
-    public void increaseUserReputationPoints(Transaction transaction, User user) {
+    private void increaseUserReputationPoints(Transaction transaction, User user) {
         LocalDateTime currentTime = LocalDateTime.now();
         if(transaction.getDayAndTimeOfOperation().getHour() - currentTime.getHour() < 30) {
             user.setReputation(user.getReputation() + 10);
@@ -153,8 +168,8 @@ public class TransactionService implements ITransactionService {
         return TransactionDto.builder().id(result.getId())
                 .stateTransaction(result.getStateTransaction())
                 .amountOfOperation(result.getAmountOfOperation())
-                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
-                symbolCripto(result.getSymbolCripto())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation())
+                .symbolCripto(transaction.getSymbolCripto())
                 .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
                 .build();
     }

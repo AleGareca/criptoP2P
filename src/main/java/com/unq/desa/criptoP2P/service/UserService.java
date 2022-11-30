@@ -65,7 +65,7 @@ public class UserService implements IUserService {
         if(intentions.isEmpty()){
             throw new DataIntentionNotFound("The user did not make any intention to buy or sell");
         }
-        var sumValue = intentions.stream().mapToInt(i ->i.getAmountOfOperationInPesos()).sum();
+        var sumValue = intentions.stream().mapToDouble(i ->i.getAmountOfOperationInPesos()).sum();
         //var activos = intentions.stream().map(i ->ActivosDto.builder()
                                                                             //.price(i.getQuotation().getCryptoOcurrency().getPrice()).getPrice())
                                                                             //.symbol(i.getQuotation().getCryptocurrency().getSymbol()).build()).collect(Collectors.toList());

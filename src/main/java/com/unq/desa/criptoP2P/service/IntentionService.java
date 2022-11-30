@@ -51,6 +51,7 @@ public class IntentionService implements IIntentionService {
             var intentions = new ArrayList<Intention>();
             intentions.add(intention);
             user.setIntentions(intentions);
+            intention.setUserCripto(user);
         }else{
             user.getIntentions().add(intention);
         }
