@@ -73,4 +73,9 @@ public class IntentionService implements IIntentionService {
 
     }
 
+    @Override
+    public List<Intention> getIntentionUser(String mail) {
+        return userRepository.findByEmail(mail).getIntentions();
+    }
+
 }

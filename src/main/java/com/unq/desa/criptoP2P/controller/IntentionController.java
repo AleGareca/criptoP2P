@@ -1,8 +1,7 @@
 package com.unq.desa.criptoP2P.controller;
 
-import com.unq.desa.criptoP2P.config.AuthCredential;
+import org.springframework.security.core.Authentication;
 import com.unq.desa.criptoP2P.config.MapperComponent;
-import com.unq.desa.criptoP2P.model.intencion.Intention;
 import com.unq.desa.criptoP2P.model.dto.IntentionDto;
 import com.unq.desa.criptoP2P.model.dto.RequestRegisterIntetionDto;
 import com.unq.desa.criptoP2P.service.IntentionService;
@@ -25,31 +24,26 @@ public class IntentionController {
     private IntentionService intentionService;
     @Autowired
     private MapperComponent modelMapper;
-    @Operation(summary = "Return all intentions")
-    @ApiResponses(value={
-            @ApiResponse(code=200, message = "OK"),
-            @ApiResponse(code=400,message = "Bad Request")})
-    @GetMapping("/intentions")
-    public List<IntentionDto> getAllIntentions() {
-        return modelMapper.ToList(intentionService.get(), IntentionDto.class);
-    }
-    @Operation(summary = "Get by intention Id")
+
+    @Operation(summary = "Get by intention User")
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @GetMapping("/intention")
-    public IntentionDto getIntentionById(@RequestParam("intentionId") Integer id) {
-        return modelMapper.To(this.intentionService.getById(id), IntentionDto.class);
+    public List<IntentionDto> getIntentionUser(Authentication authCredential) {
+        return modelMapper.ToList(intentionService.getIntentionUser(authCredential.getName()), IntentionDto.class);
     }
     @Operation(summary = "Register intention")
+
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value={
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @PostMapping(value = "/registerIntention")
     public void register(@Valid @RequestBody RequestRegisterIntetionDto intention,
-                         AuthCredential authCredential, Errors errors) throws Exception {
-        this.intentionService.createIntention(intention,authCredential.getMail());
+                         Authentication authCredential, Errors errors) throws Exception {
+        this.intentionService.createIntention(intention,authCredential.getName());
 
     }
     @Operation(summary = "Delete intention user")

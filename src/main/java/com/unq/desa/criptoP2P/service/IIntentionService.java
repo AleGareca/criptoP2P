@@ -22,4 +22,6 @@ public interface IIntentionService {
 
 
     Intention createIntention(RequestRegisterIntetionDto intention, String mail);
+
+    Object getIntentionUser(String mail);
 }

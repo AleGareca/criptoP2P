@@ -3,6 +3,7 @@ package com.unq.desa.criptoP2P.service;
 import com.unq.desa.criptoP2P.client.BinanceClient;
 import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.model.dto.RequestTransferDto;
+import com.unq.desa.criptoP2P.model.dto.TransactionDto;
 import com.unq.desa.criptoP2P.model.enums.operation.Operation;
 import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
 import com.unq.desa.criptoP2P.model.intencion.Intention;
@@ -53,18 +54,26 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public Transaction transferOperation(String email, RequestTransferDto requestTransferDto) {
-        var user = userRepository.findByEmail(requestTransferDto.getEmail());
+    public TransactionDto transferOperation(String email, RequestTransferDto requestTransferDto) {
+        var user = userRepository.findByEmail(email);
         var intention = user.getIntentions().stream().filter(i -> i.getId() == requestTransferDto.getId()).findFirst().get();
         var systemPrice = binanceClient.getCryptocurrency(requestTransferDto.getSymbol());
-        return initTransfer(user,systemPrice,intention);
+        var result = initTransfer(user,systemPrice,intention);
+        return TransactionDto.builder().id(result.getId())
+                .stateTransaction(result.getStateTransaction())
+                .amountOfOperation(result.getAmountOfOperation())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
+                symbolCripto(result.getSymbolCripto())
+                .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
+                .build();
     }
 
     private Transaction initTransfer(User user, CryptoOcurrencyDto systemPrice, Intention intention) {
         var transfer = Transaction.builder().
                 stateTransaction(StateTransaction.Transferred)
-                .user(user).intention(intention).build();
-        transfer.transfer(systemPrice);
+                .user(user).intention(intention)
+                .dayAndTimeOfOperation(LocalDateTime.now()).build();
+        //transfer.transfer(systemPrice);
 
         if (transfer.getIntention().getOperacion() == Operation.Purchase) {
             transferOrCancel(systemPrice);
@@ -101,7 +110,7 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public Transaction operationConfirm(Integer transaction_id, String emailUser) {
+    public TransactionDto operationConfirm(Integer transaction_id, String emailUser) {
         var user = userRepository.findByEmail(emailUser);
         var transaction =user.getTransactions().stream().filter(i -> i.getId() == transaction_id).findFirst().get();
         transaction.setStateTransaction(StateTransaction.Confirm);
@@ -111,8 +120,15 @@ public class TransactionService implements ITransactionService {
         user.setNumberOfOperations(1);
         transaction.setNumberOfOperations(user.getNumberOfOperations());
         transaction.getIntention().setActive(false);
+        var result = transactionRepository.save(transaction);
 
-        return this.transactionRepository.save(transaction);
+        return TransactionDto.builder().id(result.getId())
+                .stateTransaction(result.getStateTransaction())
+                .amountOfOperation(result.getAmountOfOperation())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
+                symbolCripto(result.getSymbolCripto())
+                .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
+                .build();
     }
 
     public void increaseUserReputationPoints(Transaction transaction, User user) {
@@ -125,15 +141,22 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public Transaction operationCancelled(Integer transaction_id, String emailUser) {
+    public TransactionDto operationCancelled(Integer transaction_id, String emailUser) {
         var user = userRepository.findByEmail(emailUser);
         var transaction =user.getTransactions().stream().filter(i -> i.getId() == transaction_id).findFirst().get();
         transaction.setStateTransaction(StateTransaction.Cancelled);
         user.setReputation(user.getReputation() - 20);
         transaction.setReputationOfUser(user.getReputation());
         transaction.getIntention().setActive(false);
+        var result = transactionRepository.save(transaction);
 
-        return this.transactionRepository.save(transaction);
+        return TransactionDto.builder().id(result.getId())
+                .stateTransaction(result.getStateTransaction())
+                .amountOfOperation(result.getAmountOfOperation())
+                .dayAndTimeOfOperation(result.getDayAndTimeOfOperation()).
+                symbolCripto(result.getSymbolCripto())
+                .amountOfOperationInPesos(result.getAmountOfOperationInPesos())
+                .build();
     }
 
 }
