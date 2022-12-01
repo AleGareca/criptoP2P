@@ -36,7 +36,8 @@ public class SecurityConfig {
                         "/h2-ui/**",
                         "/h2-console/**",
                         "/register",
-                        "/login")
+                        "/login",
+                        "/AllUsers")
                 .permitAll()
                 .antMatchers("/**")
                 .authenticated()

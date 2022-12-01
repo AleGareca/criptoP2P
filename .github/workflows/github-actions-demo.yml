@@ -29,13 +29,6 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          chmod +x gradlew
-          ./gradlew build sonarqube --info
       - name: Create Jar
         run: |
           chmod +x gradlew
