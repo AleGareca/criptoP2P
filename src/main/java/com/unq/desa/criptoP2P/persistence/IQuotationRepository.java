@@ -15,6 +15,6 @@ public interface IQuotationRepository extends JpaRepository<Quotation,Integer> {
 
     List<Quotation> findBySymbol(String symbol);
 
-    @Query("from Quotetion q where q.symbol = ?1 and i.quotation.dayAndTime BETWEEN ?2 and ?3")
+    @Query("from Quotation q where q.symbol = ?1 and q.dayAndTime BETWEEN ?2 and ?3")
     List<Quotation> quoteOfCryptoOfTheLast24Hs(LocalDateTime dateFrom, LocalDateTime dateTo, String symbol);
 }
