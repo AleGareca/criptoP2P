@@ -13,8 +13,8 @@ public class Schuduled {
 
         @Scheduled(fixedRate = 100000, initialDelay = 100000)
         public void quotesUppdate() {
-            System.out.println(
-                    "Fixed delay task - " + System.currentTimeMillis() / 100000);
-            this.quotationService.quotesUpdate();
+            //System.out.println(
+                   // "Fixed delay task - " + System.currentTimeMillis() / 100000);
+           // this.quotationService.quotesUpdate();
         }
 }

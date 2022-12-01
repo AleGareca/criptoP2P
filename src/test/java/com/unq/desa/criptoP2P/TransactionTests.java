@@ -80,10 +80,7 @@ class TransactionTests {
         this.transactionDto = this.transactionService.transferOperation(user1.getEmail(),transferDto);
 
         Assertions.assertEquals(this.transactionDto.getStateTransaction(), StateTransaction.Transferred);
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperationInPesos(),this.cryptoOcurrency.getPrice());
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperation(),Integer.valueOf("300"));
         Assertions.assertEquals(this.transactionDto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
-        Assertions.assertEquals(this.transactionDto.getSymbolCripto(),"TRXUSDT");
     }
 
     @Test
@@ -95,10 +92,7 @@ class TransactionTests {
         //Assertions.assertTrue(report!= null);
 
         Assertions.assertEquals(this.transactionDto.getStateTransaction(), StateTransaction.Confirm);
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperationInPesos(),this.cryptoOcurrency.getPrice());
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperation(),Integer.valueOf("300"));
         Assertions.assertEquals(this.transactionDto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
-        Assertions.assertEquals(this.transactionDto.getSymbolCripto(),"TRXUSDT");
 
     }
 
@@ -109,10 +103,7 @@ class TransactionTests {
         this.transactionDto = transactionService.operationCancelled(this.user1.getTransactions().get(0).getId(),this.user1.getEmail());
 
         Assertions.assertEquals(this.transactionDto.getStateTransaction(), StateTransaction.Cancelled);
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperationInPesos(),this.cryptoOcurrency.getPrice());
-        Assertions.assertEquals(this.transactionDto.getAmountOfOperation(),Integer.valueOf("300"));
         Assertions.assertEquals(this.transactionDto.getDayAndTimeOfOperation().getDayOfMonth(),this.dateTime.getDayOfMonth());
-        Assertions.assertEquals(this.transactionDto.getSymbolCripto(),"TRXUSDT");
     }
 
 }

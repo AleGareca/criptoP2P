@@ -96,7 +96,7 @@ public class FakeData implements CommandLineRunner {
           user2.setName("Lucas Gomez");
           user2.setEmail("2@gmai.com");
           user2.setAddress("calle583");
-          user2.setPassword("123567");
+          user2.setPassword("$2a$10$lb/0yk8U2ur.7qugp6wg0eICUfrcRrXoL1mKxNJxcHRte1Ik3Iece");
           user2.setCvu("099020456008900878653");
           user2.setWalletAddress("3E38t1WpEZ73CNmQviecrdhyiWrnqRhWNLy");
           user2.setReputation(0);

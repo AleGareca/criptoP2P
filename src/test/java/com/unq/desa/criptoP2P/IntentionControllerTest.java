@@ -1,11 +1,5 @@
 package com.unq.desa.criptoP2P;
 
-import com.unq.desa.criptoP2P.controller.IntentionController;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /*
 public class IntentionControllerTest extends CriptoP2PApplicationTests {

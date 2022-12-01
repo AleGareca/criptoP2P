@@ -6,6 +6,7 @@ import com.unq.desa.criptoP2P.model.quotation.Quotation;
 import com.unq.desa.criptoP2P.service.QuotationService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+@Hidden
 @RestController
-public class    QuotationController {
+public class QuotationController {
 
     @Autowired
     private QuotationService quotationService;

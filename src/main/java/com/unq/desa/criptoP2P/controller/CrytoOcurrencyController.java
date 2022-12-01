@@ -6,12 +6,15 @@ import com.unq.desa.criptoP2P.model.dto.CryptoOcurrencyDto;
 import com.unq.desa.criptoP2P.service.CrytoOcurrencyService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
+@Hidden
 @RestController
 public class CrytoOcurrencyController {
 

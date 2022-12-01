@@ -47,15 +47,15 @@ public class IntentionService implements IIntentionService {
 
     @Override
     public Intention userExpressesHisIntentionToBuyOrSell(Intention intention, User user) {
-
         if(user.getIntentions() == null){
             var intentions = new ArrayList<Intention>();
             intentions.add(intention);
             user.setIntentions(intentions);
             intention.setUserCripto(user);
+        }else{
+            user.getIntentions().add(intention);
         }
-        this.userRepository.save(user);
-        return intention;
+        return  userRepository.save(user).getIntentions().stream().filter(i -> i.equals2(intention)).findFirst().get();
 
     }
 
@@ -63,7 +63,6 @@ public class IntentionService implements IIntentionService {
     public Intention createIntention(RequestRegisterIntetionDto intention, String mail) {
         var user = userRepository.findByEmail(mail);
         var quotation = quotationRepository.findBySymbol(intention.getSymbol());
-        var intentions = new ArrayList<Intention>();
         var newIntention= Intention.builder()
                 .amountOfOperationInPesos(intention.getPrice())
                 .quotation(quotation)
@@ -72,10 +71,7 @@ public class IntentionService implements IIntentionService {
                 .amountOfOperationInPesos(intention.getPrice())
                 .userCripto(user)
                 .build();
-        intentions.add(newIntention);
-        user.setIntentions(intentions);
-        this.userRepository.save(user);
-        return newIntention;
+        return userExpressesHisIntentionToBuyOrSell(newIntention,user);
 
     }
 
