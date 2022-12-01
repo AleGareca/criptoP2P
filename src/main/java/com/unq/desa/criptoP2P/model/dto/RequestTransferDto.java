@@ -1,15 +1,13 @@
 package com.unq.desa.criptoP2P.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.unq.desa.criptoP2P.model.enums.stateTransaction.StateTransaction;
-import com.unq.desa.criptoP2P.model.user.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
 @Data
 @Builder
 @NoArgsConstructor

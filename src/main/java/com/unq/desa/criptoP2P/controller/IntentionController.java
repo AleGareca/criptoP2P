@@ -32,7 +32,9 @@ public class IntentionController {
             @ApiResponse(code=400,message = "Bad Request")})
     @GetMapping("/intention")
     public List<IntentionDto> getIntentionUser(Authentication authCredential) {
-        return modelMapper.ToList(intentionService.getIntentionUser(authCredential.getName()), IntentionDto.class);
+        var intentions = intentionService.getIntentionUser(authCredential.getName());
+        var resultMap = modelMapper.toListIntentions(intentions);
+        return resultMap;
     }
     @Operation(summary = "Register intention")
 
@@ -41,9 +43,10 @@ public class IntentionController {
             @ApiResponse(code=200, message = "OK"),
             @ApiResponse(code=400,message = "Bad Request")})
     @PostMapping(value = "/registerIntention")
-    public void register(@Valid @RequestBody RequestRegisterIntetionDto intention,
+    public IntentionDto register(@Valid @RequestBody RequestRegisterIntetionDto intention,
                          Authentication authCredential, Errors errors) throws Exception {
-        this.intentionService.createIntention(intention,authCredential.getName());
+        return modelMapper.toIntentionDto(this.intentionService.createIntention(intention,authCredential.getName()));
+
 
     }
     @Operation(summary = "Delete intention user")

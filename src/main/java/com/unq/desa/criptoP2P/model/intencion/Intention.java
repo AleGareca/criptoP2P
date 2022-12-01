@@ -37,4 +37,7 @@ public class Intention {
     public String toString() {
         return "Intention";
     }
+    public boolean equals2(Intention intention2){
+    return this.canEqual(intention2);
+    }
 }

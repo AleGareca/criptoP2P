@@ -2,9 +2,7 @@ package com.unq.desa.criptoP2P;
 
 import com.unq.desa.criptoP2P.model.dto.UserDto;
 import com.unq.desa.criptoP2P.model.user.User;
-import com.unq.desa.criptoP2P.persistence.IUserRepository;
 import com.unq.desa.criptoP2P.controller.UserController;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
