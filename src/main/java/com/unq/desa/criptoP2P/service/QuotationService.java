@@ -46,7 +46,6 @@ public class QuotationService implements IQuotationService {
         return this.modelMapper.ToList(this.quotationRepository.findAll(), QuotationDto.class);
     }
 
-    @CachePut(value="quotation")
     @Override
     public void save(QuotationDto quotationDto, Integer id) {
         LOG.info("Returning customer information for save quotation id {} ",id);
@@ -55,7 +54,6 @@ public class QuotationService implements IQuotationService {
         this.quotationRepository.save(quotation);
     }
 
-    @Cacheable(value="quotation",key="#id")
     @Override
     public Quotation getById(Integer id) {
         LOG.info("Returning customer information for get quotation id {} ",id);
@@ -63,7 +61,7 @@ public class QuotationService implements IQuotationService {
         return this.quotationRepository.getReferenceById(id);
     }
 
-    @CacheEvict(value="quotation")
+
     @Override
     public void delete(Integer id) {
         LOG.info("Returning customer information for delete quotation id {} ",id);
@@ -71,15 +69,20 @@ public class QuotationService implements IQuotationService {
     }
 
     @Override
+    @Cacheable(value="quotation")
     public void quotesUpdate() {
         List<CryptoOcurrency> cryptoOcurrencies = new ArrayList<>();
         for(CryptoOcurrency cryptocurrency : this.crytoOcurrencyRepository.findAll()) {
-            var quotation = this.quotationRepository.findBySymbol(cryptocurrency.getSymbol());
+            var quotations = this.quotationRepository.findBySymbol(cryptocurrency.getSymbol());
             var cryto = modelMapper.To(this.binanceClient.getCryptocurrency(cryptocurrency.getSymbol()),CryptoOcurrency.class);
-            if(quotation != null) {
-                quotation.setDayAndTime(LocalDateTime.now());
-                this.quotationRepository.save(quotation);
-            }
+            quotations.stream().forEach(q -> {
+                    if (q != null) {
+                        q.setDayAndTime(LocalDateTime.now());
+                        this.quotationRepository.save(q);
+                        LOG.info("Returning customer information for update quotations  {} ", q);
+                    }
+               }
+            );
             this.crytoOcurrencyRepository.save(cryto);
         }
     }

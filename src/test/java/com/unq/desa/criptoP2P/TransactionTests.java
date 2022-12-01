@@ -70,10 +70,6 @@ class TransactionTests {
 
     }
 
-    /*@AfterEach
-    public void tearDown() {
-        this.transactionRepository.deleteAll();
-    }*/
 
     @Test
     public void givenAnyTransactionOfPurchaseWhenTransferOperationThenItsStatusIsTransferred() throws Exception {

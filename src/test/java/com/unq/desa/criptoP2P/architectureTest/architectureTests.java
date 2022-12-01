@@ -16,11 +16,22 @@ public class architectureTests {
 
 
     @ArchTest
-    public static final ArchRule myRule = classes()
-            .that().resideInAPackage("com.unq.desa.criptoP2P.service")
-            .should().onlyBeAccessed().byAnyPackage("com.unq.desa.criptoP2P.controller", "com.unq.desa.criptoP2P.service");
-            /*JavaClasses importedClasses = new ClassFileImporter().importPackages("com.unq.desa.criptoP2P.controller");
-            myRule.check(importedClasses);*/
+    static ArchRule services_must_be_in_correct_package =
+            classes()
+                    .that().haveSimpleNameEndingWith("Service")
+                    .should().resideInAPackage("com.unq.desa.criptoP2P.service");
+    @ArchTest
+    static ArchRule controllers_must_be_in_correct_package =
+            classes()
+                    .that().haveSimpleNameEndingWith("Controller")
+                    .should().resideInAPackage("com.unq.desa.criptoP2P.controller");
+
+    @ArchTest
+    static ArchRule Repositories_must_be_in_correct_package =
+            classes()
+                    .that().haveSimpleNameEndingWith("Repository")
+                    .should().resideInAPackage("com.unq.desa.criptoP2P.persistence");
+
     @ArchTest
     public static final ArchRule controllersShouldBeSuffixed = classes()
             .that().resideInAPackage("com.unq.desa.criptoP2P.controller")
@@ -34,21 +45,17 @@ public class architectureTests {
             .that().resideInAPackage("com.unq.desa.criptoP2P.persistence")
             .should().haveSimpleNameEndingWith("Repository");
 
-    /*@ArchTest
+    @ArchTest
     public static final ArchRule layerRule =
         layeredArchitecture()
         .consideringAllDependencies()
         .layer("controller").definedBy("com.unq.desa.criptoP2P.controller")
-        .layer("service").definedBy("com.unq.desa.criptoP2P.service")
-        .layer("persistence").definedBy("com.unq.desa.criptoP2P.persistence")
+        //.layer("service").definedBy("com.unq.desa.criptoP2P.service")
+        //.layer("persistence").definedBy("com.unq.desa.criptoP2P.persistence")
 
-        .whereLayer("controller").mayNotBeAccessedByAnyLayer()
-        .whereLayer("service").mayOnlyBeAccessedByLayers("controller")
-        .whereLayer("persistence").mayOnlyBeAccessedByLayers("service");*/
-    /*
-    @ArchTest
-    public static final ArchRule cyclicDependencyRule = slices().matching("com.unq.desa.criptoP2P.service")
-            .should().beFreeOfCycles();*/
+        .whereLayer("controller").mayNotBeAccessedByAnyLayer();
+        //.whereLayer("service").mayOnlyBeAccessedByLayers("controller")
+       // .whereLayer("persistence").mayOnlyBeAccessedByLayers("service");
 
 
 

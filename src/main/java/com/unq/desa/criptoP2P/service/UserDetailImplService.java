@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @AllArgsConstructor
-public class UserDetailImpl implements UserDetails {
+public class UserDetailImplService implements UserDetails {
 
     private final User user;
 

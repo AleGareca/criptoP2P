@@ -62,7 +62,7 @@ public class IntentionService implements IIntentionService {
     @Override
     public Intention createIntention(RequestRegisterIntetionDto intention, String mail) {
         var user = userRepository.findByEmail(mail);
-        var quotation = quotationRepository.findBySymbol(intention.getSymbol());
+        var quotation = quotationRepository.getBySymbol(intention.getSymbol());
         var intentions = new ArrayList<Intention>();
         var newIntention= Intention.builder()
                 .amountOfOperationInPesos(intention.getPrice())

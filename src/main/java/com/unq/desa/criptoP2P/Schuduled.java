@@ -11,10 +11,10 @@ public class Schuduled {
         @Autowired
         private IQuotationService quotationService;
 
-        @Scheduled(fixedRate = 100000, initialDelay = 100000)
+        @Scheduled(fixedRate = 200000)
         public void quotesUppdate() {
             System.out.println(
-                    "Fixed delay task - " + System.currentTimeMillis() / 100000);
+                    "Fixed delay task - " + System.currentTimeMillis() / 600000);
             this.quotationService.quotesUpdate();
         }
 }
