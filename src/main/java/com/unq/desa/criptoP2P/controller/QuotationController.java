@@ -60,5 +60,14 @@ public class    QuotationController {
         this.quotationService.delete(id);
     }
 
+    @Operation(summary = "returns the quotes of the last 24 hours ")
+    @ApiResponses(value={
+            @ApiResponse(code=200, message = "OK"),
+            @ApiResponse(code=400,message = "Bad Request")})
+    @Cacheable(value = "quotation")
+    @GetMapping("/quoteOfCryptoOfTheLast24Hs")
+    public List<QuotationDto> quoteOfCryptoOfTheLast24Hs(String symbol) {
+        return this.quotationService.quoteOfCryptoOfTheLast24Hs(symbol);
+    }
 
 }

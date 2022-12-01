@@ -16,4 +16,6 @@ public interface IQuotationService {
     public void delete(Integer id);
 
     public void quotesUpdate();
+
+    public List<QuotationDto> quoteOfCryptoOfTheLast24Hs(String symbol);
 }

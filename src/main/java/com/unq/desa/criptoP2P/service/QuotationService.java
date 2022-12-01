@@ -87,5 +87,10 @@ public class QuotationService implements IQuotationService {
         }
     }
 
+    @Override
+    public List<QuotationDto> quoteOfCryptoOfTheLast24Hs(String symbol) {
+        return modelMapper.ToList(quotationRepository.quoteOfCryptoOfTheLast24Hs(LocalDateTime.now(), LocalDateTime.now().minusHours(24), symbol), QuotationDto.class);
+    }
+
 
 }

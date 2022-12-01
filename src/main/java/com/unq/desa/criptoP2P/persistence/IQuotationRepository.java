@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -14,7 +15,6 @@ public interface IQuotationRepository extends JpaRepository<Quotation,Integer> {
 
     List<Quotation> findBySymbol(String symbol);
 
-
-
-
+    @Query("from Quotetion q where q.symbol = ?1 and i.quotation.dayAndTime BETWEEN ?2 and ?3")
+    List<Quotation> quoteOfCryptoOfTheLast24Hs(LocalDateTime dateFrom, LocalDateTime dateTo, String symbol);
 }
